@@ -1,0 +1,57 @@
+{
+	"pages": [	
+		{
+		    "path" : "pages/releaseProfessional/releaseProfessional",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+		    "path" : "pages/Professional/searchDetail/Ordinary/ordinary",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }  
+		},
+		{
+		    "path" : "pages/Professional/searchDetail/Emerging/Emerging",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+			"path": "pages/Professional/Professional/Professional",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+		    "path" : "pages/Professional/professionalDetail/professionalDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

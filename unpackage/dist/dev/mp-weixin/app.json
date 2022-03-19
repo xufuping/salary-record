@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/releaseProfessional/releaseProfessional",
+    "pages/index/index",
+    "pages/Professional/searchDetail/Ordinary/ordinary",
+    "pages/Professional/searchDetail/Emerging/Emerging",
+    "pages/Professional/Professional/Professional",
+    "pages/Professional/professionalDetail/professionalDetail"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "devServer": {
+    "https": false,
+    "disableHostCheck": true,
+    "proxy": {
+      "/api": {
+        "target": "http://203.56.169.102:8084",
+        "changeOrigin": true,
+        "secure": false,
+        "pathRewrite": {
+          "^/api": ""
+        }
+      }
+    }
+  },
+  "usingComponents": {}
+}
