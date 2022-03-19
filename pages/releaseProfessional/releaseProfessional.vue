@@ -28,7 +28,7 @@
 		</view>
 
 		<view class="info_item">
-			<view class="label">岗位</view>
+			<view class="label">岗位111</view>
 			<view class="inp">
 				<uni-easyinput v-model="job" placeholder="输入岗位名称">
 				</uni-easyinput>
