@@ -1,21 +1,21 @@
 <template>
 	<view class="professionDetail">
 		<view class="top_list">
-			<view class="pos_name">{{ detailData.pos_name }}</view>
-			<view class="salary">{{ detailData.pos_salary }}/月</view>
+			<view class="posName">{{ detailData.posName }}</view>
+			<view class="salary">{{ detailData.posSalary }}/月</view>
 		</view>
 		<view class="center_pos_list">
-			<view class="address">{{ detailData.com_address }}</view>
+			<view class="address">{{ detailData.comAddress }}</view>
 			<view class="education">{{ detailData.education }}</view>
-			<view class="pos_type">{{ detailData.pos_type }}</view>
+			<view class="posType">{{ detailData.posType }}</view>
 		</view>
 		<view class="center_com_list">
 			<view class="com_left">
-				<view class="com_name">{{ detailData.com_name }}</view>
+				<view class="comName">{{ detailData.comName }}</view>
 			</view>
 			<view class="com_right">
 				<view class="center_time_list">
-					<view class="address">发布时间：{{ detailData.release_time }}</view>
+					<view class="address">发布时间：{{ detailData.releaseTime }}</view>
 				</view>
 				<view class="center_more_list">
 					<view class="read_count">浏览量：{{ 1 }}</view>
@@ -56,16 +56,6 @@
 			const id = ref(props.id);
 			
 			function search() {
-				// sendPostRequest(
-				// 	// type.value === 1 ?router.ordinaryGetDetail : router.rouemergingGetDetail,id.value,
-				// 	router.ordinaryGetDetail,
-				// 	{
-				// 		success(data) {
-				// 		operateData(data);
-				// 		},
-				// 		fail() {}
-				// 	},
-				// 	true);
 				let data = {
 					normalWork : 0
 				}
@@ -85,23 +75,23 @@
 
 			function operateData(data) {
 				console.log("DATA",data)
-				detailData.pos_name = data.data.data.post;
-				detailData.pos_salary = data.data.data.salary;
-				detailData.com_address = data.data.data.city.cityName;
+				detailData.posName = data.data.data.post;
+				detailData.posSalary = data.data.data.salary;
+				detailData.comAddress = data.data.data.city.cityName;
 				detailData.education = data.data.data.degree.degreeName;
-				detailData.pos_type = data.data.data.type.typeName;
-				detailData.com_name = data.data.data.company;
-				detailData.release_time = data.data.data.createTime;
+				detailData.posType = data.data.data.type.typeName;
+				detailData.comName = data.data.data.company;
+				detailData.releaseTime = data.data.data.createTime;
 				detailData.explain = data.data.data.explain;
 			}
 			const detailData = reactive({
-				pos_name: null,
-				pos_salary: null,
-				com_address: null,
+				posName: null,
+				posSalary: null,
+				comAddress: null,
 				education: null,
-				pos_type: null,
-				com_name: null,
-				release_time: null,
+				posType: null,
+				comName: null,
+				releaseTime: null,
 				explain: null,
 			});
 			return {
@@ -128,7 +118,7 @@
 			align-items: center;
 			margin-bottom: 15rpx;
 
-			.pos_name {
+			.posName {
 				font-size: 40rpx;
 			}
 
@@ -161,7 +151,7 @@
 				justify-content: flex-start;
 				align-items: center;
 
-				.com_name {
+				.comName {
 					font-size: 38rpx;
 				}
 			}

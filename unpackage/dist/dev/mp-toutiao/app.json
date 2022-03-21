@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/releaseProfessional/releaseProfessional",
     "pages/index/index",
+    "pages/releaseProfessional/releaseProfessional",
     "pages/Professional/searchDetail/Ordinary/ordinary",
     "pages/Professional/searchDetail/Emerging/Emerging",
     "pages/Professional/Professional/Professional",

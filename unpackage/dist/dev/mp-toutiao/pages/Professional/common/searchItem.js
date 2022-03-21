@@ -7,14 +7,14 @@ const _sfc_main = {
   },
   setup(props) {
     var _a;
-    const imformation = common_vendor.reactive({
-      com_name: props.detail.company,
-      com_address: (_a = props.detail.city) == null ? void 0 : _a.cityName,
-      pos_name: props.detail.post,
-      pos_salary: props.detail.salary,
+    const information = common_vendor.reactive({
+      comName: props.detail.company,
+      comAddress: (_a = props.detail.city) == null ? void 0 : _a.cityName,
+      posName: props.detail.post,
+      posSalary: props.detail.salary,
       credibility: props.detail.credibility,
       quantity: 0,
-      release_time: props.detail.createTime
+      releaseTime: props.detail.createTime
     });
     const enterDetail = () => {
       common_vendor.index.navigateTo({
@@ -23,19 +23,19 @@ const _sfc_main = {
     };
     return {
       enterDetail,
-      imformation
+      information
     };
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.t($setup.imformation.com_name),
-    b: common_vendor.t($setup.imformation.com_address),
-    c: common_vendor.t($setup.imformation.pos_name),
-    d: common_vendor.t($setup.imformation.pos_salary),
-    e: common_vendor.t($setup.imformation.credibility),
-    f: common_vendor.t($setup.imformation.quantity),
-    g: common_vendor.t($setup.imformation.release_time),
+    a: common_vendor.t($setup.information.comName),
+    b: common_vendor.t($setup.information.comAddress),
+    c: common_vendor.t($setup.information.posName),
+    d: common_vendor.t($setup.information.posSalary),
+    e: common_vendor.t($setup.information.credibility),
+    f: common_vendor.t($setup.information.quantity),
+    g: common_vendor.t($setup.information.releaseTime),
     h: common_vendor.o((...args) => $setup.enterDetail && $setup.enterDetail(...args))
   };
 }

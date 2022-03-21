@@ -1,21 +1,21 @@
 <template>
 	<view class="search_card_item">
 		<view class="item_label">
-			<view class="com_name">{{imformation.com_name}}</view>
-			<view class="com_address">{{imformation.com_address}}</view>
+			<view class="comName">{{information.comName}}</view>
+			<view class="comAddress">{{information.comAddress}}</view>
 		</view>
 		<view class="item_content">
-			<view class="pos_name">{{imformation.pos_name}}</view>
-			<view class="pos_salary">
-				<span class="num">{{imformation.pos_salary}}</span>
+			<view class="posName">{{information.posName}}</view>
+			<view class="posSalary">
+				<span class="num">{{information.posSalary}}</span>
 				<span class="unit">/月</span>
 			</view>
 		</view>
 		<view class="item_more">
 			<view class="item_more_left">
-				<view class="more_item">可信度:{{imformation.credibility}}</view>
-				<view class="more_item">点赞量:{{imformation.quantity}}</view>
-				<view class="more_item">发布时间:{{imformation.release_time}}</view>
+				<view class="more_item">可信度:{{information.credibility}}</view>
+				<view class="more_item">点赞量:{{information.quantity}}</view>
+				<view class="more_item">发布时间:{{information.releaseTime}}</view>
 			</view>
 			<view class="enterDetail" @click='enterDetail'>查看详情 ></view>
 		</view>
@@ -32,14 +32,14 @@
 			type: Number,
 		},
 		setup(props) {
-			const imformation = reactive({
-				com_name: props.detail.company,
-				com_address: props.detail.city?.cityName,
-				pos_name: props.detail.post,
-				pos_salary: props.detail.salary,
+			const information = reactive({
+				comName: props.detail.company,
+				comAddress: props.detail.city?.cityName,
+				posName: props.detail.post,
+				posSalary: props.detail.salary,
 				credibility: props.detail.credibility,
 				quantity: 0,
-				release_time: props.detail.createTime
+				releaseTime: props.detail.createTime
 			});
 			//查看详情
 			const enterDetail = () => {
@@ -50,7 +50,7 @@
 			}
 			return {
 				enterDetail,
-				imformation
+				information
 			}
 		}
 	}
@@ -70,8 +70,8 @@
 			justify-content: flex-start;
 			align-items: center;
 
-			.com_name,
-			.com_address {
+			.comName,
+			.comAddress {
 				font-size: 20rpx;
 				margin-right: 10rpx;
 				color: gray;
@@ -85,11 +85,11 @@
 			margin: 15rpx 10rpx;
 			font-size: 38rpx;
 
-			.pos_name {
+			.posName {
 				color: rgba(0, 0, 0, 0.7);
 			}
 
-			.pos_salary {
+			.posSalary {
 				.num {
 					color: #00bf57;
 				}

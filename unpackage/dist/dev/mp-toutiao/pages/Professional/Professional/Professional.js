@@ -67,7 +67,6 @@ const _sfc_main = {
     target: String
   },
   setup(props) {
-    console.log(props, props.target);
     const tabStatus = common_vendor.ref(parseInt(props.target));
     const changeTab = (target) => {
       tabStatus.value = target;

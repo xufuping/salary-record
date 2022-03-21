@@ -29,23 +29,23 @@ const _sfc_main = {
     }
     function operateData(data) {
       console.log("DATA", data);
-      detailData.pos_name = data.data.data.post;
-      detailData.pos_salary = data.data.data.salary;
-      detailData.com_address = data.data.data.city.cityName;
+      detailData.posName = data.data.data.post;
+      detailData.posSalary = data.data.data.salary;
+      detailData.comAddress = data.data.data.city.cityName;
       detailData.education = data.data.data.degree.degreeName;
-      detailData.pos_type = data.data.data.type.typeName;
-      detailData.com_name = data.data.data.company;
-      detailData.release_time = data.data.data.createTime;
+      detailData.posType = data.data.data.type.typeName;
+      detailData.comName = data.data.data.company;
+      detailData.releaseTime = data.data.data.createTime;
       detailData.explain = data.data.data.explain;
     }
     const detailData = common_vendor.reactive({
-      pos_name: null,
-      pos_salary: null,
-      com_address: null,
+      posName: null,
+      posSalary: null,
+      comAddress: null,
       education: null,
-      pos_type: null,
-      com_name: null,
-      release_time: null,
+      posType: null,
+      comName: null,
+      releaseTime: null,
       explain: null
     });
     return {
@@ -59,13 +59,13 @@ const _sfc_main = {
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.t($setup.detailData.pos_name),
-    b: common_vendor.t($setup.detailData.pos_salary),
-    c: common_vendor.t($setup.detailData.com_address),
+    a: common_vendor.t($setup.detailData.posName),
+    b: common_vendor.t($setup.detailData.posSalary),
+    c: common_vendor.t($setup.detailData.comAddress),
     d: common_vendor.t($setup.detailData.education),
-    e: common_vendor.t($setup.detailData.pos_type),
-    f: common_vendor.t($setup.detailData.com_name),
-    g: common_vendor.t($setup.detailData.release_time),
+    e: common_vendor.t($setup.detailData.posType),
+    f: common_vendor.t($setup.detailData.comName),
+    g: common_vendor.t($setup.detailData.releaseTime),
     h: common_vendor.t(1),
     i: common_vendor.t(0),
     j: common_vendor.t($setup.detailData.explain)

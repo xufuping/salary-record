@@ -5,39 +5,17 @@
 		</view>
 		<view class="content_search">
 				<uni-easyinput v-model="value" placeholder="请输入公司名称/城市/岗位" prefixIcon="search"></uni-easyinput>
-				<!-- <uni-collapse>
-				    <uni-collapse-item title-border="none" :border="false" :show-arrow="false" :open="showCollapse">
-				        <template v-slot:title>
-				            <uni-easyinput 
-							v-model="value" 
-							placeholder="请输入公司名称/城市/岗位" 
-							@blur="closeCollapse"
-							@focus="openCollapse"
-							prefixIcon="search"></uni-easyinput>
-				        </template>
-				        <view class="content">
-				            <text class="text">折叠内容主体，可自定义内容及样式</text>
-				        </view>
-				    </uni-collapse-item>
-				</uni-collapse> -->
 		</view>
 		<view class="content_more">
 			<view class="more_title">
 				<view class="more_label">热门搜索</view>
-				<!-- <view class="more_hidden" @click="changeList">X</view> -->
 			</view>
 			<view class="more_list" v-if="showList">
 				<view class="more_list_item" v-for="item in moreList.data" :key="item.id">
 					{{item.name}}
 				</view>
-				<view class="fill_item" v-for="n in 20" :key="n"></view>
 			</view>		
 		</view>
-		<!-- <view class="content_table">
-				<uni-easyinput v-model="value" placeholder="请输入内容"></uni-easyinput>
-		</view> -->
-		<!-- <Emerging></Emerging>
-		<Ordinary></Ordinary> -->
 	</view>
 </template>
 

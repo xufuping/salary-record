@@ -36,8 +36,8 @@
   justify-content: flex-start;
   align-items: center;
 }
-.search_card_item .item_label .com_name.data-v-43b3d620,
-.search_card_item .item_label .com_address.data-v-43b3d620 {
+.search_card_item .item_label .comName.data-v-43b3d620,
+.search_card_item .item_label .comAddress.data-v-43b3d620 {
   font-size: 20rpx;
   margin-right: 10rpx;
   color: gray;
@@ -49,13 +49,13 @@
   margin: 15rpx 10rpx;
   font-size: 38rpx;
 }
-.search_card_item .item_content .pos_name.data-v-43b3d620 {
+.search_card_item .item_content .posName.data-v-43b3d620 {
   color: rgba(0, 0, 0, 0.7);
 }
-.search_card_item .item_content .pos_salary .num.data-v-43b3d620 {
+.search_card_item .item_content .posSalary .num.data-v-43b3d620 {
   color: #00bf57;
 }
-.search_card_item .item_content .pos_salary .unit.data-v-43b3d620 {
+.search_card_item .item_content .posSalary .unit.data-v-43b3d620 {
   font-size: 24rpx;
   color: gray;
 }

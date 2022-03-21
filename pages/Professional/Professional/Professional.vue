@@ -4,8 +4,8 @@
 			<view class="header_logo">logo</view>
 			<view class="header_list">
 				<!-- 1-普通职业 2-新兴职业 -->
-				<view class="header_tab" :class="{header_tab_line:tabStatus===1}" @click="changeTab(1)">普通职业</view>
-				<view class="header_tab" :class="{header_tab_line:tabStatus===2}" @click="changeTab(2)">新兴职业</view>
+				<view class="headerTab" :class="{headerTabLine:tabStatus===1}" @click="changeTab(1)">普通职业</view>
+				<view class="headerTab" :class="{headerTabLine:tabStatus===2}" @click="changeTab(2)">新兴职业</view>
 			</view>
 		</view>
 		<view class="content_search" v-if="tabStatus===2">
@@ -26,7 +26,7 @@
 							<view class="detail" style="margin-right: 0;">地摊</view>
 						</view>
 						<view class="point">. . . . . .</view>
-						<view class="underpoint">非固定性职业</view>
+						<view class="underPoint">非固定性职业</view>
 						<view class="tip">以上职业仅在该小程序中指新兴职业</view>
 					</view>
 				</uni-collapse-item>
@@ -50,11 +50,6 @@
 			</view>
 
 		</view>
-		<!-- <view class="content_table">
-				<uni-easyinput v-model="value" placeholder="请输入内容"></uni-easyinput>
-		</view>
-		<Emerging></Emerging>
-		<Ordinary></Ordinary> -->
 	</view>
 </template>
 
@@ -74,7 +69,6 @@
 		},
 		setup(props) {
 			//tab 切换
-			console.log(props, props.target)
 			const tabStatus = ref(parseInt(props.target))
 			const changeTab = (target) => {
 				tabStatus.value = target;
@@ -169,13 +163,13 @@
 				flex-direction: row;
 				align-items: center;
 
-				.header_tab {
+				.headerTab {
 					margin: 0 40rpx;
 					box-sizing: border-box;
 					padding: 20rpx 0;
 				}
 
-				.header_tab_line {
+				.headerTabLine {
 					border-bottom: 4rpx solid #fff;
 					border-radius: 5%;
 				}
@@ -215,7 +209,7 @@
 					font-size: 75rpx;
 				}
 
-				.underpoint {
+				.underPoint {
 					display: flex;
 					justify-content: center;
 					flex-wrap: wrap;
