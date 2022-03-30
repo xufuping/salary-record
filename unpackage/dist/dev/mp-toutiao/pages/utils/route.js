@@ -6,6 +6,6 @@ var router = {
   ordinaryGetAllNormalwork: "/admin/work/getAllNormalWork",
   emergingPublish: "/publish/auditNewWork",
   emergingGetDetail: "/showDetail/getNewWork",
-  emergingGetActicleList: "/showOrder/orderGetNewWork"
+  emergingGetActicleList: "/showOrder/orderGetNewWork",
 };
 exports.router = router;

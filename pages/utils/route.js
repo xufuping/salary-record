@@ -5,5 +5,6 @@ export default {
 	ordinaryGetAllNormalwork:"/admin/work/getAllNormalWork",
 	emergingPublish: "/publish/auditNewWork",
 	emergingGetDetail: "/showDetail/getNewWork",
-	emergingGetActicleList: "/showOrder/orderGetNewWork"
+	emergingGetActicleList: "/showOrder/orderGetNewWork",
+	getCityListByName:"/universal/city/getAllCityOrderByName"
 }

@@ -49,7 +49,7 @@
 					<!--<view class="sel_item" :class="{seled_item:tabTarget===1}" @click="changeTabTarget(1)">按时间排序</view>
 					<view class="sel_item" :class="{seled_item:tabTarget===2}" @click="changeTabTarget(2)">按点赞数排序</view>
 					<view class="sel_item" :class="{seled_item:tabTarget===3}" @click="changeTabTarget(3)">按可信度排序</view>-->
-					<view v-for="item in listItem" :key="item" class="sel_item" :class="{seled_item:tabTarget===item}" @click="changeTabTarget(item)">{{item}}</view>
+					<view v-for="item in selSortTypeItem" :key="item" class="sel_item" :class="{seled_item:tabTarget===item}" @click="changeTabTarget(item)">{{item}}</view>
 				</view>
 				<view v-for="item in detail.data" :key="item.id" class="searchItem">
 					<searchItem :detail="item" :type="1"></searchItem>
@@ -104,7 +104,7 @@
 	import sendPostRequest from "../../../utils/utils/sendPostRequest.js"
 	import router from "../../../utils/route.js";
 
-	const list=['按时间排序','按点赞数排序','按可信度排序']
+	const selSortType=['按时间排序','按点赞数排序','按可信度排序']
 
 	export default {
 		components: {
@@ -163,7 +163,7 @@
 				},
 			])
 
-			const listItem=list
+			const selSortTypeItem = selSortType
 			
 			onMounted(() => {
 				// search();
@@ -293,7 +293,7 @@
 			}
 			const selectedItem = reactive([]);
 			return {
-				listItem,
+				selSortTypeItem,
 				pushPopupRef,
 				searchPopupList,
 				sendInformation,

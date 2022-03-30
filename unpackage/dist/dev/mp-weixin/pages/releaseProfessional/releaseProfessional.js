@@ -182,10 +182,10 @@ const _sfc_main = {
     }
     function closeCollapse() {
     }
-    const companyList = company_list;
+    const companyList = common_vendor.reactive([]);
+    company_list.forEach((item) => companyList.push(item.name));
     const alternativeCompany = common_vendor.reactive(quickShowInputCompany(company.value.trim(), companyList, 3));
     function quickShowInputCompany(name, array, length) {
-      console.log(array);
       if (array.length < 1) {
         return;
       }
@@ -199,18 +199,22 @@ const _sfc_main = {
     }
     const job = common_vendor.ref("");
     const city = common_vendor.ref("");
-    const city_list = common_vendor.reactive(cityList);
+    const card_city_list = common_vendor.reactive(cityList);
+    const chosenCity = common_vendor.reactive({
+      data: ""
+    });
+    getApp();
     function selectHotCity(cityId) {
-      for (let key in city_list) {
-        if (city_list[key].id === cityId) {
-          city.value = city_list[key].label;
+      for (let key in card_city_list) {
+        if (card_city_list[key].id === cityId) {
+          city.value = card_city_list[key].label;
         }
       }
     }
     function closeCity(cityId) {
-      for (let key in city_list) {
-        if (city_list[key].id === cityId) {
-          city_list.splice(key, 1);
+      for (let key in card_city_list) {
+        if (card_city_list[key].id === cityId) {
+          card_city_list.splice(key, 1);
         }
       }
     }
@@ -264,7 +268,8 @@ const _sfc_main = {
               salary: parseInt(salary.value),
               type: tabStatus.value === 1 ? selType.value : 0,
               degree: sel_education.value,
-              profession: sel_industry.value,
+              from: "weixin",
+              profession: tabStatus.value,
               explain: job_note.value
             };
             console.log(sendInformation);
@@ -284,7 +289,13 @@ const _sfc_main = {
         }
       });
     }
+    common_vendor.onMounted(() => {
+      getIndexedList();
+    });
     return {
+      chosenCity,
+      companyList,
+      cityList,
       city,
       salary,
       company,
@@ -295,7 +306,7 @@ const _sfc_main = {
       job,
       tabStatus,
       changeTab,
-      city_list,
+      card_city_list,
       type_list,
       job_note,
       selType,
@@ -319,18 +330,16 @@ const _sfc_main = {
   }
 };
 if (!Array) {
+  const _easycom_uni_combox2 = common_vendor.resolveComponent("uni-combox");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
-  const _easycom_uni_collapse_item2 = common_vendor.resolveComponent("uni-collapse-item");
-  const _easycom_uni_collapse2 = common_vendor.resolveComponent("uni-collapse");
   const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
-  (_easycom_uni_easyinput2 + _easycom_uni_collapse_item2 + _easycom_uni_collapse2 + _easycom_uni_popup2)();
+  (_easycom_uni_combox2 + _easycom_uni_easyinput2 + _easycom_uni_popup2)();
 }
+const _easycom_uni_combox = () => "../../uni_modules/uni-combox/components/uni-combox/uni-combox.js";
 const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
-const _easycom_uni_collapse_item = () => "../../uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item.js";
-const _easycom_uni_collapse = () => "../../uni_modules/uni-collapse/components/uni-collapse/uni-collapse.js";
 const _easycom_uni_popup = () => "../../uni_modules/uni-popup/components/uni-popup/uni-popup.js";
 if (!Math) {
-  (_easycom_uni_easyinput + _easycom_uni_collapse_item + _easycom_uni_collapse + _easycom_uni_popup)();
+  (_easycom_uni_combox + _easycom_uni_easyinput + _easycom_uni_popup)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -338,52 +347,27 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     b: common_vendor.o(($event) => $setup.changeTab(1)),
     c: $setup.tabStatus === 2 ? 1 : "",
     d: common_vendor.o(($event) => $setup.changeTab(2)),
-    e: common_vendor.o($setup.closeCollapse),
-    f: common_vendor.o($setup.openCollapse),
-    g: common_vendor.o(($event) => $setup.quickShowInputCompany($setup.company.trim(), _ctx.companyList, 3)),
-    h: common_vendor.o(($event) => $setup.company = $event),
-    i: common_vendor.p({
-      placeholder: "\u8F93\u5165\u516C\u53F8\u540D\u79F0",
+    e: common_vendor.o(($event) => $setup.company = $event),
+    f: common_vendor.p({
+      candidates: $setup.companyList,
+      emptyTips: "\u672A\u627E\u5230\u5BF9\u5E94\u516C\u53F8\uFF0C\u8BF7\u8F93\u5165\u5B8C\u6574\u540D\u79F0",
+      placeholder: "\u8BF7\u8F93\u5165\u516C\u53F8\u540D\u79F0",
       modelValue: $setup.company
     }),
-    j: common_vendor.f($setup.alternativeCompany, (item, k0, i0) => {
-      return {
-        a: common_vendor.t(item),
-        b: common_vendor.o(($event) => $setup.company = item)
-      };
-    }),
-    k: common_vendor.p({
-      ["title-border"]: "none",
-      border: false,
-      ["show-arrow"]: false,
-      open: $setup.showCollapse
-    }),
-    l: common_vendor.o(($event) => $setup.job = $event),
-    m: common_vendor.p({
+    g: common_vendor.o(($event) => $setup.job = $event),
+    h: common_vendor.p({
       placeholder: "\u8F93\u5165\u5C97\u4F4D\u540D\u79F0",
       modelValue: $setup.job
     }),
-    n: common_vendor.f($setup.city_list, (item, k0, i0) => {
-      return {
-        a: common_vendor.t(item.label),
-        b: common_vendor.o(($event) => $setup.closeCity(item.id)),
-        c: item.id,
-        d: common_vendor.o(($event) => $setup.selectHotCity(item.id), item.id)
-      };
-    }),
-    o: common_vendor.o(($event) => $setup.city = $event),
-    p: common_vendor.p({
-      placeholder: "\u8F93\u5165\u57CE\u5E02\u540D\u79F0",
-      modelValue: $setup.city
-    }),
-    q: common_vendor.o(($event) => $setup.salary = $event),
-    r: common_vendor.p({
+    i: common_vendor.t($setup.chosenCity.data),
+    j: common_vendor.o(($event) => $setup.salary = $event),
+    k: common_vendor.p({
       placeholder: "\u8F93\u5165\u85AA\u8D44\u540D\u79F0",
       modelValue: $setup.salary
     }),
-    s: $setup.tabStatus === 1
+    l: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    t: common_vendor.f($setup.type_list, (item, k0, i0) => {
+    m: common_vendor.f($setup.type_list, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.label),
         b: item.id,
@@ -392,36 +376,36 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    v: $setup.tabStatus === 1
+    n: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    w: common_vendor.t($setup.sel_education),
-    x: common_vendor.o((...args) => $setup.education_popOpen && $setup.education_popOpen(...args))
+    o: common_vendor.t($setup.sel_education),
+    p: common_vendor.o((...args) => $setup.education_popOpen && $setup.education_popOpen(...args))
   } : {}, {
-    y: common_vendor.t($setup.sel_industry),
-    z: common_vendor.o((...args) => $setup.industry_popOpen && $setup.industry_popOpen(...args)),
-    A: common_vendor.o(($event) => $setup.job_note = $event),
-    B: common_vendor.p({
+    q: common_vendor.t($setup.sel_industry),
+    r: common_vendor.o((...args) => $setup.industry_popOpen && $setup.industry_popOpen(...args)),
+    s: common_vendor.o(($event) => $setup.job_note = $event),
+    t: common_vendor.p({
       type: "textarea",
       placeholder: "\u53EF\u4EE5\u586B\u5199\u5DE5\u4F5C\u7684\u8BE6\u60C5\u5F85\u9047,\u5982\u798F\u5229\u8865\u8D34,\u798F\u5229\u5F85\u9047\u7B49",
       modelValue: $setup.job_note
     }),
-    C: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
-    D: common_vendor.o((...args) => $setup.submit && $setup.submit(...args)),
-    E: common_vendor.f($setup.eduList, (item, k0, i0) => {
+    v: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
+    w: common_vendor.o((...args) => $setup.submit && $setup.submit(...args)),
+    x: common_vendor.f($setup.eduList, (item, k0, i0) => {
       return {
         a: common_vendor.t(item),
         b: common_vendor.o(($event) => $setup.changeEducation(item)),
         c: item
       };
     }),
-    F: common_vendor.sr("education_popup", "ce65f5b8-7"),
-    G: common_vendor.p({
+    y: common_vendor.sr("education_popup", "ce65f5b8-4"),
+    z: common_vendor.p({
       type: "bottom",
       ["background-color"]: "#fff"
     }),
-    H: $setup.tabStatus === 1
+    A: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    I: common_vendor.f($setup.induList[0], (item, index, i0) => {
+    B: common_vendor.f($setup.induList[0], (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: common_vendor.o(($event) => $setup.changeIndustry(item)),
@@ -429,9 +413,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    J: $setup.tabStatus === 2
+    C: $setup.tabStatus === 2
   }, $setup.tabStatus === 2 ? {
-    K: common_vendor.f($setup.induList[1], (item, index, i0) => {
+    D: common_vendor.f($setup.induList[1], (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: common_vendor.o(($event) => $setup.changeIndustry(item)),
@@ -439,8 +423,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    L: common_vendor.sr("industry_popup", "ce65f5b8-8"),
-    M: common_vendor.p({
+    E: common_vendor.sr("industry_popup", "ce65f5b8-5"),
+    F: common_vendor.p({
       type: "bottom",
       ["background-color"]: "#fff"
     })

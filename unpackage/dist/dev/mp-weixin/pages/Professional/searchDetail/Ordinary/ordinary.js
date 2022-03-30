@@ -306,7 +306,7 @@ var job_list = {
 };
 const searchItem = () => "../../common/searchItem.js";
 const searchPopup = () => "../../common/SearchPopup.js";
-const list = ["\u6309\u65F6\u95F4\u6392\u5E8F", "\u6309\u70B9\u8D5E\u6570\u6392\u5E8F", "\u6309\u53EF\u4FE1\u5EA6\u6392\u5E8F"];
+const selSortType = ["\u6309\u65F6\u95F4\u6392\u5E8F", "\u6309\u70B9\u8D5E\u6570\u6392\u5E8F", "\u6309\u53EF\u4FE1\u5EA6\u6392\u5E8F"];
 const _sfc_main = {
   components: {
     searchItem,
@@ -362,7 +362,7 @@ const _sfc_main = {
         }
       }
     ]);
-    const listItem = list;
+    const selSortTypeItem = selSortType;
     common_vendor.onMounted(() => {
       showAll();
     });
@@ -474,7 +474,7 @@ const _sfc_main = {
     };
     const selectedItem = common_vendor.reactive([]);
     return {
-      listItem,
+      selSortTypeItem,
       pushPopupRef,
       searchPopupList,
       sendInformation,
@@ -548,7 +548,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     i: common_vendor.o(($event) => $setup.open(2)),
-    j: common_vendor.f($setup.listItem, (item, k0, i0) => {
+    j: common_vendor.f($setup.selSortTypeItem, (item, k0, i0) => {
       return {
         a: common_vendor.t(item),
         b: item,

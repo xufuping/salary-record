@@ -35,7 +35,7 @@
   align-items: center;
   margin-bottom: 15rpx;
 }
-.professionDetail .top_list .pos_name.data-v-a9323b40 {
+.professionDetail .top_list .posName.data-v-a9323b40 {
   font-size: 40rpx;
 }
 .professionDetail .top_list .salary.data-v-a9323b40 {
@@ -63,7 +63,7 @@
   justify-content: flex-start;
   align-items: center;
 }
-.professionDetail .center_com_list .com_left .com_name.data-v-a9323b40 {
+.professionDetail .center_com_list .com_left .comName.data-v-a9323b40 {
   font-size: 38rpx;
 }
 .professionDetail .center_com_list .com_right .center_more_list.data-v-a9323b40,

@@ -69,6 +69,22 @@
 					url: "#",
 				})
 			}
+			//获取列表 存储到缓存
+			const allCityList = []
+			function getIndexedList(){
+				sendPostRequest(router.getCityListByName,{}, {
+						success(res) {
+							if(res.message === "success"){
+								allCityList = res.data;
+								localStorage.setItem("cityList",allCitylist)
+								// res.data.forEach(item => cityList.data.push(item.cityName))
+								// cityList.data.push(res.data.data.cityName);
+							}
+							else{}
+						},
+						fail() {}
+					},true)
+			}
 
 			return {
 				contentList,
