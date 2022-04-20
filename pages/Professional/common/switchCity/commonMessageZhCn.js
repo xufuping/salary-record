@@ -4,5 +4,5 @@ export const commonMessage = {
     'location.county.getting': '正在获取区县',
   
     'location.city.fail': '定位失败，请重试',
-    'location.county.fail': '请求区县失败，请重试',
+    'location.noCompareCity.fail': '无法获取当前城市信息，请手动选择',
   }

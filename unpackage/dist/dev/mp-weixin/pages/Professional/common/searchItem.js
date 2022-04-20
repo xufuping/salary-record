@@ -7,11 +7,12 @@ const _sfc_main = {
   },
   setup(props) {
     var _a;
+    console.log("PROPs", props.detail.salaryRange);
     const information = common_vendor.reactive({
       comName: props.detail.company,
       comAddress: (_a = props.detail.city) == null ? void 0 : _a.cityName,
       posName: props.detail.post,
-      posSalary: props.detail.salary,
+      posSalary: props.detail.salaryNUm,
       credibility: props.detail.credibility,
       quantity: 0,
       releaseTime: props.detail.createTime

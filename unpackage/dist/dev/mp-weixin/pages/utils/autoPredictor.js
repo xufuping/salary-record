@@ -1,10 +1,10 @@
 "use strict";
-var pages_Professional_common_switchCity_citydata = require("../Professional/common/switchCity/citydata.js");
 var pages_utils_utils = require("./utils.js");
+var pages_utils_cityListTools = require("./cityListTools.js");
 const { isNotEmpty, isChinese, getSlicedName } = pages_utils_utils.utils;
 class AutoPredictor {
   constructor(inputContent) {
-    this.content = inputContent.toLowerCase();
+    this.content = inputContent;
   }
   associativeSearch() {
     let tempList = this.searchList(this.content);
@@ -12,8 +12,9 @@ class AutoPredictor {
     return resultList;
   }
   searchList(str) {
+    const CITY_LIST = pages_utils_cityListTools.editCityDataUsedForSerach();
     let targetCity;
-    return pages_Professional_common_switchCity_citydata.CITY_LIST.filter((city) => {
+    return CITY_LIST.filter((city) => {
       targetCity = this.getTargetCity(str, city);
       return targetCity && targetCity == str;
     });
@@ -22,13 +23,10 @@ class AutoPredictor {
     if (isChinese(str)) {
       const slicedChineseName = getSlicedName(cityObj, "city", str.length);
       return slicedChineseName;
-    } else {
-      const slicedPinyinName = getSlicedName(cityObj, "short", str.length).toLowerCase();
-      return slicedPinyinName;
     }
   }
   showList(array) {
-    return isNotEmpty(array) ? array.map((item) => ({ city: item.city, code: item.code })) : pages_Professional_common_switchCity_citydata.CITY_NOT_FOUND;
+    return isNotEmpty(array) ? array.map((item) => ({ city: item.city, cityCode: item.cityCode })) : pages_utils_cityListTools.CITY_NOT_FOUND;
   }
 }
 exports.AutoPredictor = AutoPredictor;

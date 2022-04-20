@@ -63,29 +63,13 @@ var emerging_list = {
   data
 };
 const _sfc_main = {
-  props: {
-    target: String
-  },
-  setup(props) {
-    const tabStatus = common_vendor.ref(parseInt(props.target));
+  setup() {
+    const tabStatus = common_vendor.ref(1);
     const changeTab = (target) => {
       tabStatus.value = target;
       loadingList();
     };
-    const showCollapse = common_vendor.ref(false);
-    const closeCollapse = () => {
-      showCollapse.value = false;
-      console.log(showCollapse.value);
-    };
-    const openCollapse = () => {
-      showCollapse.value = true;
-      console.log(showCollapse.value);
-    };
     const inputValue = common_vendor.ref("");
-    const showList = common_vendor.ref(true);
-    const changeList = () => {
-      showList.value = !showList.value;
-    };
     function selectHotOptions(list) {
       loadingList();
       for (let key in common_vendor.toRaw(moreList.value)) {
@@ -103,7 +87,7 @@ const _sfc_main = {
     const search = (value) => {
       console.log(value);
       common_vendor.index.navigateTo({
-        url: (tabStatus.value === 1 ? "../searchDetail/Ordinary/ordinary" : "../searchDetail/Emerging/Emerging") + "?tabStatus=" + tabStatus.value + "&inputValue=" + (value === "prefix" ? inputValue.value : value)
+        url: (tabStatus.value === 1 ? "../searchDetail/Ordinary/ordinary" : "../searchDetail/Emerging/Emerging") + "?inputValue=" + (value === "prefix" ? inputValue.value : value)
       });
     };
     return {
@@ -112,15 +96,10 @@ const _sfc_main = {
       search,
       selectHotOptions,
       tabStatus,
-      changeList,
-      showList,
       moreList,
       ordinaryList,
       emergingList,
-      changeTab,
-      showCollapse,
-      closeCollapse,
-      openCollapse
+      changeTab
     };
   }
 };
@@ -144,37 +123,32 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: common_vendor.o(($event) => $setup.changeTab(2)),
     e: $setup.tabStatus === 2
   }, $setup.tabStatus === 2 ? {
-    f: common_vendor.o((...args) => $setup.closeCollapse && $setup.closeCollapse(...args)),
-    g: common_vendor.o((...args) => $setup.openCollapse && $setup.openCollapse(...args)),
-    h: common_vendor.p({
+    f: common_vendor.p({
       ["title-border"]: "none",
       border: false,
-      ["show-arrow"]: false,
-      open: $setup.showCollapse
+      ["show-arrow"]: false
     })
   } : {}, {
-    i: common_vendor.o($setup.search),
-    j: common_vendor.o(($event) => $setup.inputValue = $event),
-    k: common_vendor.p({
+    g: common_vendor.o($setup.search),
+    h: common_vendor.o(($event) => $setup.inputValue = $event),
+    i: common_vendor.p({
       placeholder: "\u8BF7\u8F93\u5165\u516C\u53F8\u540D\u79F0/\u57CE\u5E02/\u5C97\u4F4D",
       prefixIcon: "search",
       modelValue: $setup.inputValue
     }),
-    l: $setup.showList
-  }, $setup.showList ? {
-    m: common_vendor.f($setup.tabStatus === 1 ? $setup.ordinaryList.data : $setup.emergingList.data, (item, k0, i0) => {
+    j: common_vendor.f($setup.tabStatus === 1 ? $setup.ordinaryList.data : $setup.emergingList.data, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.name),
         b: item.id,
         c: common_vendor.o(($event) => $setup.selectHotOptions(item.id), item.id)
       };
     }),
-    n: common_vendor.f(20, (n, k0, i0) => {
+    k: common_vendor.f(20, (n, k0, i0) => {
       return {
         a: n
       };
     })
-  } : {});
+  });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-20eca980"]]);
 wx.createPage(MiniProgramPage);

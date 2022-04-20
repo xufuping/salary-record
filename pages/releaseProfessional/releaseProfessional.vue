@@ -19,41 +19,46 @@
       </view>
     </view>
 
-    <view class="info_item">
+    <view class="info_item" >
       <view class="label"><span class="required_label">*</span>公司</view>
       <view class="inp">
-        <uni-combox
-          v-model="company"
-          :candidates="companyList"
-          emptyTips="未找到对应公司，请输入完整名称"
-          placeholder="请输入公司名称"
-        ></uni-combox>
+		<uni-easyinput v-model="company" :placeholder="tabStatus===1?'请输入公司名称':'快递公司/美团/抖音'">
+		</uni-easyinput>
       </view>
     </view>
 
     <view class="info_item">
       <view class="label">岗位</view>
       <view class="inp">
-        <uni-easyinput v-model="job" placeholder="输入岗位名称">
+        <uni-easyinput v-model="job" :placeholder="tabStatus===1?'输入岗位名称':'外卖/快递/直播/网约车'">
         </uni-easyinput>
       </view>
     </view>
 
     <view class="info_item">
-      <view class="label">城市</view>
+      <view class="label"><span class="required_label">*</span>薪资描述</view>
       <view class="inp">
-        <text>点击选择城市</text>
-        <navigator class="tabelbar_item" url="../Professional/common/switchCity/switchCity">{{chosenCity.data}}123</navigator>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="label"><span class="required_label">*</span>薪资</view>
-      <view class="inp">
-        <uni-easyinput v-model="salary" placeholder="输入薪资名称">
+        <uni-easyinput type = "number" v-model="salary" placeholder="如:28W或者14*13">
         </uni-easyinput>
       </view>
     </view>
+
+	<view class="info_item">
+	  <view class="label"><span class="required_label">*</span>薪资范围</view>
+	  <view class="inp">
+	    <view class="box_sort">
+			<view class="inputbox">
+				<uni-easyinput placeholder="最低工资" v-model="dSalary"
+				></uni-easyinput>
+			</view>
+			<view>---</view>
+			<view class="inputbox">
+				<uni-easyinput placeholder="最高工资" v-model="hSalary"
+				></uni-easyinput>
+			</view>
+		</view>
+	  </view>
+	</view>
 
     <view class="info_item" v-if="tabStatus === 1">
       <view class="label">类型</view>
@@ -75,18 +80,31 @@
     <view class="info_item" v-if="tabStatus === 1">
       <view class="label">学历</view>
       <view class="inp">
-        <view class="sel_education" @click="education_popOpen">
-          {{ sel_education }}
-        </view>
+		<picker @change="changeEducation" :value="index" :range="eduList">
+		<view class="sel_education">
+		  {{ sel_education }}
+		</view>	
+		</picker>
       </view>
     </view>
 
     <view class="info_item">
       <view class="label">行业</view>
       <view class="inp">
-        <view class="sel_industry" @click="industry_popOpen">
-          {{ sel_industry }}
-        </view>
+		<picker @change="changeIndustry" :value="index" :range="tabStatus === 1 ? induList[0] : induList[1]">
+		<view class="sel_education">
+		  {{ sel_industry }}
+		</view>	
+		</picker>
+      </view>
+    </view>
+
+    <view class="info_item">
+      <view class="label">城市</view>
+      <view class="inp">
+        <navigator  url="../Professional/common/switchCity/switchCity">
+		<button type="default" class="label">{{storeCity.defaultCity}}</button>
+		</navigator>
       </view>
     </view>
 
@@ -96,7 +114,7 @@
         <uni-easyinput
           type="textarea"
           v-model="job_note"
-          placeholder="可以填写工作的详情待遇,如福利补贴,福利待遇等"
+          placeholder="可填写工作详细信息,如福利补贴,福利待遇等"
         >
         </uni-easyinput>
       </view>
@@ -118,36 +136,6 @@
       >
       <navigator class="tabelbar_item" url="../index/index">薪资查询</navigator>
     </view>
-
-    <uni-popup ref="education_popup" type="bottom" background-color="#fff">
-      <view class="pop_list">
-        <view
-          @click="changeEducation(item)"
-          v-for="item in eduList"
-          :key="item"
-          >{{ item }}</view
-        >
-      </view>
-    </uni-popup>
-
-    <uni-popup ref="industry_popup" type="bottom" background-color="#fff">
-      <view class="pop_list" v-if="tabStatus === 1">
-        <view
-          @click="changeIndustry(item)"
-          v-for="(item, index) in induList[0]"
-          :key="index"
-          >{{ item }}</view
-        >
-      </view>
-      <view class="pop_list" v-if="tabStatus === 2">
-        <view
-          @click="changeIndustry(item)"
-          v-for="(item, index) in induList[1]"
-          :key="index"
-          >{{ item }}</view
-        >
-      </view>
-    </uni-popup>
   </view>
 </template>
 
@@ -157,112 +145,69 @@ import {
 	reactive,
 	onMounted
 } from 'vue';
-import dropdownMenuSelection from "../utils/utils/dropdownMenuSelection.js";
-import checkStrContain from "../utils/utils/checkStrContain.js"
 import sendPostRequest from "../utils/utils/sendPostRequest.js"
-
 import edu_list from "./json/edu_list.json";
 import indu_list from "./json/indu_list.json";
-import company_list from "./json/company_list.json";
-import cityList from "./json/cityList.json";
 import typeList from "./json/typeList.json";
-
 import router from "../utils/route.js";
+import store from '../../store/index.js'
 
 export default {
 	setup() {
+		//清空页面信息
+		const clearPage = () =>{
+			company.value = ''
+			job.value = ''
+			store.commit("clearCity")
+			salary.value = null
+			sel_industry.value = '请选择行业'
+			job_note.value = ''
+		}
 		//切换tab
 		const tabStatus = ref(1)
 		const changeTab = (data) => {
 			tabStatus.value = data
-			// getIndexedList()
+			clearPage()
 		}
 		//公司
 		const company = ref('')
-		const showCollapse = ref(false);
-
-		function openCollapse() {}
-
-		function closeCollapse() {}
-		const companyList = reactive([]);
-		company_list.forEach(item=>companyList.push(item.name));
-		// TODO 在调用quickShowInputCompany 时，companyList会莫名奇妙出现undefined的问题。
-		const alternativeCompany = reactive(quickShowInputCompany(company.value.trim(), companyList, 3));
-		// const alternativeCompany = reactive([]);
-		function quickShowInputCompany(name, array, length) {
-			if (array.length < 1) {
-				return;
-			}
-			let result = [];
-			for (let key in array) {
-				if (checkStrContain(array[key].name, name) && result.length < length) {
-					result.push(array[key])
-				}
-			}
-			return result;
-		}
+		
 		//岗位
 		const job = ref('')
+		
 		//城市
-		const city = ref('')
-		const card_city_list = reactive(cityList)
-
-		const chosenCity = reactive({
-				data:""
-		})
-    const appInstance = getApp();
-    const { globalData: { defaultCity, defaultCounty } } = appInstance
-    const onShow = () =>{
-      const { globalData: { defaultCity, defaultCounty } } = appInstance
-      chosenCity.data = defaultCity,
-      county = defaultCounty
-  }
-
-		function selectHotCity(cityId) {
-			for (let key in card_city_list) {
-				if (card_city_list[key].id === cityId) {
-					city.value = card_city_list[key].label;
-				}
-			}
-		}
-
-		function closeCity(cityId) {
-			for (let key in card_city_list) {
-				if (card_city_list[key].id === cityId) {
-					card_city_list.splice(key, 1);
-				}
-			}
-		}
+		const storeCity = store.state.city;
+		
+		
 		//薪资
-		const salary = ref('')
+		const salary = ref(0)
+		
+		//薪资范围
+		const dSalary = ref('')
+		const hSalary = ref('')
+		
 		//类型
 		const type_list = typeList;
 		const selType = ref(1);
 		const changeSelType = (data) => {
 			selType.value = data
 		}
+		
+		// TODO 学历、行业两个数据来源，接口、待修复，目前采用的本地JSON数据
 		//学历
 		const sel_education = ref("请选择学历")
-		const education_popup = ref(null)
-		const education_popOpen = () => {
-			education_popup.value.open('bottom')
-		}
 		const eduList = reactive(edu_list);
-
-		function changeEducation(edu) {
-			dropdownMenuSelection(education_popup, sel_education, edu)
+		function changeEducation(e) {
+			sel_education.value = edu_list[e.detail.value]
 		}
+		
 		//行业
 		const sel_industry = ref("请选择行业")
-		const industry_popup = ref(null)
 		const induList = reactive(indu_list);
-		const industry_popOpen = () => {
-			industry_popup.value.open('bottom')
+		function changeIndustry(e) {
+			sel_industry.value = indu_list[tabStatus.value - 1][e.detail.value]
 		}
-
-		function changeIndustry(indu) {
-			dropdownMenuSelection(industry_popup, sel_industry, indu)
-		}
+		
 		//待遇
 		const job_note = ref('')
 
@@ -273,6 +218,7 @@ export default {
 				showCancel: false,
 			})
 		}
+		
 		//发布
 		function submit() {
 			if (company.value === "" || salary.value === "") {
@@ -282,7 +228,9 @@ export default {
 				})
 				return;
 			}
+			
 			//进行提交操作
+			if(tabStatus.value === 1){
 			uni.showModal({
 				content: "你确定要提交吗？",
 				success(res) {
@@ -290,17 +238,19 @@ export default {
 						let sendInformation = {
 							company: company.value,
 							post: job.value,
-							city: city.value,
-							salary: parseInt(salary.value),
+							city: storeCity.defaultCityID,
+							salaryNUm: parseInt(salary.value),
+							salaryStr:salary.value,
+							salaryRange:dSalary.value+hSalary.value,
 							type: tabStatus.value === 1 ? selType.value : 0, //0为选择新兴职业时的类型代码
-							degree: sel_education.value,
-							from : "weixin",						
+							// degree: sel_education.value,
+							degree:1,
 							profession: tabStatus.value,
-							explain: job_note.value
+							openId : "13334521234",
+							from : "WEI_XIN",					
+							explain: job_note.value,
 						}
-						console.log(sendInformation);
-						sendPostRequest(sendInformation.type === 0 ? router.emergingPublish :
-							router.ordinaryPublish, sendInformation, {
+						sendPostRequest(router.ordinaryPublish, sendInformation, {
 								success() {
 									uni.showModal({
 										content: "提交成功！",
@@ -315,39 +265,59 @@ export default {
 					}
 				}
 			})
+			}else{
+			uni.showModal({
+				content: "你确定要提交吗？",
+				success(res) {
+					if (res.confirm) {
+						let sendInformation = {
+							company: company.value,
+							post: job.value,
+							city: storeCity.defaultCityID,
+							salaryNUm: parseInt(salary.value),
+							salaryStr:salary.value,
+							salaryRange:dSalary.value+hSalary.value,
+							profession: tabStatus.value,
+							openId : "13334521234",
+							from : "WEI_XIN",						
+							explain: job_note.value,
+						}
+						sendPostRequest( router.emergingPublish,sendInformation, {
+								success() {
+									uni.showModal({
+										content: "提交成功！",
+										showCancel: false
+									})
+								},
+								fail() {}
+							},
+							true);
+					} else if (res.cancel) {
+						return;
+					}
+				}
+			})
+			}
 		}
 
 		onMounted(()=>{
-			getIndexedList()
+			//getIndexedList()
 		})
 		return {
-      chosenCity,
-			companyList,
-			cityList,
-			city,
+			dSalary,
+			hSalary,
+			storeCity,
 			salary,
 			company,
-			showCollapse,
-			openCollapse,
-			closeCollapse,
-			alternativeCompany,
 			job,
 			tabStatus,
 			changeTab,
-			card_city_list,
 			type_list,
 			job_note,
 			selType,
 			changeSelType,
-			education_popOpen,
-			education_popup,
 			sel_education,
 			sel_industry,
-			industry_popup,
-			industry_popOpen,
-			quickShowInputCompany,
-			selectHotCity,
-			closeCity,
 			changeEducation,
 			changeIndustry,
 			submit,
@@ -436,12 +406,6 @@ export default {
     }
 
     .inp {
-      .card_city_list {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 20rpx auto;
-
         .city_item {
           font-size: 22rpx;
           padding: 10rpx 30rpx 10rpx 20rpx;
@@ -457,7 +421,13 @@ export default {
             right: 10rpx;
           }
         }
-      }
+      .box_sort{
+		  display: flex;
+		  justify-content: space-around;
+	  }
+	  .inputbox{
+		  width: 250rpx;
+	  }
 
       .type_list {
         display: flex;
@@ -483,8 +453,7 @@ export default {
         }
       }
 
-      .sel_education,
-      .sel_industry {
+      .sel_education {
         box-sizing: border-box;
         display: flex;
         justify-content: flex-start;
@@ -574,4 +543,9 @@ export default {
     color: red;
   }
 }
+</style>
+
+
+<style lang="scss">
+	.skdfhj{}
 </style>

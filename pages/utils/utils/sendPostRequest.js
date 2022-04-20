@@ -27,4 +27,27 @@ function sendPostRequest(route, data, callBackFn, isShowModal) {
 		}
 	})
 }
+
+function sendPostRequest_fix(route, data, callBackFn, isShowModal) {
+	uni.request({
+		// #ifdef H5
+		url: "/api" + route,
+		// #endif
+		// #ifndef H5
+		url: "http://203.56.169.102:8084" + route,
+		// #endif
+		method: "POST",
+		data,
+		success(data) {
+			callBackFn.success(data);
+		},
+		fail(error) {
+			callBackFn.fail(error);
+			isShowModal ? uni.showModal({
+				content: "请求失败！错误代码为：" + error.errMsg,
+				showCancel: false
+			}) : console.log(0);
+		}
+	})
+}
 export default sendPostRequest;

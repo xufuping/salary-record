@@ -16,6 +16,12 @@
 		    
 		},
 		{
+			"path": "pages/Professional/Professional/Professional",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
 		    "path" : "pages/Professional/searchDetail/Ordinary/ordinary",
 		    "style" :                                                                                    
 		    {
@@ -31,12 +37,6 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
-		},
-		{
-			"path": "pages/Professional/Professional/Professional",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
 		},
 		{
 		    "path" : "pages/Professional/professionalDetail/professionalDetail",

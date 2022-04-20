@@ -4,16 +4,16 @@
       @input="bindKeyInput"
       @blur="bindBlur"
 	  placeholder-style="font-size: 30rpx"
-      placeholder="输入城市名或拼音查询"
-      v-model="inputName.value"
+      placeholder="输入城市名查询"
+      v-model="inputName"
     />
   </view>
 
   <view class="container-inner">
     <view class="side-bar-letter-list touch-class">
       <view class="side-bar-hot-city">
-        <view style="margin-top: 0"  @click="hotCity">热门</view>
-        <view style="margin-top: 0"  @click="hotCity">城市</view>
+        <view style="margin-top: 0" >热门</view>
+        <view style="margin-top: 0" >城市</view>
         <view
         v-for="(item,index) in sideBarLetterList.data"
         style="color: #8bc34a; font-size: 20rpx"
@@ -32,15 +32,14 @@
 	  
       <scroll-view 
 		scroll-y="true" 
-		@scroll="scroll"
 		:scroll-into-view="scrollTopId"
 		:style="{ height: windowHeight + 'px'}"
-        :scroll-top="scrollTop">
+        >
         <ul class="ul">
           <li
             v-for="item in completeList.data"
-            :key="item.code"
-            @click="chooseCity(item.code, item.city)"
+            :key="item.cityCode"
+            @click="chooseCity(item.cityCode, item.city)"
             class="li"
           >
             {{ item.city }}
@@ -48,12 +47,10 @@
         </ul>
 
         <view class="city-picker">
-          <view class="hotcity-common" @click="reGetLocation()"
-            >点击定位城区</view
-          >
           <view
             class="current-city"
-            >{{ city }} {{ county.data }}</view
+			@click="reGetLocation()"
+            >{{ city.seledCity }} </view
           >
           <view class="hotcity-common">热门城市</view>
 
@@ -79,8 +76,8 @@
           <view
             class="item-city"
             v-for="itemChild in item.cityInfo"
-            :key="itemChild.code"
-            @click="chooseCity(itemChild.code, itemChild.city)"
+            :key="itemChild.cityCode"
+            @click="chooseCity(itemChild.cityCode, itemChild.city)"
           >
             {{ itemChild.city }}
           </view>
@@ -92,16 +89,16 @@
 
 <script>
 import {ref,reactive,onMounted} from "vue";
-import { LETTERS, HOT_CITY_LIST } from './citydata'
 import { commonMessage } from './commonMessageZhCn'
 import { AutoPredictor } from '../../../utils/autoPredictor'
 import sendPostRequest from '../../../utils/utils/sendPostRequest'
 import utils from '../../../utils/utils'
+import store from "../../../../store/index.js"
+import {getCityInfoByName,getCityListSortedByInitialLetter,addHotCity,LETTERS} from '../../../utils/cityListTools.js'
 
 const {
   isNotEmpty,
   safeGet,
-  getCityListSortedByInitialLetter,
   getLocationUrl,
   getCountyListUrl,
   onFail,
@@ -109,8 +106,6 @@ const {
 
 export default{
 setup(){
-
-const appInstance = getApp();
 const sideBarLetterList = reactive({
 	data:[]
 	});
@@ -118,46 +113,42 @@ const windowHeight = ref(0);
 const cityList = reactive({
 	data:[]
 	});
+const HOT_CITY_LIST = addHotCity();
 const hotCityList = reactive(HOT_CITY_LIST);
 const showChosenLetterToast = ref(false);
-const scrollTop = ref(0);
 const scrollTopId = ref('');
-const city = ref(commonMessage['location.getting'])
-const currentCityCode = ref('');
+const city = reactive({
+	code:0,
+	seledCity:commonMessage['location.getting']
+})
 const inputName = ref ('');
 const completeList = reactive({
 	data:[]
 });
-const countyList = reactive({
-	data:[]
-});
-const county = ref({data:''});
-const showCountyPicker = ref(false);
-const auto = ref(true);
 const toastShowLetter =ref('')
-
-  const setCityCounty = (location) => {
-    const res = safeGet(['data', 'result', 'ad_info'], location)
-    if(auto.value){
-        city.value = res.city;
-        currentCityCode.value = res.adcode;
-        county.data = res.district;
-        appInstance.globalData.defaultCity = res.city
-    }
-  }
 
  const  getLocationFromGeoCoord = (geoCoord) => {
     const { latitude, longitude } = geoCoord
-    // sendPostRequest(getLocationUrl(latitude, longitude),{},{
-    //   success (location) { setCityCounty(location)},
-	//   fail(){}
-    // },true)
+	uni.request({
+	    url: getLocationUrl(latitude, longitude), 
+	    success: (res) => {
+			const compareCity = getCityInfoByName(res.data.result.ad_info.city)
+			if(compareCity){ 
+				city.seledCity = compareCity[0].city;
+				city.code = compareCity[0].cityCode;
+			}
+			else{
+				city.seledCity = commonMessage['location.noCompareCity.fail']
+			}
+	    }
+	});
+
  }
 
   const getLocation = () => {
-    county.data = '';
 	uni.getLocation({
 		type: 'wgs84',
+		geocode:true,
 		success: function (res) {
 			getLocationFromGeoCoord(res)
 		},
@@ -166,7 +157,6 @@ const toastShowLetter =ref('')
   }
 
 onMounted(()=>{
-	
     // 生命周期函数--监听页面加载
     const cityListSortedByInitialLetter = getCityListSortedByInitialLetter();
     let sysInfo ;
@@ -191,48 +181,31 @@ onMounted(()=>{
     // close toast of chosenLetter
     setTimeout(() => {showChosenLetterToast.value = false }, 500)
   }
-  
-const setCountyList = (res) => {
-    const resultArray = safeGet(['data', 'result'], res)
-    const countyListValue = isNotEmpty(resultArray) ? resultArray[0] : []
-    countyList.data = countyListValue;
-  }
 
 // 选择城市
 const chooseCity = (code, seledCity) => {
-    // const { city, code } = safeGet(['currentTarget', 'dataset'], e)
-      auto.value = false;
-      showCountyPicker.value = true;
-      city.value = seledCity;
-      currentCityCode.value = code;
-      scrollTop.value = 0;
       completeList.data = [];
-      county.data = '';
-    // getCountyList();
-    appInstance.globalData.defaultCity = city;
-    appInstance.globalData.defaultCounty = '';
+	  store.commit("updateCityData",{code,seledCity})
+	  uni.navigateBack({
+	  	delta:1
+	  })
   }
-
-
-//点击热门城市回到顶部
-  const hotCity = () => {
-    scrollTop.value = 0 ;
-  }
-  const scroll = (e) => {
-		// TODO 如果使用此方法，请自行增加防抖处理
-		scrollTop.value = e.detail.scrollTop
-	}
 
   const reGetLocation = () => {
-    // const { city, county } = this.data
-    appInstance.globalData.defaultCity = city.value
-    appInstance.globalData.defaultCounty = county.value
-    console.log(appInstance.globalData.defaultCity);
     //返回首页
-    uni.navigateTo({
-	url: '../../../releaseProfessional/releaseProfessional'
-        });
+	if(city.seledCity !== '无法获取当前城市信息，请手动选择'){
+    store.commit("updateCityData",city)
+    uni.navigateBack({
+    	delta:1
+    })
+	}else{
+		uni.showModal({
+			content: "请手动选择城市",
+			showCancel: false
+		})
+	}
   }
+  
   // 失焦时清空输入框
   const bindBlur = (e) => {
       inputName.value = '';
@@ -256,30 +229,21 @@ const chooseCity = (code, seledCity) => {
   }
 
 	return {
-		scroll,
 		 bindBlur,
 		 bindKeyInput,
-		 hotCity,
-		 countyList,
 		 chooseCity,
 		 toastShowLetter,
 		 reGetLocation,
-		 appInstance,
 		 sideBarLetterList,
 		 touchSideBarLetter,
 		 windowHeight,
 		 cityList,
 		 hotCityList,
 		 showChosenLetterToast,
-		 scrollTop,
 		 scrollTopId ,
 		 city,
-		 currentCityCode,
 		 inputName,
 		 completeList,
-		 county,
-		 showCountyPicker,
-		 auto
 		}
 	}
 }
@@ -357,17 +321,7 @@ scroll-view {
   background-color: #f5f5f5;
   margin-bottom: -10rpx;
 }
-.county-picker {
-  padding-left: 20rpx;
-  margin-bottom: 10rpx;
-}
-.county-picker-title {
-  font-size: 24rpx;
-  color: #666;
-  padding-bottom: 0;
-  margin: 8rpx 0;
-  padding-left: 4px;
-}
+
 .hot-city {
   background-color: #f5f5f5;
   margin-bottom: -10rpx;
@@ -404,10 +358,6 @@ scroll-view {
   margin-left: 16rpx;
 }
 
-.county-picker-list {
-  padding-right: 50rpx;
-  margin: auto;
-}
 
 .current-city {
   display: inline-block;
@@ -483,8 +433,4 @@ input {
   border-bottom: 1rpx solid #f1f1f1;
 }
 
-.county {
-  display: flex;
-  flex-wrap: wrap;
-}
 </style>

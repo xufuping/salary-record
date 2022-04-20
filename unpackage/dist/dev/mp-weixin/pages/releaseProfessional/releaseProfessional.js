@@ -1,24 +1,15 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-var pages_utils_utils_dropdownMenuSelection = require("../utils/utils/dropdownMenuSelection.js");
-var pages_utils_utils_checkStrContain = require("../utils/utils/checkStrContain.js");
 var pages_utils_utils_sendPostRequest = require("../utils/utils/sendPostRequest.js");
 var pages_utils_route = require("../utils/route.js");
+var store_index = require("../../store/index.js");
 var edu_list = [
   "\u5176\u4ED6",
-  "\u535A\u58EB985",
-  "\u535A\u58EB211",
-  "\u535A\u58EB\u6D77\u5F52",
-  "\u535A\u58EB\u5176\u4ED6",
-  "\u7855\u58EB985",
-  "\u7855\u58EB211",
-  "\u7855\u58EB\u6D77\u5F52",
-  "\u7855\u58EB\u5176\u4ED6",
-  "\u672C\u79D1985",
-  "\u672C\u79D1211",
-  "\u672C\u79D1\u6D77\u5F52",
-  "\u672C\u79D1\u5176\u4ED6",
-  "\u5927\u4E13"
+  "\u7855\u58EB\u53CA\u4EE5\u4E0A",
+  "\u672C\u79D1",
+  "\u4E13\u79D1",
+  "\u9AD8\u4E2D",
+  "\u521D\u4E2D\u53CA\u4EE5\u4E0B"
 ];
 var indu_list = [
   [
@@ -43,119 +34,6 @@ var indu_list = [
     "\u5176\u4ED6\u884C\u4E1A"
   ]
 ];
-var company_list = [
-  {
-    name: "\u963F\u91CC\u5DF4\u5DF4"
-  },
-  {
-    name: "\u817E\u8BAF"
-  },
-  {
-    name: "\u534E\u4E3A"
-  },
-  {
-    name: "\u534E\u7855"
-  },
-  {
-    name: "\u5927\u7586"
-  },
-  {
-    name: "\u5927\u534E"
-  },
-  {
-    name: "\u79FB\u52A8"
-  },
-  {
-    name: "\u5BCC\u58EB\u5EB7"
-  },
-  {
-    name: "\u79D1\u5927\u8BAF\u98DE"
-  },
-  {
-    name: "\u4E2D\u5174"
-  },
-  {
-    name: "\u4E2D\u539F\u7535\u5B50"
-  },
-  {
-    name: "\u4E2D\u82AF\u56FD\u9645"
-  },
-  {
-    name: "\u5C0F\u7C73"
-  },
-  {
-    name: "\u5B57\u8282\u8DF3\u52A8"
-  },
-  {
-    name: "\u6EF4\u6EF4"
-  },
-  {
-    name: "\u957F\u6C5F\u50A8\u5B58"
-  },
-  {
-    name: "\u6D77\u5EB7\u5A01\u89C6"
-  },
-  {
-    name: "\u7F8E\u56E2"
-  },
-  {
-    name: "\u7F8E\u7684"
-  },
-  {
-    name: "\u6C47\u5DDD"
-  },
-  {
-    name: "\u8363\u8000"
-  },
-  {
-    name: "\u767E\u5EA6"
-  },
-  {
-    name: "\u4EAC\u4E1C"
-  },
-  {
-    name: "\u8054\u5F71"
-  },
-  {
-    name: "\u8054\u60F3"
-  },
-  {
-    name: "\u643A\u7A0B"
-  },
-  {
-    name: "\u7F51\u6613"
-  },
-  {
-    name: "\u9E3F\u6D77\u7CBE\u5BC6"
-  },
-  {
-    name: "\u62FC\u591A\u591A"
-  },
-  {
-    name: "\u641C\u72D0"
-  },
-  {
-    name: "\u65B0\u6D6A"
-  }
-];
-var cityList = [
-  {
-    id: 1,
-    label: "\u4E0A\u6D77"
-  },
-  {
-    id: 2,
-    label: "\u5317\u4EAC"
-  },
-  {
-    id: 3,
-    label: "\u91CD\u5E86"
-  },
-  {
-    id: 4,
-    label: "\u6210\u90FD"
-  }
-];
 var typeList = [
   {
     id: 1,
@@ -172,75 +50,39 @@ var typeList = [
 ];
 const _sfc_main = {
   setup() {
+    const clearPage = () => {
+      company.value = "";
+      job.value = "";
+      store_index.store.commit("clearCity");
+      salary.value = null;
+      sel_industry.value = "\u8BF7\u9009\u62E9\u884C\u4E1A";
+      job_note.value = "";
+    };
     const tabStatus = common_vendor.ref(1);
     const changeTab = (data) => {
       tabStatus.value = data;
+      clearPage();
     };
     const company = common_vendor.ref("");
-    const showCollapse = common_vendor.ref(false);
-    function openCollapse() {
-    }
-    function closeCollapse() {
-    }
-    const companyList = common_vendor.reactive([]);
-    company_list.forEach((item) => companyList.push(item.name));
-    const alternativeCompany = common_vendor.reactive(quickShowInputCompany(company.value.trim(), companyList, 3));
-    function quickShowInputCompany(name, array, length) {
-      if (array.length < 1) {
-        return;
-      }
-      let result = [];
-      for (let key in array) {
-        if (pages_utils_utils_checkStrContain.checkStrContain(array[key].name, name) && result.length < length) {
-          result.push(array[key]);
-        }
-      }
-      return result;
-    }
     const job = common_vendor.ref("");
-    const city = common_vendor.ref("");
-    const card_city_list = common_vendor.reactive(cityList);
-    const chosenCity = common_vendor.reactive({
-      data: ""
-    });
-    getApp();
-    function selectHotCity(cityId) {
-      for (let key in card_city_list) {
-        if (card_city_list[key].id === cityId) {
-          city.value = card_city_list[key].label;
-        }
-      }
-    }
-    function closeCity(cityId) {
-      for (let key in card_city_list) {
-        if (card_city_list[key].id === cityId) {
-          card_city_list.splice(key, 1);
-        }
-      }
-    }
-    const salary = common_vendor.ref("");
+    const storeCity = store_index.store.state.city;
+    const salary = common_vendor.ref(0);
+    const dSalary = common_vendor.ref("");
+    const hSalary = common_vendor.ref("");
     const type_list = typeList;
     const selType = common_vendor.ref(1);
     const changeSelType = (data) => {
       selType.value = data;
     };
     const sel_education = common_vendor.ref("\u8BF7\u9009\u62E9\u5B66\u5386");
-    const education_popup = common_vendor.ref(null);
-    const education_popOpen = () => {
-      education_popup.value.open("bottom");
-    };
     const eduList = common_vendor.reactive(edu_list);
-    function changeEducation(edu) {
-      pages_utils_utils_dropdownMenuSelection.dropdownMenuSelection(education_popup, sel_education, edu);
+    function changeEducation(e) {
+      sel_education.value = edu_list[e.detail.value];
     }
     const sel_industry = common_vendor.ref("\u8BF7\u9009\u62E9\u884C\u4E1A");
-    const industry_popup = common_vendor.ref(null);
     const induList = common_vendor.reactive(indu_list);
-    const industry_popOpen = () => {
-      industry_popup.value.open("bottom");
-    };
-    function changeIndustry(indu) {
-      pages_utils_utils_dropdownMenuSelection.dropdownMenuSelection(industry_popup, sel_industry, indu);
+    function changeIndustry(e) {
+      sel_industry.value = indu_list[tabStatus.value - 1][e.detail.value];
     }
     const job_note = common_vendor.ref("");
     function showDetail() {
@@ -257,69 +99,91 @@ const _sfc_main = {
         });
         return;
       }
-      common_vendor.index.showModal({
-        content: "\u4F60\u786E\u5B9A\u8981\u63D0\u4EA4\u5417\uFF1F",
-        success(res) {
-          if (res.confirm) {
-            let sendInformation = {
-              company: company.value,
-              post: job.value,
-              city: city.value,
-              salary: parseInt(salary.value),
-              type: tabStatus.value === 1 ? selType.value : 0,
-              degree: sel_education.value,
-              from: "weixin",
-              profession: tabStatus.value,
-              explain: job_note.value
-            };
-            console.log(sendInformation);
-            pages_utils_utils_sendPostRequest.sendPostRequest(sendInformation.type === 0 ? pages_utils_route.router.emergingPublish : pages_utils_route.router.ordinaryPublish, sendInformation, {
-              success() {
-                common_vendor.index.showModal({
-                  content: "\u63D0\u4EA4\u6210\u529F\uFF01",
-                  showCancel: false
-                });
-              },
-              fail() {
-              }
-            }, true);
-          } else if (res.cancel) {
-            return;
+      if (tabStatus.value === 1) {
+        common_vendor.index.showModal({
+          content: "\u4F60\u786E\u5B9A\u8981\u63D0\u4EA4\u5417\uFF1F",
+          success(res) {
+            if (res.confirm) {
+              let sendInformation = {
+                company: company.value,
+                post: job.value,
+                city: storeCity.defaultCityID,
+                salaryNUm: parseInt(salary.value),
+                salaryStr: salary.value,
+                salaryRange: dSalary.value + hSalary.value,
+                type: tabStatus.value === 1 ? selType.value : 0,
+                degree: 1,
+                profession: tabStatus.value,
+                openId: "13334521234",
+                from: "WEI_XIN",
+                explain: job_note.value
+              };
+              pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.ordinaryPublish, sendInformation, {
+                success() {
+                  common_vendor.index.showModal({
+                    content: "\u63D0\u4EA4\u6210\u529F\uFF01",
+                    showCancel: false
+                  });
+                },
+                fail() {
+                }
+              }, true);
+            } else if (res.cancel) {
+              return;
+            }
           }
-        }
-      });
+        });
+      } else {
+        common_vendor.index.showModal({
+          content: "\u4F60\u786E\u5B9A\u8981\u63D0\u4EA4\u5417\uFF1F",
+          success(res) {
+            if (res.confirm) {
+              let sendInformation = {
+                company: company.value,
+                post: job.value,
+                city: storeCity.defaultCityID,
+                salaryNUm: parseInt(salary.value),
+                salaryStr: salary.value,
+                salaryRange: dSalary.value + hSalary.value,
+                profession: tabStatus.value,
+                openId: "13334521234",
+                from: "WEI_XIN",
+                explain: job_note.value
+              };
+              pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.emergingPublish, sendInformation, {
+                success() {
+                  common_vendor.index.showModal({
+                    content: "\u63D0\u4EA4\u6210\u529F\uFF01",
+                    showCancel: false
+                  });
+                },
+                fail() {
+                }
+              }, true);
+            } else if (res.cancel) {
+              return;
+            }
+          }
+        });
+      }
     }
     common_vendor.onMounted(() => {
-      getIndexedList();
     });
     return {
-      chosenCity,
-      companyList,
-      cityList,
-      city,
+      dSalary,
+      hSalary,
+      storeCity,
       salary,
       company,
-      showCollapse,
-      openCollapse,
-      closeCollapse,
-      alternativeCompany,
       job,
       tabStatus,
       changeTab,
-      card_city_list,
       type_list,
       job_note,
       selType,
       changeSelType,
-      education_popOpen,
-      education_popup,
       sel_education,
       sel_industry,
-      industry_popup,
-      industry_popOpen,
-      quickShowInputCompany,
-      selectHotCity,
-      closeCity,
       changeEducation,
       changeIndustry,
       submit,
@@ -330,16 +194,12 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _easycom_uni_combox2 = common_vendor.resolveComponent("uni-combox");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
-  const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
-  (_easycom_uni_combox2 + _easycom_uni_easyinput2 + _easycom_uni_popup2)();
+  _easycom_uni_easyinput2();
 }
-const _easycom_uni_combox = () => "../../uni_modules/uni-combox/components/uni-combox/uni-combox.js";
 const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
-const _easycom_uni_popup = () => "../../uni_modules/uni-popup/components/uni-popup/uni-popup.js";
 if (!Math) {
-  (_easycom_uni_combox + _easycom_uni_easyinput + _easycom_uni_popup)();
+  _easycom_uni_easyinput();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -349,25 +209,33 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: common_vendor.o(($event) => $setup.changeTab(2)),
     e: common_vendor.o(($event) => $setup.company = $event),
     f: common_vendor.p({
-      candidates: $setup.companyList,
-      emptyTips: "\u672A\u627E\u5230\u5BF9\u5E94\u516C\u53F8\uFF0C\u8BF7\u8F93\u5165\u5B8C\u6574\u540D\u79F0",
-      placeholder: "\u8BF7\u8F93\u5165\u516C\u53F8\u540D\u79F0",
+      placeholder: $setup.tabStatus === 1 ? "\u8BF7\u8F93\u5165\u516C\u53F8\u540D\u79F0" : "\u5FEB\u9012\u516C\u53F8/\u7F8E\u56E2/\u6296\u97F3",
       modelValue: $setup.company
     }),
     g: common_vendor.o(($event) => $setup.job = $event),
     h: common_vendor.p({
-      placeholder: "\u8F93\u5165\u5C97\u4F4D\u540D\u79F0",
+      placeholder: $setup.tabStatus === 1 ? "\u8F93\u5165\u5C97\u4F4D\u540D\u79F0" : "\u5916\u5356/\u5FEB\u9012/\u76F4\u64AD/\u7F51\u7EA6\u8F66",
       modelValue: $setup.job
     }),
-    i: common_vendor.t($setup.chosenCity.data),
-    j: common_vendor.o(($event) => $setup.salary = $event),
-    k: common_vendor.p({
-      placeholder: "\u8F93\u5165\u85AA\u8D44\u540D\u79F0",
+    i: common_vendor.o(($event) => $setup.salary = $event),
+    j: common_vendor.p({
+      type: "number",
+      placeholder: "\u5982:28W\u6216\u800514*13",
       modelValue: $setup.salary
     }),
-    l: $setup.tabStatus === 1
+    k: common_vendor.o(($event) => $setup.dSalary = $event),
+    l: common_vendor.p({
+      placeholder: "\u6700\u4F4E\u5DE5\u8D44",
+      modelValue: $setup.dSalary
+    }),
+    m: common_vendor.o(($event) => $setup.hSalary = $event),
+    n: common_vendor.p({
+      placeholder: "\u6700\u9AD8\u5DE5\u8D44",
+      modelValue: $setup.hSalary
+    }),
+    o: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    m: common_vendor.f($setup.type_list, (item, k0, i0) => {
+    p: common_vendor.f($setup.type_list, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.label),
         b: item.id,
@@ -376,58 +244,26 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    n: $setup.tabStatus === 1
+    q: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    o: common_vendor.t($setup.sel_education),
-    p: common_vendor.o((...args) => $setup.education_popOpen && $setup.education_popOpen(...args))
+    r: common_vendor.t($setup.sel_education),
+    s: common_vendor.o((...args) => $setup.changeEducation && $setup.changeEducation(...args)),
+    t: _ctx.index,
+    v: $setup.eduList
   } : {}, {
-    q: common_vendor.t($setup.sel_industry),
-    r: common_vendor.o((...args) => $setup.industry_popOpen && $setup.industry_popOpen(...args)),
-    s: common_vendor.o(($event) => $setup.job_note = $event),
-    t: common_vendor.p({
+    w: common_vendor.t($setup.sel_industry),
+    x: common_vendor.o((...args) => $setup.changeIndustry && $setup.changeIndustry(...args)),
+    y: _ctx.index,
+    z: $setup.tabStatus === 1 ? $setup.induList[0] : $setup.induList[1],
+    A: common_vendor.t($setup.storeCity.defaultCity),
+    B: common_vendor.o(($event) => $setup.job_note = $event),
+    C: common_vendor.p({
       type: "textarea",
-      placeholder: "\u53EF\u4EE5\u586B\u5199\u5DE5\u4F5C\u7684\u8BE6\u60C5\u5F85\u9047,\u5982\u798F\u5229\u8865\u8D34,\u798F\u5229\u5F85\u9047\u7B49",
+      placeholder: "\u53EF\u586B\u5199\u5DE5\u4F5C\u8BE6\u7EC6\u4FE1\u606F,\u5982\u798F\u5229\u8865\u8D34,\u798F\u5229\u5F85\u9047\u7B49",
       modelValue: $setup.job_note
     }),
-    v: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
-    w: common_vendor.o((...args) => $setup.submit && $setup.submit(...args)),
-    x: common_vendor.f($setup.eduList, (item, k0, i0) => {
-      return {
-        a: common_vendor.t(item),
-        b: common_vendor.o(($event) => $setup.changeEducation(item)),
-        c: item
-      };
-    }),
-    y: common_vendor.sr("education_popup", "ce65f5b8-4"),
-    z: common_vendor.p({
-      type: "bottom",
-      ["background-color"]: "#fff"
-    }),
-    A: $setup.tabStatus === 1
-  }, $setup.tabStatus === 1 ? {
-    B: common_vendor.f($setup.induList[0], (item, index, i0) => {
-      return {
-        a: common_vendor.t(item),
-        b: common_vendor.o(($event) => $setup.changeIndustry(item)),
-        c: index
-      };
-    })
-  } : {}, {
-    C: $setup.tabStatus === 2
-  }, $setup.tabStatus === 2 ? {
-    D: common_vendor.f($setup.induList[1], (item, index, i0) => {
-      return {
-        a: common_vendor.t(item),
-        b: common_vendor.o(($event) => $setup.changeIndustry(item)),
-        c: index
-      };
-    })
-  } : {}, {
-    E: common_vendor.sr("industry_popup", "ce65f5b8-5"),
-    F: common_vendor.p({
-      type: "bottom",
-      ["background-color"]: "#fff"
-    })
+    D: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
+    E: common_vendor.o((...args) => $setup.submit && $setup.submit(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ce65f5b8"]]);

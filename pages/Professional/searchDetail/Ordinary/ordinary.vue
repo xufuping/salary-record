@@ -17,7 +17,7 @@
 						<view class="sel_item" :class="item.active" v-for="item in typeList.data" :key="item.id"
 							@click="chooseType(item.id)">{{item.name}}</view>
 						<!-- TODO 更多内容没有做 -->
-						<view class="sel_item" @click="open(0)">更多</view>
+						<!-- <view class="sel_item" @click="open(0)">更多</view> -->
 					</view>
 				</view>
 			</view>
@@ -28,7 +28,7 @@
 						<view class="sel_item" :class="item.active" v-for="item in cityList.data" :key="item.id"
 							@click="chooseCity(item.id)">{{item.name}}</view>
 						<!-- TODO 更多内容没有做 -->
-						<view class="sel_item" @click="open(1)">更多</view>
+						<view class="sel_item" @click="open(0)">更多</view>
 					</view>
 				</view>
 			</view>
@@ -39,16 +39,13 @@
 						<view class="sel_item" :class="item.active" v-for="item in jobList.data" :key="item.id"
 							@click="chooseJob(item.id)">{{item.name}}</view>
 						<!-- TODO 更多内容没有做 -->
-						<view class="sel_item" @click="open(2)">更多</view>
+						<view class="sel_item" @click="open(1)">更多</view>
 					</view>
 				</view>
 			</view>
 			<view class="more_line"></view>
 			<view class="content_table">
 				<view class="table_sel_list">
-					<!--<view class="sel_item" :class="{seled_item:tabTarget===1}" @click="changeTabTarget(1)">按时间排序</view>
-					<view class="sel_item" :class="{seled_item:tabTarget===2}" @click="changeTabTarget(2)">按点赞数排序</view>
-					<view class="sel_item" :class="{seled_item:tabTarget===3}" @click="changeTabTarget(3)">按可信度排序</view>-->
 					<view v-for="item in selSortTypeItem" :key="item" class="sel_item" :class="{seled_item:tabTarget===item}" @click="changeTabTarget(item)">{{item}}</view>
 				</view>
 				<view v-for="item in detail.data" :key="item.id" class="searchItem">
@@ -103,6 +100,7 @@
 
 	import sendPostRequest from "../../../utils/utils/sendPostRequest.js"
 	import router from "../../../utils/route.js";
+	import {getCityListSortedByInitialLetter} from '../../../utils/cityListTools.js'
 
 	const selSortType=['按时间排序','按点赞数排序','按可信度排序']
 
@@ -116,24 +114,20 @@
 			inputValue: String
 		},
 		setup(props) {
-			const popList = city_pop_list;
+			const  getPopCityList = () =>{
+				const cityList = getCityListSortedByInitialLetter();
+				const useList = cityList.map(item=>({
+					letter : item.initial,
+					data : item.cityInfo.map(item=>item.city)
+				}))
+				return useList;
+			}
+
+			const popList = getPopCityList();
+
 			const searchPopupList=reactive([
 				{
 					id:0,
-					ref:"typePopup",
-					comBoxText:"请输入类型",
-					showIndexedList:true,
-					comBoxList:[1,2,3,4],
-					indexedList:popList,
-					changeShowIndexedList:(data,index)=>{
-						searchPopupList[index].showIndexedList=data
-					},
-					getResult:(data,index)=>{
-						console.log('data',data,index)
-					}
-				},
-				{
-					id:1,
 					comBoxText:"请输入城市",
 					showIndexedList:false,
 					comBoxList:['重庆','南京','北京','上海','四川','成都','沙坪坝'],
@@ -146,7 +140,7 @@
 					},
 				},
 				{
-					id:2,
+					id:1,
 					comBoxText:"请输入行业",
 					showIndexedList:false,
 					comBoxList:[{
@@ -235,7 +229,7 @@
 				pageSize:5
 			}
 			function showAll(){
-				sendPostRequest(router.ordinaryGetAllNormalwork,dataAll, {
+				sendPostRequest(router.ordinaryGetAllWork,dataAll, {
 						success(res) {
 							if(res.message === "success"){
 							operateData(res.data.data);
@@ -263,7 +257,7 @@
 					},
 					true)
 			}
-
+			
 			function operateData(data) {
 				// sendInformation.currentPage = data.data.data.currentPage;
 				// sendInformation.pageSize = data.data.data.pageSize;

@@ -98,7 +98,6 @@ const _sfc_main = {
   },
   setup(props) {
     common_vendor.onMounted(() => {
-      search();
     });
     const listItem = list;
     const tabStatus = common_vendor.ref(1);

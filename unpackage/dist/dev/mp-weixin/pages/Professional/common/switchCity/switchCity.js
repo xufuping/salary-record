@@ -1,20 +1,21 @@
 "use strict";
 var common_vendor = require("../../../../common/vendor.js");
-var pages_Professional_common_switchCity_citydata = require("./citydata.js");
 var pages_Professional_common_switchCity_commonMessageZhCn = require("./commonMessageZhCn.js");
 var pages_utils_autoPredictor = require("../../../utils/autoPredictor.js");
 var pages_utils_utils = require("../../../utils/utils.js");
+var store_index = require("../../../../store/index.js");
+var pages_utils_cityListTools = require("../../../utils/cityListTools.js");
+require("../../../utils/utils/sendPostRequest.js");
+require("../../../utils/route.js");
 const {
   isNotEmpty,
   safeGet,
-  getCityListSortedByInitialLetter,
   getLocationUrl,
   getCountyListUrl,
   onFail
 } = pages_utils_utils.utils;
 const _sfc_main = {
   setup() {
-    const appInstance = getApp();
     const sideBarLetterList = common_vendor.reactive({
       data: []
     });
@@ -22,28 +23,40 @@ const _sfc_main = {
     const cityList = common_vendor.reactive({
       data: []
     });
-    const hotCityList = common_vendor.reactive(pages_Professional_common_switchCity_citydata.HOT_CITY_LIST);
+    const HOT_CITY_LIST = pages_utils_cityListTools.addHotCity();
+    const hotCityList = common_vendor.reactive(HOT_CITY_LIST);
     const showChosenLetterToast = common_vendor.ref(false);
-    const scrollTop = common_vendor.ref(0);
     const scrollTopId = common_vendor.ref("");
-    const city = common_vendor.ref(pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.getting"]);
-    const currentCityCode = common_vendor.ref("");
+    const city = common_vendor.reactive({
+      code: 0,
+      seledCity: pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.getting"]
+    });
     const inputName = common_vendor.ref("");
     const completeList = common_vendor.reactive({
       data: []
     });
-    const countyList = common_vendor.reactive({
-      data: []
-    });
-    const county = common_vendor.ref({ data: "" });
-    const showCountyPicker = common_vendor.ref(false);
-    const auto = common_vendor.ref(true);
     const toastShowLetter = common_vendor.ref("");
+    const getLocationFromGeoCoord = (geoCoord) => {
+      const { latitude, longitude } = geoCoord;
+      common_vendor.index.request({
+        url: getLocationUrl(latitude, longitude),
+        success: (res) => {
+          const compareCity = pages_utils_cityListTools.getCityInfoByName(res.data.result.ad_info.city);
+          if (compareCity) {
+            city.seledCity = compareCity[0].city;
+            city.code = compareCity[0].cityCode;
+          } else {
+            city.seledCity = pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.noCompareCity.fail"];
+          }
+        }
+      });
+    };
     const getLocation = () => {
-      county.data = "";
       common_vendor.index.getLocation({
         type: "wgs84",
+        geocode: true,
         success: function(res) {
+          getLocationFromGeoCoord(res);
         },
         fail: function() {
           onFail(pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.city.fail"]);
@@ -51,7 +64,7 @@ const _sfc_main = {
       });
     };
     common_vendor.onMounted(() => {
-      const cityListSortedByInitialLetter = getCityListSortedByInitialLetter();
+      const cityListSortedByInitialLetter = pages_utils_cityListTools.getCityListSortedByInitialLetter();
       let sysInfo;
       common_vendor.index.getSystemInfo({
         success: (e) => {
@@ -59,7 +72,7 @@ const _sfc_main = {
         }
       });
       const winHeight = sysInfo.windowHeight;
-      const sideBarLetterListValue = pages_Professional_common_switchCity_citydata.LETTERS.map((letter) => ({ name: letter }));
+      const sideBarLetterListValue = pages_utils_cityListTools.LETTERS.map((letter) => ({ name: letter }));
       windowHeight.value = winHeight;
       sideBarLetterList.data = sideBarLetterListValue;
       cityList.data = cityListSortedByInitialLetter;
@@ -74,29 +87,24 @@ const _sfc_main = {
       }, 500);
     };
     const chooseCity = (code, seledCity) => {
-      auto.value = false;
-      showCountyPicker.value = true;
-      city.value = seledCity;
-      currentCityCode.value = code;
-      scrollTop.value = 0;
       completeList.data = [];
-      county.data = "";
-      appInstance.globalData.defaultCity = city;
-      appInstance.globalData.defaultCounty = "";
-    };
-    const hotCity = () => {
-      scrollTop.value = 0;
-    };
-    const scroll = (e) => {
-      scrollTop.value = e.detail.scrollTop;
+      store_index.store.commit("updateCityData", { code, seledCity });
+      common_vendor.index.navigateBack({
+        delta: 1
+      });
     };
     const reGetLocation = () => {
-      appInstance.globalData.defaultCity = city.value;
-      appInstance.globalData.defaultCounty = county.value;
-      console.log(appInstance.globalData.defaultCity);
-      common_vendor.index.navigateTo({
-        url: "../../../releaseProfessional/releaseProfessional"
-      });
+      if (city.seledCity !== "\u65E0\u6CD5\u83B7\u53D6\u5F53\u524D\u57CE\u5E02\u4FE1\u606F\uFF0C\u8BF7\u624B\u52A8\u9009\u62E9") {
+        store_index.store.commit("updateCityData", city);
+        common_vendor.index.navigateBack({
+          delta: 1
+        });
+      } else {
+        common_vendor.index.showModal({
+          content: "\u8BF7\u624B\u52A8\u9009\u62E9\u57CE\u5E02",
+          showCancel: false
+        });
+      }
     };
     const bindBlur = (e) => {
       inputName.value = "";
@@ -116,86 +124,72 @@ const _sfc_main = {
       useAutoPredictor(inputName.value);
     };
     return {
-      scroll,
       bindBlur,
       bindKeyInput,
-      hotCity,
-      countyList,
       chooseCity,
       toastShowLetter,
       reGetLocation,
-      appInstance,
       sideBarLetterList,
       touchSideBarLetter,
       windowHeight,
       cityList,
       hotCityList,
       showChosenLetterToast,
-      scrollTop,
       scrollTopId,
       city,
-      currentCityCode,
       inputName,
-      completeList,
-      county,
-      showCountyPicker,
-      auto
+      completeList
     };
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
-    a: common_vendor.o([($event) => $setup.inputName.value = $event.detail.value, (...args) => $setup.bindKeyInput && $setup.bindKeyInput(...args)]),
+    a: common_vendor.o([($event) => $setup.inputName = $event.detail.value, (...args) => $setup.bindKeyInput && $setup.bindKeyInput(...args)]),
     b: common_vendor.o((...args) => $setup.bindBlur && $setup.bindBlur(...args)),
-    c: $setup.inputName.value,
-    d: common_vendor.o((...args) => $setup.hotCity && $setup.hotCity(...args)),
-    e: common_vendor.o((...args) => $setup.hotCity && $setup.hotCity(...args)),
-    f: common_vendor.f($setup.sideBarLetterList.data, (item, index, i0) => {
+    c: $setup.inputName,
+    d: common_vendor.f($setup.sideBarLetterList.data, (item, index, i0) => {
       return {
         a: common_vendor.t(item.name),
         b: index,
         c: common_vendor.o(($event) => $setup.touchSideBarLetter(item.name))
       };
     }),
-    g: $setup.showChosenLetterToast
+    e: $setup.showChosenLetterToast
   }, $setup.showChosenLetterToast ? {
-    h: common_vendor.t($setup.toastShowLetter)
+    f: common_vendor.t($setup.toastShowLetter)
   } : {}, {
-    i: common_vendor.f($setup.completeList.data, (item, k0, i0) => {
+    g: common_vendor.f($setup.completeList.data, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.city),
-        b: item.code,
-        c: common_vendor.o(($event) => $setup.chooseCity(item.code, item.city), item.code)
+        b: item.cityCode,
+        c: common_vendor.o(($event) => $setup.chooseCity(item.cityCode, item.city), item.cityCode)
       };
     }),
-    j: common_vendor.o(($event) => $setup.reGetLocation()),
-    k: common_vendor.t($setup.city),
-    l: common_vendor.t($setup.county.data),
-    m: common_vendor.f($setup.hotCityList, (item, k0, i0) => {
+    h: common_vendor.t($setup.city.seledCity),
+    i: common_vendor.o(($event) => $setup.reGetLocation()),
+    j: common_vendor.f($setup.hotCityList, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.city),
         b: common_vendor.o(($event) => $setup.chooseCity(item.cityCode, item.city)),
         c: item.cityCode
       };
     }),
-    n: common_vendor.f($setup.cityList.data, (item, k0, i0) => {
+    k: common_vendor.f($setup.cityList.data, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.initial),
         b: item.initial,
         c: common_vendor.f(item.cityInfo, (itemChild, k1, i1) => {
           return {
             a: common_vendor.t(itemChild.city),
-            b: itemChild.code,
-            c: common_vendor.o(($event) => $setup.chooseCity(itemChild.code, itemChild.city), itemChild.code)
+            b: itemChild.cityCode,
+            c: common_vendor.o(($event) => $setup.chooseCity(itemChild.cityCode, itemChild.city), itemChild.cityCode)
           };
         }),
         d: item.initial
       };
     }),
-    o: common_vendor.o((...args) => $setup.scroll && $setup.scroll(...args)),
-    p: $setup.scrollTopId,
-    q: $setup.windowHeight + "px",
-    r: $setup.scrollTop
+    l: $setup.scrollTopId,
+    m: $setup.windowHeight + "px"
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

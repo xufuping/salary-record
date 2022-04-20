@@ -10,9 +10,9 @@
 		</view>
 		<view class="content_search" v-if="tabStatus===2">
 			<uni-collapse>
-				<uni-collapse-item title-border="none" :border="false" :show-arrow="false" :open="showCollapse">
+				<uni-collapse-item title-border="none" :border="false" :show-arrow="false" >
 					<template v-slot:title>
-						<view class="newJobDetail" @blur="closeCollapse" @focus="openCollapse">点击查看更多新兴岗位</view>
+						<view class="newJobDetail">点击查看更多新兴岗位</view>
 					</template>
 					<view class="content">
 						<view class="innerContent">
@@ -39,9 +39,8 @@
 		<view class="content_more">
 			<view class="more_title">
 				<view class="more_label">热门搜索</view>
-				<!-- <view class="more_hidden" @click="changeList">X</view> -->
 			</view>
-			<view class="more_list" v-if="showList">
+			<view class="more_list" >
 				<view class="more_list_item" v-for="item in tabStatus===1?ordinaryList.data:emergingList.data"
 					:key="item.id" @click="selectHotOptions(item.id)">
 					{{item.name}}
@@ -64,33 +63,17 @@
 	import emerging_list from "./json/emerging_list.json";
 
 	export default {
-		props: {
-			target: String
-		},
-		setup(props) {
+		setup() {
 			//tab 切换
-			const tabStatus = ref(parseInt(props.target))
+			const tabStatus = ref(1)
 			const changeTab = (target) => {
 				tabStatus.value = target;
 				loadingList();
 			}
-			//筛选
-			const showCollapse = ref(false)
-			const closeCollapse = () => {
-				showCollapse.value = false
-				console.log(showCollapse.value)
-			}
-			const openCollapse = () => {
-				showCollapse.value = true
-				console.log(showCollapse.value)
-			}
+
 			//输入框显示
 			const inputValue = ref("");
 			//热门
-			const showList = ref(true)
-			const changeList = () => {
-				showList.value = !showList.value
-			}
 
 			function selectHotOptions(list) {
 				loadingList();
@@ -111,8 +94,7 @@
 				console.log(value)
 				uni.navigateTo({
 					url: (tabStatus.value === 1 ? "../searchDetail/Ordinary/ordinary" :
-							"../searchDetail/Emerging/Emerging") + "?tabStatus=" + tabStatus.value +
-						"&inputValue=" + (value === "prefix" ? inputValue.value : value)
+							"../searchDetail/Emerging/Emerging") + "?inputValue=" + (value === "prefix" ? inputValue.value : value)
 				})
 			}
 			return {
@@ -121,15 +103,10 @@
 				search,
 				selectHotOptions,
 				tabStatus,
-				changeList,
-				showList,
 				moreList,
 				ordinaryList,
 				emergingList,
 				changeTab,
-				showCollapse,
-				closeCollapse,
-				openCollapse
 			}
 		}
 	}

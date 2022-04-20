@@ -32,11 +32,12 @@
 			type: Number,
 		},
 		setup(props) {
+			console.log("PROPs",props.detail.salaryRange)
 			const information = reactive({
 				comName: props.detail.company,
 				comAddress: props.detail.city?.cityName,
 				posName: props.detail.post,
-				posSalary: props.detail.salary,
+				posSalary: props.detail.salaryNUm,
 				credibility: props.detail.credibility,
 				quantity: 0,
 				releaseTime: props.detail.createTime

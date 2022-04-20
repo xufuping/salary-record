@@ -47,9 +47,6 @@
 			<view class="more_line"></view>
 			<view class="content_table">
 				<view class="table_sel_list">
-					<!--<view class="sel_item" :class="{seled_item:tabTarget===1}" @click="changeTabTarget(1)">按时间排序</view>
-					<view class="sel_item" :class="{seled_item:tabTarget===2}" @click="changeTabTarget(2)">按点赞数排序</view>
-					<view class="sel_item" :class="{seled_item:tabTarget===3}" @click="changeTabTarget(3)">按可信度排序</view>-->
 					<view v-for="item in listItem" class="sel_item" :class="{seled_item:tabTarget===item}" @click="changeTabTarget(item)">{{item}}</view>
 				</view>
 				<view v-for="item in detail" :key="item.id" class="searchItem">
@@ -110,7 +107,7 @@
 		},
 		setup(props) {
 			onMounted(() => {
-				search();
+				// search();
 			});
 			//tab 切换
 			const listItem = list;

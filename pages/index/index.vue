@@ -2,18 +2,25 @@
 	<view class="indexPage">
 		<view class="header">
 			<view class="headLogo">SALARY SHOW</view>
-			<view class="headSelect">
+			<view class="headselect">
 				<view @click="enter" class="salary">薪资查询</view>
+				<!-- 1-普通职业 2-新兴职业 -->
 				<view class="outer">
-					<view v-for="item in professionalInfoList" :key="item.id" @click="enterProfessional(item.id)" class="item">
-						<text>{{item.label}}</text>
-						<text class="info">{{item.info}}</text>
+					<view @click="enterProfessional(1)" class="item">
+						<text>普通职业</text>
+						<text class="info">打工人</text>
 					</view>
+					<view @click="enterProfessional(2)" class="item">
+						<text>新兴职业</text>
+						<text class="info">创新者</text>
+					</view>
+					<!-- <view>{{a}}11</view> -->
+					<button @login = 'createProfession' @getphonenumber = 'getPhoneNumber' open-type="getPhoneNumber">login</button>
 				</view>
 			</view>
 		</view>
 		<view class="content">
-			<view class="item" v-for="(item,index) in contentList" :key="index">{{item}}</view>
+			<view class="item" v-for="(item,index) in content" :key="index">{{item}}</view>
 		</view>
 		<!-- <ad></ad> -->
 		<view class="footer">
@@ -27,10 +34,13 @@
 </template>
 
 <script>
-	import {reactive} from 'vue';
-
-	const INSURANCE_LIST =["五险一金查询方式","五险一金的使用","各城市五险一金缴纳比例","个人所得税相关政策","减免税申报条件"]
-
+	import {
+		ref,reactive
+	} from 'vue';
+	//import item from "./json/item.json";
+	import {createProfession,getAllProfession} from "../utils/createDataInfo.js"
+	import {getCityList} from "../utils/cityListTools.js"
+	
 	export default {
 		onShareAppMessage(res) {
 			if (res.from === 'button') { // 来自页面内分享按钮
@@ -42,53 +52,47 @@
 			}
 		},
 		setup() {
-			//1-普通职业 2-新兴职业
-			const professionalInfoList=[
-				{
-					id:1,
-					label:"普通职业",
-					info:"打工人",
-				},
-				{
-					id:2,
-					label:"新兴职业",
-					info:"创新者",
-				}
-			]
+			const content = reactive();//原：const content = reactive(item)
 			const enterProfessional = (target) => {
 				uni.navigateTo({
 					url: `../Professional/Professional/Professional?target=${target}`
 				});
 			};
-
-			//五险等内容列表
-			const contentList = reactive(INSURANCE_LIST);
-
+			
+			// let  a = ref('')
+			// uni.login({
+			//   provider: 'weixin',
+			//   // onlyAuthorize:true,
+			//   success: function (loginRes) {
+			// 	// a.value = loginRes.code;
+			// 	console.log("loginRes.authResult",loginRes.authResult);
+			//     console.log("loginRes.code",loginRes.code);
+			//     // 获取用户信息
+			//     uni.getUserInfo({
+			//       provider: 'weixin',
+			//       success: function (infoRes) {
+			//         console.log('用户昵称为：' + infoRes.userInfo.nickName);
+			//       }
+			//     });
+			//   }
+			// });
+			
+			createProfession()
+			getAllProfession()
+			// // getCityList()
+			const getPhoneNumber = (e) =>{
+				// console.log("fffff",e)
+			}
+			
 			function enter() {
 				uni.navigateTo({
 					url: "#",
 				})
 			}
-			//获取列表 存储到缓存
-			const allCityList = []
-			function getIndexedList(){
-				sendPostRequest(router.getCityListByName,{}, {
-						success(res) {
-							if(res.message === "success"){
-								allCityList = res.data;
-								localStorage.setItem("cityList",allCitylist)
-								// res.data.forEach(item => cityList.data.push(item.cityName))
-								// cityList.data.push(res.data.data.cityName);
-							}
-							else{}
-						},
-						fail() {}
-					},true)
-			}
-
 			return {
-				contentList,
-				professionalInfoList,
+				createProfession,
+				getPhoneNumber,
+				content,
 				enterProfessional,
 				enter
 			}
@@ -125,14 +129,10 @@
 </style>
 <style lang="scss" scoped>
 	.indexPage {
-		width: 100vw;
-		height: 100vh;
-		background-color: #fff;
+		background-color: #00bf57;
 	}
 
 	.header {
-		background-color: #00bf57;
-		padding-bottom: 20rpx;
 		.headLogo {
 			width: 50%;
 			color: white;

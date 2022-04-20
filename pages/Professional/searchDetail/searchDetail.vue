@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<view class="professionPage">
 		<view class="header">
 				<view class="header_logo">普通职业</view>
@@ -190,3 +190,4 @@ export default {
 	}
 </style>
 
+ -->

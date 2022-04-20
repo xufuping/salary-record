@@ -1,15 +1,16 @@
-<script>
+<script> 
+	import {finalUsedCityList}  from './pages/utils/cityListTools.js'
+	
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
 		},
 		onShow: function() {
-			console.log('App Show')
+			finalUsedCityList();
 		},
 		onHide: function() {
-			console.log('App Hide')
 		}
 	}
+	
 </script>
 
 <style>

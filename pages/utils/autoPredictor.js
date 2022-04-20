@@ -1,5 +1,5 @@
-import { CITY_LIST, CITY_NOT_FOUND } from '../Professional/common/switchCity/citydata.js'
 import utils from './utils'
+import {editCityDataUsedForSerach,CITY_NOT_FOUND} from './cityListTools.js'
 
 const { isNotEmpty, isChinese, getSlicedName } = utils;
 
@@ -10,7 +10,7 @@ const { isNotEmpty, isChinese, getSlicedName } = utils;
 */
 export class AutoPredictor {
   constructor(inputContent) {
-    this.content = inputContent.toLowerCase()
+    this.content = inputContent
   }
 
   // 输入框自动联想搜索
@@ -23,6 +23,7 @@ export class AutoPredictor {
   }
 
   searchList(str) {
+	const CITY_LIST = editCityDataUsedForSerach()
     let targetCity
     return CITY_LIST.filter(
       city => {
@@ -36,15 +37,16 @@ export class AutoPredictor {
     if (isChinese(str)) {
       const slicedChineseName = getSlicedName(cityObj, 'city', str.length)
       return slicedChineseName
-    } else {
-      const slicedPinyinName = getSlicedName(cityObj, 'short', str.length).toLowerCase()
-      return slicedPinyinName
-    }
+    } 
+	// else {
+ //      const slicedPinyinName = getSlicedName(cityObj, 'short', str.length).toLowerCase()
+ //      return slicedPinyinName
+ //    }
     // 在城市数据中，添加简拼到“shorter”属性，就可以实现简拼搜索
     // getSlicedName(cityObj, 'shorter', str.length).toLowerCase()
   }
 
   showList(array) {
-    return isNotEmpty(array) ? array.map(item => ({ city: item.city, code: item.code })) : CITY_NOT_FOUND
+    return isNotEmpty(array) ? array.map(item => ({ city: item.city, cityCode: item.cityCode })) : CITY_NOT_FOUND
   }
 }
