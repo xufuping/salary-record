@@ -92,7 +92,6 @@
 	// import ChooseList from "../../common/ChooseList.vue";
 
 	import pop_list from "../../../../static/json/pop_list.json";
-	import city_pop_list from "./json/city_pop_list.json";
 
 	import type_list from "./json/type_list.json";
 	import city_list from "./json/city_list.json";
@@ -100,7 +99,7 @@
 
 	import sendPostRequest from "../../../utils/utils/sendPostRequest.js"
 	import router from "../../../utils/route.js";
-	import {getCityListSortedByInitialLetter} from '../../../utils/cityListTools.js'
+	import {getPopCityList} from '../../../utils/cityListTools.js'
 
 	const selSortType=['按时间排序','按点赞数排序','按可信度排序']
 
@@ -114,15 +113,7 @@
 			inputValue: String
 		},
 		setup(props) {
-			const  getPopCityList = () =>{
-				const cityList = getCityListSortedByInitialLetter();
-				const useList = cityList.map(item=>({
-					letter : item.initial,
-					data : item.cityInfo.map(item=>item.city)
-				}))
-				return useList;
-			}
-
+			
 			const popList = getPopCityList();
 
 			const searchPopupList=reactive([
@@ -291,7 +282,6 @@
 				pushPopupRef,
 				searchPopupList,
 				sendInformation,
-				popList,
 				open,
 				detail,
 				tabStatus,

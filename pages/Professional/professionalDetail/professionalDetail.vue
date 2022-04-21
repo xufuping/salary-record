@@ -1,29 +1,61 @@
 <template>
 	<view class="professionDetail">
-		<view class="top_list">
-			<view class="posName">{{ detailData.posName }}</view>
-			<view class="salary">{{ detailData.posSalary }}/月</view>
-		</view>
-		<view class="center_pos_list">
-			<view class="address">{{ detailData.comAddress }}</view>
-			<view class="education">{{ detailData.education }}</view>
-			<view class="posType">{{ detailData.posType }}</view>
-		</view>
-		<view class="center_com_list">
-			<view class="com_left">
-				<view class="comName">{{ detailData.comName }}</view>
-			</view>
-			<view class="com_right">
-				<view class="center_time_list">
-					<view class="address">发布时间：{{ detailData.releaseTime }}</view>
-				</view>
-				<view class="center_more_list">
-					<view class="read_count">浏览量：{{ 1 }}</view>
-					<view class="praise_count">点赞量：{{ 0 }}</view>
+		<view class="baseInfo">
+			<view class="posName" @click="searchUpper(detailData.comName)">
+				<view class="surpport">公司:</view>
+				<view class="active">
+					<view class="active_text">{{detailData.comName}}</view>
+					<view  class="clickButton">></view>
 				</view>
 			</view>
+			<view class="posName" @click="searchUpper(detailData.comAddress)">
+				<view class="surpport">城市:</view>
+				<view class="active">
+					<view class="active_text">{{detailData.comAddress}}</view>
+					<view  class="clickButton">></view>
+				</view>
+			</view>
+			<view class="posName" @click="searchUpper(detailData.posName)">
+				<view class="surpport">岗位:</view>
+				<view class="active">
+					<view class="active_text">{{detailData.posName}}</view>
+					<view  class="clickButton">></view>
+				</view>
+			</view>
+			<view class="salary">
+				<view class="salary_fixed_text">薪资:</view>
+				<view class="salary_active_text">{{detailData.posSalary}}</view>
+			</view>
+			<view class="reliability">
+				<view class="reliability_fixed_text">可信度:</view>
+				<view class="reliability_active_text">{{10}}</view>
+			</view>
 		</view>
-
+		
+		<view class="center">
+			<view class="center_content">
+				<view>行业:</view>
+				<view>{{detailData.profession}}</view>
+			</view>
+			<view class="center_content">
+				<view>学历:</view>
+				<view>{{detailData.education}}</view>
+			</view>
+			<view class="center_content">
+				<view>发布时间:</view>
+				<view><!-- {{detailData.releaseTime}} -->{{"2022-01-04"}}</view>
+			</view>
+			<view class="center_content">
+				<view>浏览量:</view>
+				<view>{{detailData.pageView}}</view>
+			</view>
+		</view>
+		
+		<view class="quantity">
+			<view class="quantity_fixed">点赞量:</view>
+			<view class="quantity_active">{{detailData.quantity}}{{100}}</view>
+		</view>
+		
 		<view class="remark">
 			{{ detailData.explain }}
 		</view>
@@ -31,6 +63,8 @@
 		<view class="advertising">
 			<!-- <ad></ad> -->
 		</view>
+	    
+		
 	</view>
 </template>
 
@@ -54,15 +88,15 @@
 			})
 			const type = reactive(props.type);
 			const id = ref(props.id);
+
 			
 			function search() {
-				let data = {
-					normalWork : 0
-				}
+				let data = {}
 				sendPostRequest(
-					type.value === 1 ?router.ordinaryGetDetail : router.rouemergingGetDetail,id.value,
+					type.value === 1 ?router.ordinaryGetAllWork : router.ordinaryGetAllWork,
 					 data, {
 						success(res) {
+							console.log("REss",res)
 							if(res.message === "success"){
 							operateData(res.data.data);
 							}
@@ -75,14 +109,16 @@
 
 			function operateData(data) {
 				console.log("DATA",data)
-				detailData.posName = data.data.data.post;
-				detailData.posSalary = data.data.data.salary;
-				detailData.comAddress = data.data.data.city.cityName;
-				detailData.education = data.data.data.degree.degreeName;
-				detailData.posType = data.data.data.type.typeName;
-				detailData.comName = data.data.data.company;
-				detailData.releaseTime = data.data.data.createTime;
-				detailData.explain = data.data.data.explain;
+				detailData.posName = data[0].post;//岗位
+				detailData.posSalary = data[0].salaryStr;//字符串薪资
+				detailData.comAddress = data[0].city.cityName;//城市
+				detailData.education = data[0].degree.degreeName;//学历
+				detailData.profession = data[0].profession.professionName;//行业
+				detailData.comName = data[0].company;//公司
+				detailData.releaseTime = data[0].createTime;//发布时间
+				detailData.explain = data[0].explain;//福利待遇
+				detailData.pageView = data[0].lookCount;//浏览量
+				detailData.quantity = data[0].likeCount;//点赞量
 			}
 			const detailData = reactive({
 				posName: null,
@@ -94,7 +130,17 @@
 				releaseTime: null,
 				explain: null,
 			});
+			
+			const searchUpper = (value) => {
+				console.log(value)
+				uni.navigateTo({
+					url: (type.value === 1 ? "../searchDetail/Ordinary/ordinary" :
+							"../searchDetail/Emerging/Emerging") + "?inputValue=" + value
+				})
+			}
+			
 			return {
+				searchUpper,
 				type,
 				id,
 				search,
@@ -107,75 +153,119 @@
 
 <style scoped lang="scss">
 	.professionDetail {
+		background-color: #00bf57;
 		box-sizing: border-box;
 		width: 100vw;
 		min-height: 100vh;
 		padding: 10px 20px;
 
-		.top_list {
+		.baseInfo {
 			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			flex-direction: row;
+			flex-wrap: wrap;
 			margin-bottom: 15rpx;
 
 			.posName {
-				font-size: 40rpx;
-			}
-
-			.salary {
-				font-size: 48rpx;
-				color: #00bf57;
-			}
-
-			.center_more_list {
-				font-size: 48rpx;
-				color: #00bf57;
-			}
-		}
-
-		.center_pos_list {
-			display: flex;
-			justify-content: space-between;
-			font-size: 24rpx;
-			color: gray;
-			margin-top: 20rpx;
-		}
-
-		.center_com_list {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-
-			.com_left {
 				display: flex;
-				justify-content: flex-start;
-				align-items: center;
+				width: 100%;
+				font-size: 30rpx;
+				box-sizing: border-box;
+				padding: 20rpx;
+				background-color: #fff;
+				border-radius: 10rpx;
+				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+				margin-bottom: 30rpx;
+				.surpport{
+					width: 200rpx;
+					color: darkcyan;
 
-				.comName {
-					font-size: 38rpx;
 				}
-			}
-
-			.com_right {
-
-				// display: flex;
-				// justify-content: flex-start;
-				// align-items: center;
-				.center_more_list,
-				.center_time_list {
+				.active{
 					display: flex;
-					justify-content: flex-end;
-					font-size: 24rpx;
-					color: gray;
-					margin-top: 20rpx;
-
-					.read_count {
-						margin-right: 30rpx;
+					justify-content: space-between;
+					width: 570rpx;
+					.active_text{
+						color: blue;
+					}
+					.clickButton{
+						color: blue;
 					}
 				}
 			}
+
+			.salary {
+				display: flex;
+				width: 100%;
+				font-size: 30rpx;
+				box-sizing: border-box;
+				padding: 20rpx;
+				background-color: #fff;
+				border-radius: 10rpx;
+				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+				margin-bottom: 30rpx;
+				.salary_fixed_text{
+					color: darkcyan;
+					width: 200rpx;
+				}
+				.salary_active_text{
+					width: 570rpx;
+				}
+			}
+
+			.reliability{
+				display: flex;
+				width: 100%;
+				font-size: 30rpx;
+				box-sizing: border-box;
+				padding: 20rpx;
+				background-color: #fff;
+				border-radius: 10rpx;
+				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+				margin-bottom: 30rpx;
+				.reliability_fixed_text{
+					color: darkcyan;
+					width: 200rpx;
+				}
+				.reliability_active_text{
+					width: 570rpx;
+				}
+			}
 		}
 
+		.center{
+			display: flex;
+			flex-wrap: wrap;
+			.center_content{
+				display: flex;
+				width: 325rpx;
+				color: darkcyan;
+				font-size: 30rpx;
+				box-sizing: border-box;
+				padding: 20rpx;
+				background-color: #fff;
+				border-radius: 10rpx;
+				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+				margin-bottom: 30rpx;
+				margin-right: 10rpx;
+			}
+		}
+		
+		.quantity{
+			display: flex;
+			box-sizing: border-box;
+			padding: 20rpx;
+			background-color: #fff;
+			border-radius: 10rpx;
+			box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+			margin-bottom: 30rpx;
+			.quantity_fixed{
+				color: darkcyan;
+			}
+			.quantity_active{
+				
+			}
+		}
+		
 		.remark {
 			box-sizing: border-box;
 			width: 100%;

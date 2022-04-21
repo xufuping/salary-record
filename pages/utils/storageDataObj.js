@@ -5,12 +5,13 @@ const strorageVersion = '0.0.1_20220407'
 
 //缓存列表
 const uniStorageData = {
-	version : 12312,
+	version : 0.0.1_20220407,
+	allCityList:
 	
 }
 
 function (uniStorageData){	
-	obj.keys(uniStorageData).forEach(item=>{
+	Object.keys(uniStorageData).forEach(item=>{
 		set(item,uniStorageData[item])
 	})
 }

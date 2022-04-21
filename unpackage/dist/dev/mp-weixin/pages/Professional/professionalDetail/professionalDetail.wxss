@@ -24,59 +24,108 @@
 /* 透明度 */
 /* 文章场景相关 */
 .professionDetail.data-v-a9323b40 {
+  background-color: #00bf57;
   box-sizing: border-box;
   width: 100vw;
   min-height: 100vh;
   padding: 10px 20px;
 }
-.professionDetail .top_list.data-v-a9323b40 {
+.professionDetail .baseInfo.data-v-a9323b40 {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin-bottom: 15rpx;
 }
-.professionDetail .top_list .posName.data-v-a9323b40 {
-  font-size: 40rpx;
+.professionDetail .baseInfo .posName.data-v-a9323b40 {
+  display: flex;
+  width: 100%;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 30rpx;
 }
-.professionDetail .top_list .salary.data-v-a9323b40 {
-  font-size: 48rpx;
-  color: #00bf57;
+.professionDetail .baseInfo .posName .surpport.data-v-a9323b40 {
+  width: 200rpx;
+  color: darkcyan;
 }
-.professionDetail .top_list .center_more_list.data-v-a9323b40 {
-  font-size: 48rpx;
-  color: #00bf57;
-}
-.professionDetail .center_pos_list.data-v-a9323b40 {
+.professionDetail .baseInfo .posName .active.data-v-a9323b40 {
   display: flex;
   justify-content: space-between;
-  font-size: 24rpx;
-  color: gray;
-  margin-top: 20rpx;
+  width: 570rpx;
 }
-.professionDetail .center_com_list.data-v-a9323b40 {
+.professionDetail .baseInfo .posName .active .active_text.data-v-a9323b40 {
+  color: blue;
+}
+.professionDetail .baseInfo .posName .active .clickButton.data-v-a9323b40 {
+  color: blue;
+}
+.professionDetail .baseInfo .salary.data-v-a9323b40 {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 30rpx;
 }
-.professionDetail .center_com_list .com_left.data-v-a9323b40 {
+.professionDetail .baseInfo .salary .salary_fixed_text.data-v-a9323b40 {
+  color: darkcyan;
+  width: 200rpx;
+}
+.professionDetail .baseInfo .salary .salary_active_text.data-v-a9323b40 {
+  width: 570rpx;
+}
+.professionDetail .baseInfo .reliability.data-v-a9323b40 {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  width: 100%;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 30rpx;
 }
-.professionDetail .center_com_list .com_left .comName.data-v-a9323b40 {
-  font-size: 38rpx;
+.professionDetail .baseInfo .reliability .reliability_fixed_text.data-v-a9323b40 {
+  color: darkcyan;
+  width: 200rpx;
 }
-.professionDetail .center_com_list .com_right .center_more_list.data-v-a9323b40,
-.professionDetail .center_com_list .com_right .center_time_list.data-v-a9323b40 {
+.professionDetail .baseInfo .reliability .reliability_active_text.data-v-a9323b40 {
+  width: 570rpx;
+}
+.professionDetail .center.data-v-a9323b40 {
   display: flex;
-  justify-content: flex-end;
-  font-size: 24rpx;
-  color: gray;
-  margin-top: 20rpx;
+  flex-wrap: wrap;
 }
-.professionDetail .center_com_list .com_right .center_more_list .read_count.data-v-a9323b40,
-.professionDetail .center_com_list .com_right .center_time_list .read_count.data-v-a9323b40 {
-  margin-right: 30rpx;
+.professionDetail .center .center_content.data-v-a9323b40 {
+  display: flex;
+  width: 325rpx;
+  color: darkcyan;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 30rpx;
+  margin-right: 10rpx;
+}
+.professionDetail .quantity.data-v-a9323b40 {
+  display: flex;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 30rpx;
+}
+.professionDetail .quantity .quantity_fixed.data-v-a9323b40 {
+  color: darkcyan;
 }
 .professionDetail .remark.data-v-a9323b40 {
   box-sizing: border-box;

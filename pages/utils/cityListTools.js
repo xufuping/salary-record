@@ -110,6 +110,16 @@ const addHotCity = () =>{
 	return HOT_CITY_LIST
 }
 
+//popup城市数据结构
+const  getPopCityList = () =>{
+				const cityList = getCityListSortedByInitialLetter();
+				const useList = cityList.map(item=>({
+					letter : item.initial,
+					data : item.cityInfo.map(item=>item.city)
+				}))
+				return useList;
+			}
+
 export {
 	getCityList,
 	getCityInfoByName,
@@ -118,6 +128,7 @@ export {
 	editCityDataUsedForSerach,
 	addHotCity,
 	CITY_NOT_FOUND,
-	LETTERS
+	LETTERS,
+	getPopCityList
 };
 

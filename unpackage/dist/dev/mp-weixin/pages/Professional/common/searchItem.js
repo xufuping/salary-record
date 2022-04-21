@@ -6,16 +6,15 @@ const _sfc_main = {
     type: Number
   },
   setup(props) {
-    var _a;
-    console.log("PROPs", props.detail.salaryRange);
+    console.log("PROPs", props);
     const information = common_vendor.reactive({
       comName: props.detail.company,
-      comAddress: (_a = props.detail.city) == null ? void 0 : _a.cityName,
+      comAddress: props.detail.city.cityName,
       posName: props.detail.post,
-      posSalary: props.detail.salaryNUm,
+      posSalary: props.detail.salaryStr,
       credibility: props.detail.credibility,
-      quantity: 0,
-      releaseTime: props.detail.createTime
+      quantity: props.detail.likeCount,
+      releaseTime: "2022-4-1"
     });
     const enterDetail = () => {
       common_vendor.index.navigateTo({

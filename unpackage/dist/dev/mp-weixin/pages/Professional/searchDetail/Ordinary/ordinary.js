@@ -38,6 +38,11 @@ const data$1 = [
     id: 3,
     name: "\u4E0A\u6D77",
     active: ""
+  },
+  {
+    id: 4,
+    name: "\u676D\u5DDE",
+    active: ""
   }
 ];
 var city_list = {
@@ -75,15 +80,7 @@ const _sfc_main = {
     inputValue: String
   },
   setup(props) {
-    const getPopCityList = () => {
-      const cityList2 = pages_utils_cityListTools.getCityListSortedByInitialLetter();
-      const useList = cityList2.map((item) => ({
-        letter: item.initial,
-        data: item.cityInfo.map((item2) => item2.city)
-      }));
-      return useList;
-    };
-    const popList = getPopCityList();
+    const popList = pages_utils_cityListTools.getPopCityList();
     const searchPopupList = common_vendor.reactive([
       {
         id: 0,
@@ -231,7 +228,6 @@ const _sfc_main = {
       pushPopupRef,
       searchPopupList,
       sendInformation,
-      popList,
       open,
       detail,
       tabStatus,

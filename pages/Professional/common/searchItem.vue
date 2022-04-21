@@ -32,15 +32,16 @@
 			type: Number,
 		},
 		setup(props) {
-			console.log("PROPs",props.detail.salaryRange)
+			console.log("PROPs",props)
 			const information = reactive({
 				comName: props.detail.company,
-				comAddress: props.detail.city?.cityName,
+				comAddress: props.detail.city.cityName,
 				posName: props.detail.post,
-				posSalary: props.detail.salaryNUm,
+				posSalary: props.detail.salaryStr,
 				credibility: props.detail.credibility,
-				quantity: 0,
-				releaseTime: props.detail.createTime
+				quantity:props.detail.likeCount,
+				// releaseTime: props.detail.createTime
+				releaseTime:"2022-4-1"
 			});
 			//查看详情
 			const enterDetail = () => {

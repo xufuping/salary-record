@@ -93,6 +93,14 @@ const addHotCity = () => {
   });
   return HOT_CITY_LIST;
 };
+const getPopCityList = () => {
+  const cityList = getCityListSortedByInitialLetter();
+  const useList = cityList.map((item) => ({
+    letter: item.initial,
+    data: item.cityInfo.map((item2) => item2.city)
+  }));
+  return useList;
+};
 exports.CITY_NOT_FOUND = CITY_NOT_FOUND;
 exports.LETTERS = LETTERS;
 exports.addHotCity = addHotCity;
@@ -100,3 +108,4 @@ exports.editCityDataUsedForSerach = editCityDataUsedForSerach;
 exports.finalUsedCityList = finalUsedCityList;
 exports.getCityInfoByName = getCityInfoByName;
 exports.getCityListSortedByInitialLetter = getCityListSortedByInitialLetter;
+exports.getPopCityList = getPopCityList;
