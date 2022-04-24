@@ -55,9 +55,8 @@
 		</view>
 		<view class="footer">
 			<view class="bottom_tabelbar">
-				<navigator class="tabelbar_item active" url="../Ordinary/ordinary">普通职业
-				</navigator>
-				<navigator class="tabelbar_item" url="../Emerging/Emerging">新兴职业</navigator>
+				<view class="tabelbar_item active" @click="changePage(1)" >普通职业</view>
+				<view class="tabelbar_item" @click="changePage(2)" >新兴职业</view>
 			</view>
 		</view>
 		<!-- 选择城市 -->
@@ -113,6 +112,12 @@
 			inputValue: String
 		},
 		setup(props) {
+			//页面切换
+			const changePage = (value) =>{
+				uni.redirectTo({
+					url:value === 1 ? "../Ordinary/ordinary" : "../Emerging/Emerging"
+				})
+			}
 			
 			const popList = getPopCityList();
 
@@ -278,6 +283,7 @@
 			}
 			const selectedItem = reactive([]);
 			return {
+				changePage,
 				selSortTypeItem,
 				pushPopupRef,
 				searchPopupList,

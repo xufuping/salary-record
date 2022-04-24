@@ -53,7 +53,8 @@
         "appid" : "wx8fedb633d98dc226",
         "setting" : {
             "urlCheck" : false,
-            "checkSiteMap" : false
+            "checkSiteMap" : false,
+            "es6" : false
         },
         "usingComponents" : true,
         "devServer" : {

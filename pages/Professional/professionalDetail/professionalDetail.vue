@@ -2,58 +2,113 @@
 	<view class="professionDetail">
 		<view class="baseInfo">
 			<view class="posName" @click="searchUpper(detailData.comName)">
-				<view class="surpport">公司:</view>
+				<view class="surpport">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>公司:</view>
+				</view>
 				<view class="active">
 					<view class="active_text">{{detailData.comName}}</view>
 					<view  class="clickButton">></view>
 				</view>
 			</view>
 			<view class="posName" @click="searchUpper(detailData.comAddress)">
-				<view class="surpport">城市:</view>
+				<view class="surpport">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>城市:</view>
+				</view>
 				<view class="active">
 					<view class="active_text">{{detailData.comAddress}}</view>
 					<view  class="clickButton">></view>
 				</view>
 			</view>
 			<view class="posName" @click="searchUpper(detailData.posName)">
-				<view class="surpport">岗位:</view>
+				<view class="surpport">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>岗位:</view>
+				</view>
 				<view class="active">
 					<view class="active_text">{{detailData.posName}}</view>
 					<view  class="clickButton">></view>
 				</view>
 			</view>
 			<view class="salary">
-				<view class="salary_fixed_text">薪资:</view>
+				<view class="salary_fixed_text">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>薪资:</view>
+				</view>
 				<view class="salary_active_text">{{detailData.posSalary}}</view>
 			</view>
 			<view class="reliability">
-				<view class="reliability_fixed_text">可信度:</view>
+				<view class="reliability_fixed_text">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>可信:</view>
+				</view>
 				<view class="reliability_active_text">{{10}}</view>
 			</view>
 		</view>
 		
 		<view class="center">
 			<view class="center_content">
-				<view>行业:</view>
+				<view class="center_content_text">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>行业:</view>
+				</view>
 				<view>{{detailData.profession}}</view>
 			</view>
 			<view class="center_content">
-				<view>学历:</view>
+				<view class="center_content_text">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>学历:</view>
+				</view>
 				<view>{{detailData.education}}</view>
 			</view>
 			<view class="center_content">
-				<view>发布时间:</view>
-				<view><!-- {{detailData.releaseTime}} -->{{"2022-01-04"}}</view>
+				<view class="center_content_text">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>发布:</view>
+				</view>
+				<view><!-- {{detailData.releaseTime}} -->{{"2022.1.4"}}</view>
 			</view>
 			<view class="center_content">
-				<view>浏览量:</view>
-				<view>{{detailData.pageView}}</view>
+				<view class="center_content_text">
+					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					></image>
+					<view>浏览量:</view>
+				</view>
+				<view>{{detailData.pageView}}{{100}}</view>
 			</view>
 		</view>
 		
 		<view class="quantity">
-			<view class="quantity_fixed">点赞量:</view>
+			<view class="quantity_fixed">
+				<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+				></image>
+				<view>点赞量:</view>
+			</view>
 			<view class="quantity_active">{{detailData.quantity}}{{100}}</view>
+		</view>
+		
+		<view class="capsule">
+			<view class="capsule_upper">
+				<image  class="capsule_upper_image" src="./image/release.png"
+				></image>
+				<view class="capsule_upper_text">真实可信</view>
+			</view>
+			<view class="triangle_left"></view>
+			<view class="triangle_right"></view>
+			<view class="capsule_lower">
+				<image class="capsule_lower_image" src="./image/release.png"
+				></image>
+				<view class="capsule_lower_text">不真实</view>
+			</view>
 		</view>
 		
 		<view class="remark">
@@ -176,6 +231,8 @@
 				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
 				margin-bottom: 30rpx;
 				.surpport{
+					display: flex;
+					justify-content: space-around;
 					width: 200rpx;
 					color: darkcyan;
 
@@ -204,6 +261,8 @@
 				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
 				margin-bottom: 30rpx;
 				.salary_fixed_text{
+					display: flex;
+					justify-content: space-around;
 					color: darkcyan;
 					width: 200rpx;
 				}
@@ -223,6 +282,8 @@
 				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
 				margin-bottom: 30rpx;
 				.reliability_fixed_text{
+					display: flex;
+					justify-content: space-around;
 					color: darkcyan;
 					width: 200rpx;
 				}
@@ -247,6 +308,10 @@
 				box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
 				margin-bottom: 30rpx;
 				margin-right: 10rpx;
+				.center_content_text{
+					display: flex;
+					justify-content: space-around;
+				}
 			}
 		}
 		
@@ -259,10 +324,65 @@
 			box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
 			margin-bottom: 30rpx;
 			.quantity_fixed{
+				display: flex;
+				justify-content: space-around;
 				color: darkcyan;
 			}
 			.quantity_active{
 				
+			}
+		}
+		
+		.capsule{
+			display: flex;
+			width: 100%;
+			.capsule_upper{
+				display: flex;
+				background-color: red;
+				width: 317rpx;
+				height: 60rpx;
+				
+				.capsule_upper_image{
+					width: 40rpx; 
+					height: 40rpx;
+					margin-left: 80rpx;
+					margin-top: 10rpx;
+				}
+				.capsule_upper_text{
+					color: white;
+					margin-top: 10rpx;
+					margin-left: 10rpx;
+				}
+			}
+			.triangle_left{
+				width: 0;
+				height: 0;
+				border-bottom: 60rpx solid red;
+				border-right: 35rpx solid transparent;
+				margin-right: -17px;
+			}
+			.triangle_right{
+				width: 0;
+				height: 0;
+				border-top: 60rpx solid blue;
+				border-left: 35rpx solid transparent;
+			}
+			.capsule_lower{
+				display: flex;
+				background: blue;
+				width: 317rpx;
+				height: 60rpx;
+				.capsule_lower_image{
+					width: 40rpx;
+					height: 40rpx;
+					margin-left: 80rpx;
+					margin-top: 10rpx;
+				}
+				.capsule_lower_text{
+					color: white;
+					margin-top: 10rpx;
+					margin-left: 10rpx;
+				}
 			}
 		}
 		

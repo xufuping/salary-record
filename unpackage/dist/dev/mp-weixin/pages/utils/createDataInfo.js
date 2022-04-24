@@ -4,13 +4,15 @@ var pages_utils_utils_sendPostRequest = require("./utils/sendPostRequest.js");
 var pages_utils_route = require("./route.js");
 const createProfession = () => {
   const userCode = {
-    code: ""
+    code: "",
+    form: "WEI_XIN"
   };
   common_vendor.index.login({
     provider: "weixin",
     onlyAuthorize: true,
     success: function(loginRes) {
       console.log("loginRes.code", loginRes.code);
+      userCode.code = loginRes.code;
       const user = {
         userName: "wangdz",
         phone: 15123301497,
@@ -19,6 +21,16 @@ const createProfession = () => {
       pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.createUser, user, {
         success(res) {
           console.log("resUser", res);
+        },
+        fail() {
+        }
+      }, true);
+      pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.getUserOpenId, userCode, {
+        success(res) {
+          console.log("resOpenID", res);
+          if (res.message === "success") {
+            console.log("openID", res);
+          }
         },
         fail() {
         }

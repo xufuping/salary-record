@@ -5,13 +5,15 @@ import router from "./route.js"
 const createProfession = () =>{
 
 	const userCode = {
-		code : ''
+		code : '',
+		form:"WEI_XIN"
 	}
 	uni.login({
 	  provider: 'weixin',
 	  onlyAuthorize:true,
 	  success: function (loginRes) {
 	    console.log("loginRes.code",loginRes.code);
+		userCode.code = loginRes.code
 		const user = {
 			userName:"wangdz",
 			phone:15123301497,
@@ -20,6 +22,17 @@ const createProfession = () =>{
 		sendPostRequest(router.createUser,user,{
 			success(res) {
 				console.log('resUser',res)
+			},
+			fail() {}
+		},true)
+		
+		sendPostRequest(router.getUserOpenId,userCode,{
+			success(res) {
+				console.log("resOpenID",res)
+				if(res.message === "success"){
+					console.log("openID",res)
+				}
+				else{}
 			},
 			fail() {}
 		},true)

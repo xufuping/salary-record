@@ -48,6 +48,8 @@
   margin-bottom: 30rpx;
 }
 .professionDetail .baseInfo .posName .surpport.data-v-a9323b40 {
+  display: flex;
+  justify-content: space-around;
   width: 200rpx;
   color: darkcyan;
 }
@@ -74,6 +76,8 @@
   margin-bottom: 30rpx;
 }
 .professionDetail .baseInfo .salary .salary_fixed_text.data-v-a9323b40 {
+  display: flex;
+  justify-content: space-around;
   color: darkcyan;
   width: 200rpx;
 }
@@ -92,6 +96,8 @@
   margin-bottom: 30rpx;
 }
 .professionDetail .baseInfo .reliability .reliability_fixed_text.data-v-a9323b40 {
+  display: flex;
+  justify-content: space-around;
   color: darkcyan;
   width: 200rpx;
 }
@@ -115,6 +121,10 @@
   margin-bottom: 30rpx;
   margin-right: 10rpx;
 }
+.professionDetail .center .center_content .center_content_text.data-v-a9323b40 {
+  display: flex;
+  justify-content: space-around;
+}
 .professionDetail .quantity.data-v-a9323b40 {
   display: flex;
   box-sizing: border-box;
@@ -125,7 +135,60 @@
   margin-bottom: 30rpx;
 }
 .professionDetail .quantity .quantity_fixed.data-v-a9323b40 {
+  display: flex;
+  justify-content: space-around;
   color: darkcyan;
+}
+.professionDetail .capsule.data-v-a9323b40 {
+  display: flex;
+  width: 100%;
+}
+.professionDetail .capsule .capsule_upper.data-v-a9323b40 {
+  display: flex;
+  background-color: red;
+  width: 317rpx;
+  height: 60rpx;
+}
+.professionDetail .capsule .capsule_upper .capsule_upper_image.data-v-a9323b40 {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 80rpx;
+  margin-top: 10rpx;
+}
+.professionDetail .capsule .capsule_upper .capsule_upper_text.data-v-a9323b40 {
+  color: white;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+}
+.professionDetail .capsule .triangle_left.data-v-a9323b40 {
+  width: 0;
+  height: 0;
+  border-bottom: 60rpx solid red;
+  border-right: 35rpx solid transparent;
+  margin-right: -17px;
+}
+.professionDetail .capsule .triangle_right.data-v-a9323b40 {
+  width: 0;
+  height: 0;
+  border-top: 60rpx solid blue;
+  border-left: 35rpx solid transparent;
+}
+.professionDetail .capsule .capsule_lower.data-v-a9323b40 {
+  display: flex;
+  background: blue;
+  width: 317rpx;
+  height: 60rpx;
+}
+.professionDetail .capsule .capsule_lower .capsule_lower_image.data-v-a9323b40 {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 80rpx;
+  margin-top: 10rpx;
+}
+.professionDetail .capsule .capsule_lower .capsule_lower_text.data-v-a9323b40 {
+  color: white;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
 }
 .professionDetail .remark.data-v-a9323b40 {
   box-sizing: border-box;

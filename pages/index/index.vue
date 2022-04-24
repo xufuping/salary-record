@@ -23,13 +23,13 @@
 			<view class="item" v-for="(item,index) in content" :key="index">{{item}}</view>
 		</view>
 		<!-- <ad></ad> -->
-		<view class="footer">
+		<!-- <view class="footer">
 			<view class="bottom_tabelbar">
 				<navigator class="tabelbar_item active" url="../releaseProfessional/releaseProfessional">发布信息
 				</navigator>
 				<navigator class="tabelbar_item" url="#">薪资查询</navigator>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

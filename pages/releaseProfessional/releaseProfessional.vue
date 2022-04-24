@@ -130,12 +130,12 @@
 
     <view class="release_botton" @click="submit">点击发布</view>
 
-    <view class="bottom_tabelbar">
+    <!-- <view class="bottom_tabelbar">
       <navigator class="tabelbar_item active" url="./releaseProfessional"
         >发布信息</navigator
       >
       <navigator class="tabelbar_item" url="../index/index">薪资查询</navigator>
-    </view>
+    </view> -->
   </view>
 </template>
 
@@ -160,18 +160,41 @@ export default {
 			job.value = ''
 			store.commit("clearCity")
 			salary.value = null
+			dSalary.value = ''
+			hSalary.value = ''
 			sel_industry.value = '请选择行业'
 			job_note.value = ''
 		}
 		//切换tab
 		const tabStatus = ref(1)
 		const changeTab = (data) => {
-			tabStatus.value = data
-			clearPage()
+			if(company.value !== '' 
+			   || job.value !== ''
+			   || job_note.value !== ''
+			   || dSalary.value !== ''
+			   || hSalary.value !== ''
+			   || sel_industry.value !== '请选择行业'
+			   || salary.value !== null
+			   || storeCity.defaultCity !== '选择城市'
+			 ){
+				uni.showModal({
+					content: "此操作会清空已输入信息，确定吗？",
+					success(res) {
+						if (res.confirm) {
+									clearPage()
+									tabStatus.value = data
+								} 
+					},
+				})
+			}else{
+				clearPage()
+				tabStatus.value = data
+			}
+			
 		}
 		//公司
 		const company = ref('')
-		
+		//      || storeCity !== '选择城市'
 		//岗位
 		const job = ref('')
 		
@@ -180,7 +203,7 @@ export default {
 		
 		
 		//薪资
-		const salary = ref(0)
+		const salary = ref(null)
 		
 		//薪资范围
 		const dSalary = ref('')
@@ -198,7 +221,7 @@ export default {
 		const sel_education = ref("请选择学历")
 		const eduList = reactive(edu_list);
 		function changeEducation(e) {
-			sel_education.value = edu_list[e.detail.value]
+			sel_education.value = eduList[e.detail.value]
 		}
 		
 		//行业

@@ -2,6 +2,7 @@
 var common_vendor = require("../../../common/vendor.js");
 var pages_utils_utils_sendPostRequest = require("../../utils/utils/sendPostRequest.js");
 var pages_utils_route = require("../../utils/route.js");
+var _imports_0 = "/pages/Professional/professionalDetail/image/release.png";
 const _sfc_main = {
   props: {
     type: String,
@@ -67,21 +68,34 @@ const _sfc_main = {
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.t($setup.detailData.comName),
-    b: common_vendor.o(($event) => $setup.searchUpper($setup.detailData.comName)),
-    c: common_vendor.t($setup.detailData.comAddress),
-    d: common_vendor.o(($event) => $setup.searchUpper($setup.detailData.comAddress)),
-    e: common_vendor.t($setup.detailData.posName),
-    f: common_vendor.o(($event) => $setup.searchUpper($setup.detailData.posName)),
-    g: common_vendor.t($setup.detailData.posSalary),
-    h: common_vendor.t(10),
-    i: common_vendor.t($setup.detailData.profession),
-    j: common_vendor.t($setup.detailData.education),
-    k: common_vendor.t("2022-01-04"),
-    l: common_vendor.t($setup.detailData.pageView),
-    m: common_vendor.t($setup.detailData.quantity),
-    n: common_vendor.t(100),
-    o: common_vendor.t($setup.detailData.explain)
+    a: _imports_0,
+    b: common_vendor.t($setup.detailData.comName),
+    c: common_vendor.o(($event) => $setup.searchUpper($setup.detailData.comName)),
+    d: _imports_0,
+    e: common_vendor.t($setup.detailData.comAddress),
+    f: common_vendor.o(($event) => $setup.searchUpper($setup.detailData.comAddress)),
+    g: _imports_0,
+    h: common_vendor.t($setup.detailData.posName),
+    i: common_vendor.o(($event) => $setup.searchUpper($setup.detailData.posName)),
+    j: _imports_0,
+    k: common_vendor.t($setup.detailData.posSalary),
+    l: _imports_0,
+    m: common_vendor.t(10),
+    n: _imports_0,
+    o: common_vendor.t($setup.detailData.profession),
+    p: _imports_0,
+    q: common_vendor.t($setup.detailData.education),
+    r: _imports_0,
+    s: common_vendor.t("2022.1.4"),
+    t: _imports_0,
+    v: common_vendor.t($setup.detailData.pageView),
+    w: common_vendor.t(100),
+    x: _imports_0,
+    y: common_vendor.t($setup.detailData.quantity),
+    z: common_vendor.t(100),
+    A: _imports_0,
+    B: _imports_0,
+    C: common_vendor.t($setup.detailData.explain)
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a9323b40"]]);

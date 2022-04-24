@@ -4,12 +4,12 @@ var pages_utils_utils_sendPostRequest = require("../utils/utils/sendPostRequest.
 var pages_utils_route = require("../utils/route.js");
 var store_index = require("../../store/index.js");
 var edu_list = [
-  "\u5176\u4ED6",
-  "\u7855\u58EB\u53CA\u4EE5\u4E0A",
-  "\u672C\u79D1",
-  "\u4E13\u79D1",
+  "\u521D\u4E2D\u53CA\u4EE5\u4E0B",
   "\u9AD8\u4E2D",
-  "\u521D\u4E2D\u53CA\u4EE5\u4E0B"
+  "\u4E13\u79D1",
+  "\u672C\u79D1",
+  "\u7855\u58EB\u53CA\u4EE5\u4E0A",
+  "\u5176\u4ED6"
 ];
 var indu_list = [
   [
@@ -28,7 +28,8 @@ var indu_list = [
     "\u5176\u4ED6\u884C\u4E1A"
   ],
   [
-    "\u7F51\u7EDC\u4E3B\u64AD | \u89C6\u9891\u62CD\u6444 | \u535A\u4E3B",
+    "\u7F51\u7EDC\u4E3B\u64AD | \u535A\u4E3B",
+    "\u521B\u4E1A",
     "\u5916\u5356 | \u95EA\u9001",
     "\u4EE3\u9A7E | \u7F51\u7EA6\u8F66",
     "\u5176\u4ED6\u884C\u4E1A"
@@ -55,18 +56,32 @@ const _sfc_main = {
       job.value = "";
       store_index.store.commit("clearCity");
       salary.value = null;
+      dSalary.value = "";
+      hSalary.value = "";
       sel_industry.value = "\u8BF7\u9009\u62E9\u884C\u4E1A";
       job_note.value = "";
     };
     const tabStatus = common_vendor.ref(1);
     const changeTab = (data) => {
-      tabStatus.value = data;
-      clearPage();
+      if (company.value !== "" || job.value !== "" || job_note.value !== "" || dSalary.value !== "" || hSalary.value !== "" || sel_industry.value !== "\u8BF7\u9009\u62E9\u884C\u4E1A" || salary.value !== null || storeCity.defaultCity !== "\u9009\u62E9\u57CE\u5E02") {
+        common_vendor.index.showModal({
+          content: "\u6B64\u64CD\u4F5C\u4F1A\u6E05\u7A7A\u5DF2\u8F93\u5165\u4FE1\u606F\uFF0C\u786E\u5B9A\u5417\uFF1F",
+          success(res) {
+            if (res.confirm) {
+              clearPage();
+              tabStatus.value = data;
+            }
+          }
+        });
+      } else {
+        clearPage();
+        tabStatus.value = data;
+      }
     };
     const company = common_vendor.ref("");
     const job = common_vendor.ref("");
     const storeCity = store_index.store.state.city;
-    const salary = common_vendor.ref(0);
+    const salary = common_vendor.ref(null);
     const dSalary = common_vendor.ref("");
     const hSalary = common_vendor.ref("");
     const type_list = typeList;
@@ -77,7 +92,7 @@ const _sfc_main = {
     const sel_education = common_vendor.ref("\u8BF7\u9009\u62E9\u5B66\u5386");
     const eduList = common_vendor.reactive(edu_list);
     function changeEducation(e) {
-      sel_education.value = edu_list[e.detail.value];
+      sel_education.value = eduList[e.detail.value];
     }
     const sel_industry = common_vendor.ref("\u8BF7\u9009\u62E9\u884C\u4E1A");
     const induList = common_vendor.reactive(indu_list);

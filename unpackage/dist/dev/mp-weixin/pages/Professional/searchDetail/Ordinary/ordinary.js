@@ -80,6 +80,11 @@ const _sfc_main = {
     inputValue: String
   },
   setup(props) {
+    const changePage = (value) => {
+      common_vendor.index.redirectTo({
+        url: value === 1 ? "../Ordinary/ordinary" : "../Emerging/Emerging"
+      });
+    };
     const popList = pages_utils_cityListTools.getPopCityList();
     const searchPopupList = common_vendor.reactive([
       {
@@ -224,6 +229,7 @@ const _sfc_main = {
     };
     const selectedItem = common_vendor.reactive([]);
     return {
+      changePage,
       selSortTypeItem,
       pushPopupRef,
       searchPopupList,
@@ -314,7 +320,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.id
       };
     }),
-    k: common_vendor.f($setup.searchPopupList, (item, k0, i0) => {
+    k: common_vendor.o(($event) => $setup.changePage(1)),
+    l: common_vendor.o(($event) => $setup.changePage(2)),
+    m: common_vendor.f($setup.searchPopupList, (item, k0, i0) => {
       return {
         a: common_vendor.sr($setup.pushPopupRef, "571a6f38-2-" + i0, {
           "f": 1
@@ -332,7 +340,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       };
     }),
-    l: $setup.pushPopupRef
+    n: $setup.pushPopupRef
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-571a6f38"]]);
