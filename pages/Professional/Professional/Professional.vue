@@ -8,7 +8,7 @@
 				<view class="headerTab" :class="{headerTabLine:tabStatus===2}" @click="changeTab(2)">新兴职业</view>
 			</view>
 		</view>
-		<view class="content_search" v-if="tabStatus===2">
+		<view class="content_search_emerging" v-if="tabStatus===2">
 			<uni-collapse>
 				<uni-collapse-item title-border="none" :border="false" :show-arrow="false" >
 					<template v-slot:title>
@@ -33,8 +33,17 @@
 			</uni-collapse>
 		</view>
 		<view class="content_search">
-			<uni-easyinput v-model="inputValue" placeholder="请输入公司名称/城市/岗位" @iconClick="search" prefixIcon="search">
-			</uni-easyinput>
+			<view class="content_search_box">
+				<input
+				class="content_search_input"
+				v-model="inputValue" 
+				placeholder="请输入公司名称/城市/岗位"
+				/>
+				<view class="content_search_button">
+					<image class="content_search_img" src="../../../static/img/professional/searchicon.png"></image>
+					<view class="content_search_button_text" @click="search(inputValue)">搜索</view>
+				</view>
+			</view>
 		</view>
 		<view class="content_more">
 			<view class="more_title">
@@ -58,12 +67,13 @@
 		reactive,
 		toRaw
 	} from 'vue';
-
-	import ordinary_list from "./json/ordinary_list.json";
-	import emerging_list from "./json/emerging_list.json";
+	import {HOT_ORDINARY,HOT_EMERGING} from '../../../config/configData.js'
 
 	export default {
-		setup() {
+		props:{
+			target : Number
+		},
+		setup(props) {
 			//tab 切换
 			const tabStatus = ref(1)
 			const changeTab = (target) => {
@@ -73,8 +83,8 @@
 
 			//输入框显示
 			const inputValue = ref("");
+			
 			//热门
-
 			function selectHotOptions(list) {
 				loadingList();
 				for (let key in toRaw(moreList.value)) {
@@ -84,21 +94,23 @@
 				}
 			}
 			const moreList = reactive({});
-			const ordinaryList = reactive(ordinary_list);
-			const emergingList = reactive(emerging_list);
+			const ordinaryList = reactive(HOT_ORDINARY);
+			const emergingList = reactive(HOT_EMERGING);
 
 			function loadingList() {
 				moreList.value = tabStatus.value === 1 ? toRaw(ordinaryList.data) : toRaw(emergingList.data);
 			}
+			
+			//搜索操作
 			const search = (value) => {
-				console.log(value)
+				console.log("VALUE",value)
 				uni.navigateTo({
 					url: (tabStatus.value === 1 ? "../searchDetail/Ordinary/ordinary" :
-							"../searchDetail/Emerging/Emerging") + "?inputValue=" + (value === "prefix" ? inputValue.value : value)
+							"../searchDetail/Emerging/Emerging") + "?inputValue=" + value
 				})
 			}
+			
 			return {
-				loadingList,
 				inputValue,
 				search,
 				selectHotOptions,
@@ -115,7 +127,7 @@
 <style scoped lang="scss">
 	.professionPage {
 		box-sizing: border-box;
-		background-color: #00bf57;
+		background: linear-gradient(110.6deg, #457DEA 16.45%, rgba(93, 178, 248, 0.794338) 78.47%, rgba(197, 216, 248, 0.7) 102.08%);
 		width: 100%;
 		min-height: 100vh;
 		padding: 20rpx;
@@ -129,12 +141,17 @@
 			align-items: center;
 
 			.header_logo {
+				width: 190rpx;
+				height: 190rpx;
+				margin: 0 auto;
 				margin-top: 25rpx;
+				border-radius: 50%;
 				font-size: 60rpx;
+				background: #C4C4C4;
 			}
 
 			.header_list {
-				margin-top: 25rpx;
+				margin-top: 45rpx;
 				font-size: 24rpx;
 				display: flex;
 				flex-direction: row;
@@ -152,45 +169,101 @@
 				}
 			}
 		}
-
-		.content_search {
+		
+		.content_search_emerging{
+			display: flex;
+			margin-top: 20rpx;
 			border-radius: 8rpx;
 			overflow: hidden;
 			margin-bottom: 10px;
-
+			
+			.newJobDetail {
+			height: 80rpx;
+			line-height: 80rpx;
+			text-align: center;
+			color: #7f7f7f;
+			width: 710rpx;
+			}
+			
 			.content {
 				padding: 40rpx;
-
+			
 				.tip {
 					display: flex;
 					justify-content: center;
 					flex-wrap: wrap;
 					color: blue;
 				}
-
+			
 				.innerContent {
 					font-size: 50rpx;
 					display: flex;
 					justify-content: center;
 					flex-wrap: wrap;
-
+			
 					.detail {
 						margin-right: 50rpx;
 					}
 				}
-
+			
 				.point {
 					display: flex;
 					justify-content: center;
 					flex-wrap: wrap;
 					font-size: 75rpx;
 				}
-
+			
 				.underPoint {
 					display: flex;
 					justify-content: center;
 					flex-wrap: wrap;
 					font-size: 35rpx;
+				}
+			}
+		}
+		
+		.content_search {
+			display: flex;
+			margin-top: 20rpx;
+			border-radius: 8rpx;
+			overflow: hidden;
+			margin-bottom: 10px;
+			
+			.content_search_box{
+				display: flex;
+				justify-content: space-between;
+				background: #FFFFFF;
+				border-radius: 34px;
+				width: 750rpx;
+				
+				.content_search_input{
+					color: gray;
+					padding: 13rpx;
+					padding-left: 20rpx;
+					width: 500rpx;
+					font-size: 30rpx;
+				}
+			}
+			
+			.content_search_button{
+				display: flex;
+				justify-content: space-evenly;
+				align-items: center;
+				width: 69px;
+				height: 34px;
+				position: relative;
+				z-index: 2;
+				background: linear-gradient(270deg, #4684F8 -20.25%, rgba(77, 146, 248, 0.93541) 31.77%, rgba(93, 178, 248, 0.794338) 117.72%);
+				box-shadow: 0px 0px 4px #5E95EE;
+				border-radius: 46px;
+				
+				.content_search_img{
+					width: 32rpx;
+					height: 32rpx;
+				}
+				
+				.content_search_button_text{
+					color: white;
 				}
 			}
 		}
@@ -231,9 +304,9 @@
 				.more_list_item {
 					padding: 15rpx;
 					margin: 10rpx 20rpx;
-					border: 1rpx solid #00bf57;
-					color: #00bf57;
-					border-radius: 10rpx;
+					border: 1rpx solid #5E95EE;
+					color: #4581EA;
+					border-radius: 12rpx;
 				}
 
 				.fill_item {
@@ -252,22 +325,6 @@
 			border-radius: 10rpx;
 			box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
 			background-color: #fff;
-		}
-
-		.newJobDetail {
-			height: 80rpx;
-			line-height: 80rpx;
-			text-align: center;
-			color: #7f7f7f;
-		}
-	}
-</style>
-<style lang="scss">
-	.professionPage {
-		.content_search {
-			.is-input-border.data-v-abe12412 {
-				background-color: #fff;
-			}
 		}
 	}
 </style>

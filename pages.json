@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "薪资查询"
 			}
 		},
 		{
@@ -18,7 +18,7 @@
 		{
 			"path": "pages/Professional/Professional/Professional",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": ""
 			}
 		},
 		{
@@ -65,48 +65,21 @@
 	},
 	"tabBar": {
 		"borderStyle": "black",
-		// "backgroundColor": "#333",
 		"color": "#8F8F94",
-		"selectedColor": "#f33e54",
-		"list": [{
+		"selectedColor": "#5E95EE",
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/img/tabbar/home.png",
 				"selectedIconPath": "static/img/tabbar/homeactive.png",
 				"text": "首页"
 			},
-			// {
-			// 	"pagePath": "pages/Professional/Professional/Professional",
-			// 	"iconPath": "static/img/tabbar/guanzhu.png",
-			// 	"selectedIconPath": "static/img/tabbar/guanzhuactive.png",
-			// 	"text": "搜索"
-			// },
-			//#ifdef MP-WEIXIN
 			{
 				"pagePath": "pages/releaseProfessional/releaseProfessional",
 				"iconPath": "static/img/tabbar/add.png",
 				"selectedIconPath": "static/img/tabbar/addactive.png",
 				"text": "发布"
 			}
-			//#endif
-			// //#ifndef MP-WEIXIN
-			// {
-			// 	"pagePath": "pages/Professional/Professional/Professional",
-			// 	"iconPath": "static/img/tabbar/add.png",
-			// 	"selectedIconPath": "static/img/tabbar/addactive.png"
-			// },
-			// //#endif
-			// {
-			// 	"pagePath": "pages/Professional/common/switchCity/switchCity",
-			// 	"iconPath": "static/img/tabbar/news.png",
-			// 	"selectedIconPath": "static/img/tabbar/newsactive.png",
-			// 	"text": "消息"
-			// },
-			// {
-			// 		"pagePath": "pages/Professional/common/switchCity/switchCity",
-			// 		"iconPath": "static/img/tabbar/me.png",
-			// 		"selectedIconPath": "static/img/tabbar/meactive.png",
-			// 		"text": "我"
-			// 	}
 		]
 	}
 }

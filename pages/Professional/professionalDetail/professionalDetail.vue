@@ -3,7 +3,7 @@
 		<view class="baseInfo">
 			<view class="posName" @click="searchUpper(detailData.comName)">
 				<view class="surpport">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>公司:</view>
 				</view>
@@ -14,7 +14,7 @@
 			</view>
 			<view class="posName" @click="searchUpper(detailData.comAddress)">
 				<view class="surpport">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>城市:</view>
 				</view>
@@ -25,7 +25,7 @@
 			</view>
 			<view class="posName" @click="searchUpper(detailData.posName)">
 				<view class="surpport">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>岗位:</view>
 				</view>
@@ -36,7 +36,7 @@
 			</view>
 			<view class="salary">
 				<view class="salary_fixed_text">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>薪资:</view>
 				</view>
@@ -44,7 +44,7 @@
 			</view>
 			<view class="reliability">
 				<view class="reliability_fixed_text">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>可信:</view>
 				</view>
@@ -55,7 +55,7 @@
 		<view class="center">
 			<view class="center_content">
 				<view class="center_content_text">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>行业:</view>
 				</view>
@@ -63,7 +63,7 @@
 			</view>
 			<view class="center_content">
 				<view class="center_content_text">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>学历:</view>
 				</view>
@@ -71,44 +71,49 @@
 			</view>
 			<view class="center_content">
 				<view class="center_content_text">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>发布:</view>
 				</view>
-				<view><!-- {{detailData.releaseTime}} -->{{"2022.1.4"}}</view>
+				<view>{{detailData.releaseTime}}</view>
 			</view>
 			<view class="center_content">
 				<view class="center_content_text">
-					<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+					<image style="width: 40rpx; height: 40rpx;" src="../../../static/img/professionalDetail/qa.png"
 					></image>
 					<view>浏览量:</view>
 				</view>
-				<view>{{detailData.pageView}}{{100}}</view>
+				<view>{{detailData.pageView}}</view>
 			</view>
 		</view>
 		
 		<view class="quantity">
 			<view class="quantity_fixed">
-				<image style="width: 40rpx; height: 40rpx;" src="./image/release.png"
+				<image 
+				style="width: 40rpx; height: 40rpx;" 
+				src="../../../static/img/professionalDetail/qa.png"
+				@click="likeCount()"
 				></image>
 				<view>点赞量:</view>
 			</view>
-			<view class="quantity_active">{{detailData.quantity}}{{100}}</view>
+			<view class="quantity_active">{{detailData.quantity}}</view>
 		</view>
 		
 		<view class="capsule">
+			<view class="capsule_forhead"></view>
 			<view class="capsule_upper">
-				<image  class="capsule_upper_image" src="./image/release.png"
+				<image  class="capsule_upper_image" src="../../../static/img/professionalDetail/qa.png"
 				></image>
 				<view class="capsule_upper_text">真实可信</view>
 			</view>
 			<view class="triangle_left"></view>
 			<view class="triangle_right"></view>
 			<view class="capsule_lower">
-				<image class="capsule_lower_image" src="./image/release.png"
+				<image class="capsule_lower_image" src="../../../static/img/professionalDetail/qa.png"
 				></image>
 				<view class="capsule_lower_text">不真实</view>
 			</view>
+			<view class="capsule_behind"></view>
 		</view>
 		
 		<view class="remark">
@@ -129,51 +134,62 @@
 		reactive,
 		onMounted
 	} from "vue";
-	import sendPostRequest from "../../utils/utils/sendPostRequest.js"
-	import router from "../../utils/route.js"
+	import sendPostRequest from "../../../utils/sendPostRequest.js"
+	import router from "../../../utils/route.js"
+	
+	//测试变量导入
+	import {EMERGING,ENV} from "../../../config/MAKRDATA.js"
 
 	export default {
 		props:{
-			type:String,
-			id:String
+			type:Number,
+			id:Number
 		},
 		setup(props) {
 			onMounted(() => {
 				search();
 			})
-			const type = reactive(props.type);
+			
+			const type = ref(props.type);
 			const id = ref(props.id);
-
 			
 			function search() {
-				let data = {}
+				let data = {
+					workId:id.value
+				}
 				sendPostRequest(
-					type.value === 1 ?router.ordinaryGetAllWork : router.ordinaryGetAllWork,
+					type.value === 1 ? router.ordinaryGetDetail : router.emergingGetDetail,
 					 data, {
 						success(res) {
-							console.log("REss",res)
 							if(res.message === "success"){
-							operateData(res.data.data);
+							operateData(res.data);
 							}
-							else{}
+							else{
+								if(ENV === "self"){
+									operateData(EMERGING.data.data)
+								}
+							}
 						},
-						fail() {}
+						fail() {
+							if(ENV === "self"){
+								operateData(EMERGING.data.data)
+							}
+						}
 					},
 					true)
 			}
 
 			function operateData(data) {
-				console.log("DATA",data)
-				detailData.posName = data[0].post;//岗位
-				detailData.posSalary = data[0].salaryStr;//字符串薪资
-				detailData.comAddress = data[0].city.cityName;//城市
-				detailData.education = data[0].degree.degreeName;//学历
-				detailData.profession = data[0].profession.professionName;//行业
-				detailData.comName = data[0].company;//公司
-				detailData.releaseTime = data[0].createTime;//发布时间
-				detailData.explain = data[0].explain;//福利待遇
-				detailData.pageView = data[0].lookCount;//浏览量
-				detailData.quantity = data[0].likeCount;//点赞量
+				detailData.posName = data.post;//岗位
+				detailData.posSalary = data.salaryStr;//字符串薪资
+				detailData.comAddress = data.city.cityName;//城市
+				detailData.education = data.degree?.degreeName;//学历
+				detailData.profession = data.profession?.professionName;//行业
+				detailData.comName = data.company;//公司
+				detailData.releaseTime = data.createTime;//发布时间
+				detailData.explain = data.explain;//福利待遇
+				detailData.pageView = data.lookCount;//浏览量
+				detailData.quantity = data.likeCount;//点赞量
 			}
 			const detailData = reactive({
 				posName: null,
@@ -186,19 +202,43 @@
 				explain: null,
 			});
 			
+			//跳转路由
+			const routeOfPage = {
+				ordinary:"../searchDetail/Ordinary/ordinary",
+				emerging:"../searchDetail/Emerging/Emerging"
+			}
+			
 			const searchUpper = (value) => {
-				console.log(value)
 				uni.navigateTo({
-					url: (type.value === 1 ? "../searchDetail/Ordinary/ordinary" :
-							"../searchDetail/Emerging/Emerging") + "?inputValue=" + value
+					url: (type.value === 1 ? routeOfPage.ordinary :
+							routeOfPage.emerging) + "?inputValue=" + value 
 				})
 			}
 			
+			//点赞
+			const likeCount = () =>{
+				const like = {
+					workId:id.value,
+					likeType:"LIKE",
+					workType:type.value === 1 ? "NORMAL" : "NEW"
+				}
+				sendPostRequest(router.updateLikeNum,like,{
+					success(res) {
+						console.log("resLike",res)
+						if(res.message === "success"){
+							console.log("LIke",res)
+						}
+						else{}
+					},
+					fail() {}
+				},true)
+			}
+			
 			return {
+				likeCount,
 				searchUpper,
 				type,
 				id,
-				search,
 				operateData,
 				detailData,
 			};
@@ -336,16 +376,22 @@
 		.capsule{
 			display: flex;
 			width: 100%;
+			.capsule_forhead{
+				width: 60rpx;
+				height: 60rpx;
+				border-radius: 50% 0 0 50%;
+				background-color: red;
+			}
 			.capsule_upper{
 				display: flex;
 				background-color: red;
-				width: 317rpx;
+				width: 257rpx;
 				height: 60rpx;
 				
 				.capsule_upper_image{
 					width: 40rpx; 
 					height: 40rpx;
-					margin-left: 80rpx;
+					margin-left: 40rpx;
 					margin-top: 10rpx;
 				}
 				.capsule_upper_text{
@@ -370,12 +416,12 @@
 			.capsule_lower{
 				display: flex;
 				background: blue;
-				width: 317rpx;
+				width: 257rpx;
 				height: 60rpx;
 				.capsule_lower_image{
 					width: 40rpx;
 					height: 40rpx;
-					margin-left: 80rpx;
+					margin-left: 40rpx;
 					margin-top: 10rpx;
 				}
 				.capsule_lower_text{
@@ -383,6 +429,13 @@
 					margin-top: 10rpx;
 					margin-left: 10rpx;
 				}
+			}
+			
+			.capsule_behind{
+				width: 60rpx;
+				height: 60rpx;
+				border-radius: 0 50% 50% 0;
+				background-color: blue;
 			}
 		}
 		

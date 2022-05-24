@@ -1,16 +1,22 @@
 <template>
 	<view class="search_card_item">
 		<view class="item_label">
-			<view class="comName">{{information.comName}}</view>
-			<view class="comAddress">{{information.comAddress}}</view>
-		</view>
-		<view class="item_content">
 			<view class="posName">{{information.posName}}</view>
 			<view class="posSalary">
 				<span class="num">{{information.posSalary}}</span>
 				<span class="unit">/月</span>
 			</view>
 		</view>
+		
+		<view class="item_content">
+			<image class="company_logo"  src="../../../static/logo.png"></image>
+			<view class="comName">{{information.comName}}</view>
+		</view>
+		
+		<view class="item_address">
+			<view class="comAddress">{{information.comAddress}}</view>
+		</view>
+	
 		<view class="item_more">
 			<view class="item_more_left">
 				<view class="more_item">可信度:{{information.credibility}}</view>
@@ -32,7 +38,6 @@
 			type: Number,
 		},
 		setup(props) {
-			console.log("PROPs",props)
 			const information = reactive({
 				comName: props.detail.company,
 				comAddress: props.detail.city.cityName,
@@ -40,8 +45,7 @@
 				posSalary: props.detail.salaryStr,
 				credibility: props.detail.credibility,
 				quantity:props.detail.likeCount,
-				// releaseTime: props.detail.createTime
-				releaseTime:"2022-4-1"
+				releaseTime: props.detail.createTime
 			});
 			//查看详情
 			const enterDetail = () => {
@@ -69,38 +73,89 @@
 
 		.item_label {
 			display: flex;
-			justify-content: flex-start;
+			justify-content: space-between;
 			align-items: center;
-
-			.comName,
-			.comAddress {
-				font-size: 20rpx;
-				margin-right: 10rpx;
-				color: gray;
+			
+			.posName {
+				font-family: 'Microsoft YaHei';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 17px;
+				line-height: 135.48%;
+				letter-spacing: 0.02em;
+				color: #3A3B3D;
+			}
+			
+			.posSalary {
+				.num {
+					font-family: 'Microsoft YaHei';
+					font-style: normal;
+					font-weight: 400;
+					font-size: 17px;
+					line-height: 135.48%;
+					letter-spacing: 0.02em;
+					color: #F87933;
+				}
+			
+				.unit {
+					font-family: 'Microsoft YaHei';
+					font-style: normal;
+					font-weight: 400;
+					font-size: 17px;
+					line-height: 135.48%;
+					letter-spacing: 0.02em;
+					color: #F87933;
+				}
 			}
 		}
-
+		
+		.item_address{
+			width: 64.94px;
+			height: 14.12px;
+			background: #F4F6F9;
+			border-radius: 5px;
+			
+			.comAddress {
+				font-family: 'Microsoft YaHei';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 8px;
+				line-height: 135.48%;
+				letter-spacing: 0.02em;
+				color: #767575;
+				text-align: center;
+				margin-top: 5rpx;
+				padding-top: 5rpx;
+			}
+		}
+		
+		
 		.item_content {
 			display: flex;
-			justify-content: space-between;
+			justify-content: flex-start;
 			align-items: center;
 			margin: 15rpx 10rpx;
 			font-size: 38rpx;
-
-			.posName {
-				color: rgba(0, 0, 0, 0.7);
+			
+			.comName{
+				font-family: 'Microsoft YaHei';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 13px;
+				line-height: 135.48%;
+				letter-spacing: 0.02em;
+				color: #B8B8B8;
+				margin-left: 20rpx;
 			}
-
-			.posSalary {
-				.num {
-					color: #00bf57;
-				}
-
-				.unit {
-					font-size: 24rpx;
-					color: gray;
-				}
+			
+			.company_logo{
+				width: 38rpx;
+				height: 38rpx;
+				background: #C9B6B6;
+				border-radius: 6px;
 			}
+			
+			
 		}
 
 		.item_more {
@@ -110,10 +165,17 @@
 
 			.item_more_left {
 				display: flex;
-				justify-content: flex-start;
+				justify-content: space-between;
 				align-items: center;
-				font-size: 18rpx;
-				color: gray;
+				width: 400rpx;
+				font-family: 'Microsoft YaHei';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 8px;
+				line-height: 135.48%;
+				letter-spacing: 0.02em;
+				color: #C5C5C5;
+
 
 				.more_item {
 					margin-right: 15rpx;
@@ -121,8 +183,13 @@
 			}
 
 			.enterDetail {
-				color: rgba(0, 0, 0, 0.7);
-				font-size: 25rpx;
+				font-family: 'Microsoft YaHei';
+				font-style: normal;
+				font-weight: 400;
+				font-size: 8px;
+				line-height: 135.48%;
+				letter-spacing: 0.02em;
+				color: #C5C5C5;
 			}
 		}
 	}

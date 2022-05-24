@@ -1,54 +1,10 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-var pages_utils_utils_sendPostRequest = require("../utils/utils/sendPostRequest.js");
-var pages_utils_route = require("../utils/route.js");
+var utils_sendPostRequest = require("../../utils/sendPostRequest.js");
+var pages_releaseProfessional_constants = require("./constants.js");
+var config_typeData = require("../../config/typeData.js");
+var utils_route = require("../../utils/route.js");
 var store_index = require("../../store/index.js");
-var edu_list = [
-  "\u521D\u4E2D\u53CA\u4EE5\u4E0B",
-  "\u9AD8\u4E2D",
-  "\u4E13\u79D1",
-  "\u672C\u79D1",
-  "\u7855\u58EB\u53CA\u4EE5\u4E0A",
-  "\u5176\u4ED6"
-];
-var indu_list = [
-  [
-    "IT | \u901A\u4FE1 | \u4E92\u8054\u7F51",
-    "\u91D1\u878D",
-    "\u9500\u552E | \u5BA2\u670D | \u5E02\u573A",
-    "\u8D22\u52A1 | \u4EBA\u529B\u8D44\u6E90 | \u884C\u653F",
-    "\u9879\u76EE\u8D28\u91CF | \u9AD8\u7EA7\u7BA1\u7406",
-    "\u623F\u4EA7 | \u5EFA\u7B51 | \u7269\u4E1A\u7BA1\u7406",
-    "\u91C7\u8D2D | \u4EA4\u901A | \u8D38\u6613 | \u7269\u6D41",
-    "\u751F\u4EA7 | \u5236\u9020",
-    "\u4F20\u5A92 | \u827A\u672F | \u8BBE\u8BA1 | \u5370\u5237",
-    "\u54A8\u8BE2 | \u6CD5\u5F8B | \u6559\u80B2 | \u7FFB\u8BD1",
-    "\u670D\u52A1\u4E1A",
-    "\u80FD\u6E90\u73AF\u4FDD | \u519C\u4E1A\u79D1\u7814",
-    "\u5176\u4ED6\u884C\u4E1A"
-  ],
-  [
-    "\u7F51\u7EDC\u4E3B\u64AD | \u535A\u4E3B",
-    "\u521B\u4E1A",
-    "\u5916\u5356 | \u95EA\u9001",
-    "\u4EE3\u9A7E | \u7F51\u7EA6\u8F66",
-    "\u5176\u4ED6\u884C\u4E1A"
-  ]
-];
-var typeList = [
-  {
-    id: 1,
-    label: "\u6821\u62DB"
-  },
-  {
-    id: 2,
-    label: "\u5B9E\u4E60"
-  },
-  {
-    id: 3,
-    label: "\u793E\u62DB"
-  }
-];
 const _sfc_main = {
   setup() {
     const clearPage = () => {
@@ -58,12 +14,12 @@ const _sfc_main = {
       salary.value = null;
       dSalary.value = "";
       hSalary.value = "";
-      sel_industry.value = "\u8BF7\u9009\u62E9\u884C\u4E1A";
+      selIndustry.name = "\u8BF7\u9009\u62E9\u884C\u4E1A";
       job_note.value = "";
     };
     const tabStatus = common_vendor.ref(1);
     const changeTab = (data) => {
-      if (company.value !== "" || job.value !== "" || job_note.value !== "" || dSalary.value !== "" || hSalary.value !== "" || sel_industry.value !== "\u8BF7\u9009\u62E9\u884C\u4E1A" || salary.value !== null || storeCity.defaultCity !== "\u9009\u62E9\u57CE\u5E02") {
+      if (company.value !== "" || job.value !== "" || job_note.value !== "" || dSalary.value !== "" || hSalary.value !== "" || selIndustry.name !== "\u8BF7\u9009\u62E9\u884C\u4E1A" || salary.value !== null || storeCity.defaultCity !== "\u9009\u62E9\u57CE\u5E02") {
         common_vendor.index.showModal({
           content: "\u6B64\u64CD\u4F5C\u4F1A\u6E05\u7A7A\u5DF2\u8F93\u5165\u4FE1\u606F\uFF0C\u786E\u5B9A\u5417\uFF1F",
           success(res) {
@@ -78,31 +34,51 @@ const _sfc_main = {
         tabStatus.value = data;
       }
     };
+    const styles = {
+      borderColor: "white"
+    };
     const company = common_vendor.ref("");
     const job = common_vendor.ref("");
     const storeCity = store_index.store.state.city;
     const salary = common_vendor.ref(null);
     const dSalary = common_vendor.ref("");
     const hSalary = common_vendor.ref("");
-    const type_list = typeList;
-    const selType = common_vendor.ref(1);
+    const typelist = config_typeData.TYPE_LIST;
+    const selType = common_vendor.reactive({
+      id: 1,
+      name: ""
+    });
     const changeSelType = (data) => {
-      selType.value = data;
+      selType.id = data;
     };
-    const sel_education = common_vendor.ref("\u8BF7\u9009\u62E9\u5B66\u5386");
-    const eduList = common_vendor.reactive(edu_list);
+    const selEducation = common_vendor.reactive({
+      id: 0,
+      name: "\u8BF7\u9009\u62E9\u5B66\u5386"
+    });
+    const eduList = common_vendor.reactive(pages_releaseProfessional_constants.EDU_LIST);
     function changeEducation(e) {
-      sel_education.value = eduList[e.detail.value];
+      selEducation.name = eduList[e.detail.value].degreeName;
+      selEducation.id = eduList[e.detail.value].id;
+      console.log("selEducation.id", selEducation.id);
     }
-    const sel_industry = common_vendor.ref("\u8BF7\u9009\u62E9\u884C\u4E1A");
-    const induList = common_vendor.reactive(indu_list);
+    const selIndustry = common_vendor.reactive({
+      id: 0,
+      name: "\u8BF7\u9009\u62E9\u884C\u4E1A"
+    });
+    const induList = common_vendor.reactive(pages_releaseProfessional_constants.INDU_LIST);
     function changeIndustry(e) {
-      sel_industry.value = indu_list[tabStatus.value - 1][e.detail.value];
+      if (tabStatus.value === 1) {
+        selIndustry.name = induList.ordinary[e.detail.value].industry;
+        selIndustry.id = induList.ordinary[e.detail.value].id;
+      } else {
+        selIndustry.name = induList.emerging[e.detail.value].industry;
+        selIndustry.id = induList.emerging[e.detail.value].id;
+      }
     }
     const job_note = common_vendor.ref("");
     function showDetail() {
       common_vendor.index.showModal({
-        content: "\u4E25\u7981\u53D1\u5E03\u4E0D\u826F\u4FE1\u606F\uFF0C\u8FDD\u6CD5\u5FC5\u7A76\r\n\u6240\u6709\u6570\u636E\u672A\u7ECF\u5141\u8BB8\u4E0D\u5F97\u76D7\u7528\uFF0C\u4FB5\u6743\u5FC5\u7A76\r\n\u4FE1\u606F\u5747\u4E3A\u7528\u6237\u81EA\u613F\u5171\u4EAB\u53D1\u5E03\r\n\u5E0C\u671B\u5927\u5BB6\u80FD\u81EA\u89C9\u9075\u5B88\u58F0\u660E",
+        content: "\u4E25\u7981\u53D1\u5E03\u4E0D\u826F\u4FE1\u606F\uFF0C\u8FDD\u6CD5\u5FC5\u7A76\r\r\n\u6240\u6709\u6570\u636E\u672A\u7ECF\u5141\u8BB8\u4E0D\u5F97\u76D7\u7528\uFF0C\u4FB5\u6743\u5FC5\u7A76\r\n\u4FE1\u606F\u5747\u4E3A\u7528\u6237\u81EA\u613F\u5171\u4EAB\u53D1\u5E03\r\n\u5E0C\u671B\u5927\u5BB6\u80FD\u81EA\u89C9\u9075\u5B88\u58F0\u660E",
         showCancel: false
       });
     }
@@ -126,14 +102,14 @@ const _sfc_main = {
                 salaryNUm: parseInt(salary.value),
                 salaryStr: salary.value,
                 salaryRange: dSalary.value + hSalary.value,
-                type: tabStatus.value === 1 ? selType.value : 0,
-                degree: 1,
-                profession: tabStatus.value,
-                openId: "13334521234",
+                type: tabStatus.value === 1 ? selType.id : 0,
+                degree: selEducation.id,
+                profession: selIndustry.id,
+                openid: "53de05c8582341ad9a8a967f4baf00bc",
                 from: "WEI_XIN",
                 explain: job_note.value
               };
-              pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.ordinaryPublish, sendInformation, {
+              utils_sendPostRequest.sendPostRequest(utils_route.router.ordinaryPublish, sendInformation, {
                 success() {
                   common_vendor.index.showModal({
                     content: "\u63D0\u4EA4\u6210\u529F\uFF01",
@@ -160,12 +136,12 @@ const _sfc_main = {
                 salaryNUm: parseInt(salary.value),
                 salaryStr: salary.value,
                 salaryRange: dSalary.value + hSalary.value,
-                profession: tabStatus.value,
-                openId: "13334521234",
+                profession: selIndustry.id,
+                openid: "53de05c8582341ad9a8a967f4baf00bc",
                 from: "WEI_XIN",
                 explain: job_note.value
               };
-              pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.emergingPublish, sendInformation, {
+              utils_sendPostRequest.sendPostRequest(utils_route.router.emergingPublish, sendInformation, {
                 success() {
                   common_vendor.index.showModal({
                     content: "\u63D0\u4EA4\u6210\u529F\uFF01",
@@ -185,6 +161,7 @@ const _sfc_main = {
     common_vendor.onMounted(() => {
     });
     return {
+      styles,
       dSalary,
       hSalary,
       storeCity,
@@ -193,12 +170,12 @@ const _sfc_main = {
       job,
       tabStatus,
       changeTab,
-      type_list,
+      typelist,
       job_note,
       selType,
       changeSelType,
-      sel_education,
-      sel_industry,
+      selEducation,
+      selIndustry,
       changeEducation,
       changeIndustry,
       submit,
@@ -225,17 +202,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: common_vendor.o(($event) => $setup.company = $event),
     f: common_vendor.p({
       placeholder: $setup.tabStatus === 1 ? "\u8BF7\u8F93\u5165\u516C\u53F8\u540D\u79F0" : "\u5FEB\u9012\u516C\u53F8/\u7F8E\u56E2/\u6296\u97F3",
+      styles: $setup.styles,
       modelValue: $setup.company
     }),
     g: common_vendor.o(($event) => $setup.job = $event),
     h: common_vendor.p({
       placeholder: $setup.tabStatus === 1 ? "\u8F93\u5165\u5C97\u4F4D\u540D\u79F0" : "\u5916\u5356/\u5FEB\u9012/\u76F4\u64AD/\u7F51\u7EA6\u8F66",
+      styles: $setup.styles,
       modelValue: $setup.job
     }),
     i: common_vendor.o(($event) => $setup.salary = $event),
     j: common_vendor.p({
-      type: "number",
       placeholder: "\u5982:28W\u6216\u800514*13",
+      styles: $setup.styles,
       modelValue: $setup.salary
     }),
     k: common_vendor.o(($event) => $setup.dSalary = $event),
@@ -250,36 +229,35 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     o: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    p: common_vendor.f($setup.type_list, (item, k0, i0) => {
+    p: common_vendor.f($setup.typelist, (item, k0, i0) => {
       return {
-        a: common_vendor.t(item.label),
+        a: common_vendor.t(item.name),
         b: item.id,
-        c: $setup.selType === item.id ? 1 : "",
+        c: $setup.selType.id === item.id ? 1 : "",
         d: common_vendor.o(($event) => $setup.changeSelType(item.id), item.id)
       };
     })
   } : {}, {
     q: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    r: common_vendor.t($setup.sel_education),
+    r: common_vendor.t($setup.selEducation.name),
     s: common_vendor.o((...args) => $setup.changeEducation && $setup.changeEducation(...args)),
-    t: _ctx.index,
-    v: $setup.eduList
+    t: $setup.eduList
   } : {}, {
-    w: common_vendor.t($setup.sel_industry),
-    x: common_vendor.o((...args) => $setup.changeIndustry && $setup.changeIndustry(...args)),
-    y: _ctx.index,
-    z: $setup.tabStatus === 1 ? $setup.induList[0] : $setup.induList[1],
-    A: common_vendor.t($setup.storeCity.defaultCity),
-    B: common_vendor.o(($event) => $setup.job_note = $event),
-    C: common_vendor.p({
+    v: common_vendor.t($setup.selIndustry.name),
+    w: common_vendor.o((...args) => $setup.changeIndustry && $setup.changeIndustry(...args)),
+    x: $setup.tabStatus === 1 ? $setup.induList.ordinary : $setup.induList.emerging,
+    y: common_vendor.t($setup.storeCity.defaultCity),
+    z: common_vendor.o(($event) => $setup.job_note = $event),
+    A: common_vendor.p({
       type: "textarea",
       placeholder: "\u53EF\u586B\u5199\u5DE5\u4F5C\u8BE6\u7EC6\u4FE1\u606F,\u5982\u798F\u5229\u8865\u8D34,\u798F\u5229\u5F85\u9047\u7B49",
+      styles: $setup.styles,
       modelValue: $setup.job_note
     }),
-    D: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
-    E: common_vendor.o((...args) => $setup.submit && $setup.submit(...args))
+    B: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
+    C: common_vendor.o((...args) => $setup.submit && $setup.submit(...args))
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ce65f5b8"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ce65f5b8"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/releaseProfessional/releaseProfessional.vue"]]);
 wx.createPage(MiniProgramPage);

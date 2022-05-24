@@ -112,5 +112,5 @@ const _sfc_main = {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {};
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/uni_modules/uni-collapse/components/uni-collapse/uni-collapse.vue"]]);
 wx.createComponent(Component);

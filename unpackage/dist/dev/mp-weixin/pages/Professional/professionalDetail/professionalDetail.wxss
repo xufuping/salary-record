@@ -143,16 +143,22 @@
   display: flex;
   width: 100%;
 }
+.professionDetail .capsule .capsule_forhead.data-v-a9323b40 {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50% 0 0 50%;
+  background-color: red;
+}
 .professionDetail .capsule .capsule_upper.data-v-a9323b40 {
   display: flex;
   background-color: red;
-  width: 317rpx;
+  width: 257rpx;
   height: 60rpx;
 }
 .professionDetail .capsule .capsule_upper .capsule_upper_image.data-v-a9323b40 {
   width: 40rpx;
   height: 40rpx;
-  margin-left: 80rpx;
+  margin-left: 40rpx;
   margin-top: 10rpx;
 }
 .professionDetail .capsule .capsule_upper .capsule_upper_text.data-v-a9323b40 {
@@ -176,19 +182,25 @@
 .professionDetail .capsule .capsule_lower.data-v-a9323b40 {
   display: flex;
   background: blue;
-  width: 317rpx;
+  width: 257rpx;
   height: 60rpx;
 }
 .professionDetail .capsule .capsule_lower .capsule_lower_image.data-v-a9323b40 {
   width: 40rpx;
   height: 40rpx;
-  margin-left: 80rpx;
+  margin-left: 40rpx;
   margin-top: 10rpx;
 }
 .professionDetail .capsule .capsule_lower .capsule_lower_text.data-v-a9323b40 {
   color: white;
   margin-top: 10rpx;
   margin-left: 10rpx;
+}
+.professionDetail .capsule .capsule_behind.data-v-a9323b40 {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 0 50% 50% 0;
+  background-color: blue;
 }
 .professionDetail .remark.data-v-a9323b40 {
   box-sizing: border-box;

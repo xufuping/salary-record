@@ -1,76 +1,15 @@
 "use strict";
 var common_vendor = require("../../../../common/vendor.js");
-var pages_utils_utils_sendPostRequest = require("../../../utils/utils/sendPostRequest.js");
-var pages_utils_route = require("../../../utils/route.js");
-var pages_utils_cityListTools = require("../../../utils/cityListTools.js");
-const data$2 = [
-  {
-    id: 1,
-    name: "\u5B9E\u4E60",
-    active: ""
-  },
-  {
-    id: 2,
-    name: "\u6821\u62DB",
-    active: ""
-  },
-  {
-    id: 3,
-    name: "\u793E\u62DB",
-    active: ""
-  }
-];
-var type_list = {
-  data: data$2
-};
-const data$1 = [
-  {
-    id: 1,
-    name: "\u91CD\u5E86",
-    active: ""
-  },
-  {
-    id: 2,
-    name: "\u5317\u4EAC",
-    active: ""
-  },
-  {
-    id: 3,
-    name: "\u4E0A\u6D77",
-    active: ""
-  },
-  {
-    id: 4,
-    name: "\u676D\u5DDE",
-    active: ""
-  }
-];
-var city_list = {
-  data: data$1
-};
-const data = [
-  {
-    id: 1,
-    name: "\u91D1\u878D",
-    active: ""
-  },
-  {
-    id: 2,
-    name: "IT",
-    active: ""
-  },
-  {
-    id: 3,
-    name: "\u6559\u80B2",
-    active: ""
-  }
-];
-var job_list = {
-  data
-};
+var config_typeData = require("../../../../config/typeData.js");
+var config_configData = require("../../../../config/configData.js");
+var utils_cityListTools = require("../../../../utils/cityListTools.js");
+var pages_Professional_searchDetail_Ordinary_constants = require("./constants.js");
+var utils_sendPostRequest = require("../../../../utils/sendPostRequest.js");
+var utils_route = require("../../../../utils/route.js");
+var config_MAKRDATA = require("../../../../config/MAKRDATA.js");
+require("../../../../config/allCityData.js");
 const searchItem = () => "../../common/searchItem.js";
 const searchPopup = () => "../../common/SearchPopup.js";
-const selSortType = ["\u6309\u65F6\u95F4\u6392\u5E8F", "\u6309\u70B9\u8D5E\u6570\u6392\u5E8F", "\u6309\u53EF\u4FE1\u5EA6\u6392\u5E8F"];
 const _sfc_main = {
   components: {
     searchItem,
@@ -80,12 +19,23 @@ const _sfc_main = {
     inputValue: String
   },
   setup(props) {
+    common_vendor.onMounted(() => {
+      search();
+    });
+    const seledType = common_vendor.reactive({
+      type: "active"
+    });
     const changePage = (value) => {
-      common_vendor.index.redirectTo({
-        url: value === 1 ? "../Ordinary/ordinary" : "../Emerging/Emerging"
-      });
+      if (value === 1) {
+        return;
+      } else {
+        seledType.type = "";
+        common_vendor.index.redirectTo({
+          url: "../Emerging/Emerging"
+        });
+      }
     };
-    const popList = pages_utils_cityListTools.getPopCityList();
+    const popList = utils_cityListTools.getPopCityList();
     const searchPopupList = common_vendor.reactive([
       {
         id: 0,
@@ -93,11 +43,11 @@ const _sfc_main = {
         showIndexedList: false,
         comBoxList: ["\u91CD\u5E86", "\u5357\u4EAC", "\u5317\u4EAC", "\u4E0A\u6D77", "\u56DB\u5DDD", "\u6210\u90FD", "\u6C99\u576A\u575D"],
         indexedList: popList,
-        changeShowIndexedList: (data2, index2) => {
-          searchPopupList[index2].showIndexedList = data2;
+        changeShowIndexedList: (data, index2) => {
+          searchPopupList[index2].showIndexedList = data;
         },
-        getResult: (data2, index2) => {
-          console.log("data", data2, index2);
+        getResult: (data, index2) => {
+          console.log("data", data, index2);
         }
       },
       {
@@ -109,31 +59,37 @@ const _sfc_main = {
           name: "123"
         }],
         indexedList: popList,
-        changeShowIndexedList: (data2, index2) => {
-          searchPopupList[index2].showIndexedList = data2;
+        changeShowIndexedList: (data, index2) => {
+          searchPopupList[index2].showIndexedList = data;
         },
-        getResult: (data2) => {
-          console.log("data", data2, index);
+        getResult: (data) => {
+          console.log("data", data, index);
         }
       }
     ]);
-    const selSortTypeItem = selSortType;
-    common_vendor.onMounted(() => {
-      showAll();
+    const detail = common_vendor.reactive({
+      data: []
     });
-    const tabStatus = common_vendor.ref(1);
-    const changeTab = (target) => {
-      tabStatus.value = target;
-    };
+    const selSortTypeItem = pages_Professional_searchDetail_Ordinary_constants.selSortType;
+    const tabTarget = common_vendor.reactive({
+      order: ""
+    });
     const sendInformation = common_vendor.reactive({
       information: props.inputValue,
-      city: 0,
+      city: [],
       type: "",
       profession: "",
-      order: tabStatus.value,
+      order: "",
       currentPage: 1,
       pageSize: 10
     });
+    const changeTabTarget = (target = "") => {
+      if (tabTarget.order === target)
+        return;
+      tabTarget.order = target;
+      sendInformation.order = target;
+      search();
+    };
     const showCollapse = common_vendor.ref(false);
     const closeCollapse = () => {
       showCollapse.value = false;
@@ -147,88 +103,85 @@ const _sfc_main = {
     const changeList = () => {
       showList.value = !showList.value;
     };
-    function chooseType(typeId) {
-      for (let i = 0; i < typeList.data.length; i++) {
-        typeList.data[i].active = "";
+    function chooseType(typeInfo) {
+      if (type.id !== typeInfo.id) {
+        sendInformation.type = typeInfo.id;
+        type.id = typeInfo.id;
+        search();
+      } else {
+        type.id = 0;
       }
-      typeList.data[typeId - 1].active = "active";
-      sendInformation.type = typeId;
-      console.log(typeId);
     }
-    function chooseCity(cityId) {
-      sendInformation.city = cityId;
-      for (let i = 0; i < cityList.data.length; i++) {
-        cityList.data[i].active = "";
+    function chooseCity(cityCode) {
+      if (cityClassID.id !== cityCode) {
+        sendInformation.city = cityCode;
+        cityClassID.id = cityCode;
+        search();
+      } else {
+        cityClassID.id = 0;
       }
-      cityList.data[cityId - 1].active = "active";
     }
     function chooseJob(jobId) {
-      sendInformation.profession = jobId;
-      for (let i = 0; i < jobList.data.length; i++) {
-        jobList.data[i].active = "";
+      if (jobClassID.id !== jobId) {
+        sendInformation.profession = jobId;
+        jobClassID.id = jobId;
+        search();
+      } else {
+        jobClassID.id = 0;
       }
-      jobList.data[jobId - 1].active = "active";
     }
-    const typeList = common_vendor.reactive(type_list);
-    const cityList = common_vendor.reactive(city_list);
-    const jobList = common_vendor.reactive(job_list);
-    const dataAll = {
-      currentPage: 1,
-      pageSize: 5
-    };
-    function showAll() {
-      pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.ordinaryGetAllWork, dataAll, {
-        success(res) {
-          if (res.message === "success") {
-            operateData(res.data.data);
-          }
-        },
-        fail() {
-        }
-      }, true);
-    }
+    const type = common_vendor.reactive({ id: 0 });
+    const typeList = common_vendor.reactive(config_typeData.TYPE_LIST);
+    const cityClassID = common_vendor.reactive({ id: 0 });
+    const cityList = common_vendor.reactive(utils_cityListTools.addHotCity(config_configData.SCREEN_CITY));
+    const jobClassID = common_vendor.reactive({ id: 0 });
+    const jobList = common_vendor.reactive(pages_Professional_searchDetail_Ordinary_constants.JOB_LIST);
     function search() {
-      let data2 = {};
+      detail.data = [];
+      let data = {};
       if (sendInformation.information)
-        data2.information = sendInformation.information;
-      if (tabTarget.value)
-        data2.order = tabTarget.value;
-      pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.ordinaryGetActicleList, data2, {
+        data.information = sendInformation.information;
+      if (tabTarget.order)
+        data.order = sendInformation.order;
+      utils_sendPostRequest.sendPostRequest(utils_route.router.ordinaryGetActicleList, data, {
         success(res) {
           if (res.message === "success") {
             operateData(res.data.data);
+          } else {
+            {
+              operateData(config_MAKRDATA.ORDINARY.data.data);
+            }
           }
         },
         fail() {
+          {
+            operateData(config_MAKRDATA.ORDINARY.data.data);
+          }
         }
       }, true);
     }
-    function operateData(data2) {
+    function operateData(info) {
+      console.log("info", info);
       detail.data = [];
-      data2.forEach((item) => {
+      Array.isArray(info) && info.forEach((item) => {
         detail.data.push(item);
       });
     }
-    const tabTarget = common_vendor.ref(1);
-    const changeTabTarget = (target) => {
-      tabTarget.value = target;
-      search();
-    };
-    let detail = common_vendor.reactive({
-      data: []
-    });
     const PopupRefList = common_vendor.reactive([]);
     const pushPopupRef = (e) => {
       if (e)
         PopupRefList.push(e);
     };
-    const open = (data2) => {
-      console.log(PopupRefList);
-      searchPopupList[data2].showIndexedList = true;
-      PopupRefList[data2].popup.open("bottom");
+    const open = (data) => {
+      console.log("PopupRefList", PopupRefList);
+      searchPopupList[data].showIndexedList = true;
+      PopupRefList[data].popup.open("bottom");
     };
-    const selectedItem = common_vendor.reactive([]);
     return {
+      seledType,
+      type,
+      cityClassID,
+      jobClassID,
       changePage,
       selSortTypeItem,
       pushPopupRef,
@@ -236,7 +189,6 @@ const _sfc_main = {
       sendInformation,
       open,
       detail,
-      tabStatus,
       changeList,
       chooseType,
       chooseCity,
@@ -245,15 +197,13 @@ const _sfc_main = {
       typeList,
       cityList,
       jobList,
-      changeTab,
       showCollapse,
       closeCollapse,
       openCollapse,
       tabTarget,
       changeTabTarget,
       search,
-      operateData,
-      selectedItem
+      operateData
     };
   }
 };
@@ -276,41 +226,39 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       prefixIcon: "search",
       modelValue: $setup.sendInformation.information
     }),
-    d: common_vendor.f($setup.typeList.data, (item, k0, i0) => {
+    d: common_vendor.f($setup.typeList, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.name),
-        b: common_vendor.n(item.active),
+        b: ($setup.type.id === item.id ? true : false) ? 1 : "",
         c: item.id,
-        d: common_vendor.o(($event) => $setup.chooseType(item.id), item.id)
+        d: common_vendor.o(($event) => $setup.chooseType(item), item.id)
       };
     }),
-    e: common_vendor.f($setup.cityList.data, (item, k0, i0) => {
+    e: common_vendor.f($setup.cityList, (item, k0, i0) => {
       return {
-        a: common_vendor.t(item.name),
-        b: common_vendor.n(item.active),
-        c: item.id,
-        d: common_vendor.o(($event) => $setup.chooseCity(item.id), item.id)
+        a: common_vendor.t(item.city),
+        b: ($setup.cityClassID.id === item.cityCode ? true : false) ? 1 : "",
+        c: item.cityCode,
+        d: common_vendor.o(($event) => $setup.chooseCity(item.cityCode), item.cityCode)
       };
     }),
-    f: common_vendor.o(($event) => $setup.open(0)),
-    g: common_vendor.f($setup.jobList.data, (item, k0, i0) => {
+    f: common_vendor.f($setup.jobList.data, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.name),
-        b: common_vendor.n(item.active),
+        b: ($setup.jobClassID.id === item.id ? true : false) ? 1 : "",
         c: item.id,
         d: common_vendor.o(($event) => $setup.chooseJob(item.id), item.id)
       };
     }),
-    h: common_vendor.o(($event) => $setup.open(1)),
-    i: common_vendor.f($setup.selSortTypeItem, (item, k0, i0) => {
+    g: common_vendor.f($setup.selSortTypeItem, (item, k0, i0) => {
       return {
-        a: common_vendor.t(item),
-        b: item,
-        c: $setup.tabTarget === item ? 1 : "",
-        d: common_vendor.o(($event) => $setup.changeTabTarget(item))
+        a: common_vendor.t(item.sortType),
+        b: item.order,
+        c: $setup.tabTarget.order === item.order ? 1 : "",
+        d: common_vendor.o(($event) => $setup.changeTabTarget(item.order), item.order)
       };
     }),
-    j: common_vendor.f($setup.detail.data, (item, k0, i0) => {
+    h: common_vendor.f($setup.detail.data, (item, k0, i0) => {
       return {
         a: "571a6f38-1-" + i0,
         b: common_vendor.p({
@@ -320,9 +268,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.id
       };
     }),
-    k: common_vendor.o(($event) => $setup.changePage(1)),
-    l: common_vendor.o(($event) => $setup.changePage(2)),
-    m: common_vendor.f($setup.searchPopupList, (item, k0, i0) => {
+    i: common_vendor.n($setup.seledType.type),
+    j: common_vendor.o(($event) => $setup.changePage(1)),
+    k: common_vendor.o(($event) => $setup.changePage(2)),
+    l: common_vendor.f($setup.searchPopupList, (item, k0, i0) => {
       return {
         a: common_vendor.sr($setup.pushPopupRef, "571a6f38-2-" + i0, {
           "f": 1
@@ -340,8 +289,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       };
     }),
-    n: $setup.pushPopupRef
+    m: $setup.pushPopupRef
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-571a6f38"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-571a6f38"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/Professional/searchDetail/Ordinary/ordinary.vue"]]);
 wx.createPage(MiniProgramPage);

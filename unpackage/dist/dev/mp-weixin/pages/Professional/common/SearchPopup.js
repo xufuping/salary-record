@@ -18,7 +18,6 @@ const _sfc_main = {
       inpValueTime = setTimeout(() => {
         if (inpValue.value && !selList.includes(inpValue.value))
           selList.push(inpValue.value);
-        console.log("inpValue", inpValue.value);
         inpValueTime = null;
       }, 500);
     };
@@ -27,7 +26,6 @@ const _sfc_main = {
       selList.splice(selList.indexOf(target), 1);
     };
     const getIndexedList = (e) => {
-      console.log("e", e.select);
       e.select.forEach((item) => {
         if (!selList.some((target) => item.name === target))
           selList.push(item.name);
@@ -105,5 +103,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/Professional/common/SearchPopup.vue"]]);
 wx.createComponent(Component);

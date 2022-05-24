@@ -1,19 +1,21 @@
 "use strict";
 var common_vendor = require("../../../../common/vendor.js");
-var pages_Professional_common_switchCity_commonMessageZhCn = require("./commonMessageZhCn.js");
-var pages_utils_autoPredictor = require("../../../utils/autoPredictor.js");
-var pages_utils_utils = require("../../../utils/utils.js");
+var pages_Professional_common_switchCity_constants = require("./constants.js");
+var utils_autoPredictor = require("../../../../utils/autoPredictor.js");
+var utils_toolsFnAndGetPosition = require("../../../../utils/toolsFnAndGetPosition.js");
 var store_index = require("../../../../store/index.js");
-var pages_utils_cityListTools = require("../../../utils/cityListTools.js");
-require("../../../utils/utils/sendPostRequest.js");
-require("../../../utils/route.js");
+var config_configData = require("../../../../config/configData.js");
+var utils_cityListTools = require("../../../../utils/cityListTools.js");
+require("../../../../utils/sendPostRequest.js");
+require("../../../../utils/route.js");
+require("../../../../config/allCityData.js");
 const {
   isNotEmpty,
   safeGet,
   getLocationUrl,
   getCountyListUrl,
   onFail
-} = pages_utils_utils.utils;
+} = utils_toolsFnAndGetPosition.utils;
 const _sfc_main = {
   setup() {
     const sideBarLetterList = common_vendor.reactive({
@@ -23,13 +25,13 @@ const _sfc_main = {
     const cityList = common_vendor.reactive({
       data: []
     });
-    const HOT_CITY_LIST = pages_utils_cityListTools.addHotCity();
+    const HOT_CITY_LIST = utils_cityListTools.addHotCity(config_configData.SET_HOT_LIST);
     const hotCityList = common_vendor.reactive(HOT_CITY_LIST);
     const showChosenLetterToast = common_vendor.ref(false);
     const scrollTopId = common_vendor.ref("");
     const city = common_vendor.reactive({
       code: 0,
-      seledCity: pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.getting"]
+      seledCity: pages_Professional_common_switchCity_constants.COMMON_MESSAGE["location.getting"]
     });
     const inputName = common_vendor.ref("");
     const completeList = common_vendor.reactive({
@@ -41,12 +43,12 @@ const _sfc_main = {
       common_vendor.index.request({
         url: getLocationUrl(latitude, longitude),
         success: (res) => {
-          const compareCity = pages_utils_cityListTools.getCityInfoByName(res.data.result.ad_info.city);
+          const compareCity = utils_cityListTools.getCityInfoByName(res.data.result.ad_info.city);
           if (compareCity) {
             city.seledCity = compareCity[0].city;
             city.code = compareCity[0].cityCode;
           } else {
-            city.seledCity = pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.noCompareCity.fail"];
+            city.seledCity = pages_Professional_common_switchCity_constants.COMMON_MESSAGE["location.noCompareCity.fail"];
           }
         }
       });
@@ -59,12 +61,12 @@ const _sfc_main = {
           getLocationFromGeoCoord(res);
         },
         fail: function() {
-          onFail(pages_Professional_common_switchCity_commonMessageZhCn.commonMessage["location.city.fail"]);
+          onFail(pages_Professional_common_switchCity_constants.COMMON_MESSAGE["location.city.fail"]);
         }
       });
     };
     common_vendor.onMounted(() => {
-      const cityListSortedByInitialLetter = pages_utils_cityListTools.getCityListSortedByInitialLetter();
+      const cityListSortedByInitialLetter = utils_cityListTools.getCityListSortedByInitialLetter();
       let sysInfo;
       common_vendor.index.getSystemInfo({
         success: (e) => {
@@ -72,7 +74,7 @@ const _sfc_main = {
         }
       });
       const winHeight = sysInfo.windowHeight;
-      const sideBarLetterListValue = pages_utils_cityListTools.LETTERS.map((letter) => ({ name: letter }));
+      const sideBarLetterListValue = utils_cityListTools.LETTERS.map((letter) => ({ name: letter }));
       windowHeight.value = winHeight;
       sideBarLetterList.data = sideBarLetterListValue;
       cityList.data = cityListSortedByInitialLetter;
@@ -111,7 +113,7 @@ const _sfc_main = {
       completeList.data = [];
     };
     const useAutoPredictor = (content) => {
-      let autoPredictor = new pages_utils_autoPredictor.AutoPredictor(content);
+      let autoPredictor = new utils_autoPredictor.AutoPredictor(content);
       let completeListValue = autoPredictor.associativeSearch();
       completeList.data = completeListValue;
     };
@@ -192,5 +194,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: $setup.windowHeight + "px"
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/Professional/common/switchCity/switchCity.vue"]]);
 wx.createPage(MiniProgramPage);

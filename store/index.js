@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 const store = createStore({
-	state:{//存放状态
+	state:{
+		//存放状态
 		city:{
 			defaultCityID:0,
 			defaultCity:"选择城市"

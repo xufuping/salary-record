@@ -41,7 +41,6 @@
 				if(inpValueTime!==null) clearTimeout(inpValueTime)
 				inpValueTime=setTimeout(()=>{
 					if(inpValue.value&&!selList.includes(inpValue.value)) selList.push(inpValue.value)
-					console.log('inpValue',inpValue.value)
 					inpValueTime=null
 				},500)
 			}
@@ -54,7 +53,6 @@
 			
 			//列表选择
 			const getIndexedList=(e)=>{
-				console.log('e',e.select)
 				e.select.forEach(item=>{
 					if(!selList.some(target=>item.name===target)) selList.push(item.name)
 				})

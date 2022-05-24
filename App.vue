@@ -1,5 +1,5 @@
 <script> 
-	import {finalUsedCityList}  from './pages/utils/cityListTools.js'
+	import {finalUsedCityList}  from './utils/cityListTools.js'
 	
 	export default {
 		onLaunch: function() {

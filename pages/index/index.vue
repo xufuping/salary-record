@@ -1,21 +1,20 @@
 <template>
 	<view class="indexPage">
 		<view class="header">
-			<view class="headLogo">SALARY SHOW</view>
+			<!-- <view class="headLogo">SALARY SHOW</view> -->
 			<view class="headselect">
-				<view @click="enter" class="salary">薪资查询</view>
-				<!-- 1-普通职业 2-新兴职业 -->
+				<view @click="enter" class="salary">请选择您想要查询的职位:</view>
 				<view class="outer">
-					<view @click="enterProfessional(1)" class="item">
-						<text>普通职业</text>
-						<text class="info">打工人</text>
+					<view @click="enterProfessional(1)" class="item_ordinary">
+						<image class="image" src="../../static/img/index/ordinary.png"></image>
+						<view class="info">普通职业打工人</view>
 					</view>
-					<view @click="enterProfessional(2)" class="item">
-						<text>新兴职业</text>
-						<text class="info">创新者</text>
+					<view class="item_line"></view>
+					<view @click="enterProfessional(2)" class="item_emerging">
+						<image class="image" src="../../static/img/index/emerging.png"></image>
+						<view class="info">新兴职业创新者</view>
 					</view>
-					<!-- <view>{{a}}11</view> -->
-					<button @login = 'createProfession' @getphonenumber = 'getPhoneNumber' open-type="getPhoneNumber">login</button>
+					<!-- <button @login = 'createProfession' @getphonenumber = 'getPhoneNumber' open-type="getPhoneNumber">login</button> -->
 				</view>
 			</view>
 		</view>
@@ -23,13 +22,6 @@
 			<view class="item" v-for="(item,index) in content" :key="index">{{item}}</view>
 		</view>
 		<!-- <ad></ad> -->
-		<!-- <view class="footer">
-			<view class="bottom_tabelbar">
-				<navigator class="tabelbar_item active" url="../releaseProfessional/releaseProfessional">发布信息
-				</navigator>
-				<navigator class="tabelbar_item" url="#">薪资查询</navigator>
-			</view>
-		</view> -->
 	</view>
 </template>
 
@@ -38,12 +30,13 @@
 		ref,reactive
 	} from 'vue';
 	//import item from "./json/item.json";
-	import {createProfession,getAllProfession} from "../utils/createDataInfo.js"
-	import {getCityList} from "../utils/cityListTools.js"
+	import {createProfession,getAllProfession} from "../../utils/createDataInfo.js"
+	import {getCityList} from "../../utils/cityListTools.js" 
 	
 	export default {
 		onShareAppMessage(res) {
-			if (res.from === 'button') { // 来自页面内分享按钮
+			if (res.from === 'button') {
+				// 来自页面内分享按钮
 				console.log(res.target)
 			}
 			return {
@@ -59,27 +52,10 @@
 				});
 			};
 			
-			// let  a = ref('')
-			// uni.login({
-			//   provider: 'weixin',
-			//   // onlyAuthorize:true,
-			//   success: function (loginRes) {
-			// 	// a.value = loginRes.code;
-			// 	console.log("loginRes.authResult",loginRes.authResult);
-			//     console.log("loginRes.code",loginRes.code);
-			//     // 获取用户信息
-			//     uni.getUserInfo({
-			//       provider: 'weixin',
-			//       success: function (infoRes) {
-			//         console.log('用户昵称为：' + infoRes.userInfo.nickName);
-			//       }
-			//     });
-			//   }
-			// });
-			
+			//测试-
 			createProfession()
 			getAllProfession()
-			// // getCityList()
+			
 			const getPhoneNumber = (e) =>{
 				// console.log("fffff",e)
 			}
@@ -99,40 +75,19 @@
 		}
 	}
 </script>
-
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
-</style>
+	
 <style lang="scss" scoped>
 	.indexPage {
-		background-color: #00bf57;
 	}
 
 	.header {
+		
+		background: #C4C4C4;
+		width: 770rpx;
+		height: 350rpx;
+		border-radius: 0 0 50px 30px;
+		background-image: url('~@/static/img/background/background.png');
+		
 		.headLogo {
 			width: 50%;
 			color: white;
@@ -140,13 +95,20 @@
 			margin: 0 auto;
 			text-align: center;
 		}
+		
+		.headselect{
+			position: absolute;
+			width: 324px;
+			height: 123px;
+			left: 26px;
+			top: 180rpx;
+		}
 
 		.salary {
 			display: flex;
-			width: 30%;
-			height: 100rpx;
-			border: 5rpx solid white;
-			border-radius: 20rpx;
+			width: 328rpx;
+			height: 38rpx;
+			font-size: 14px;
 			color: white;
 			align-items: center;
 			justify-content: center;
@@ -155,24 +117,72 @@
 
 		.outer {
 			display: flex;
+			flex-direction: column;
 			align-items: center;
+			width: 628rpx;
+			height: 246rpx;
 			justify-content: center;
 			margin: 15rpx 0;
-
-			.item {
+			background-color: #F7F7F7;
+			box-shadow: 0px 3px 6px 2.5px rgba(113, 128, 174, 0.41);
+			border-radius: 12px;
+			
+			.item_line{
+				border: #5E95EE solid 0.5rpx;
+				width: 500rpx;
+			}
+			
+			.item_ordinary {
 				display: flex;
-				flex-wrap: wrap;
-				width: 30%;
-				height: 130rpx;
-				border: 5rpx solid white;
+				flex-wrap: nowrap;
+				width: 400rpx;
+				height: 46rpx;
 				border-radius: 20rpx;
 				color: white;
 				align-items: center;
 				justify-content: center;
 				margin-left: 10rpx;
-
+				margin-bottom: 20rpx;
+				
+				.image{
+					width: 60rpx;
+					height: 82rpx;
+				}
+				
 				.info {
-					font-size: 30rpx;
+					width: 294rpx;
+					height: 46rpx;
+					font-size: 18px;
+					color: #5E95EE;
+					text-align: center;
+					font-weight: 300;
+				}
+			}
+			
+			.item_emerging {
+				display: flex;
+				flex-wrap: nowrap;
+				width: 400rpx;
+				height: 46rpx;
+				border-radius: 20rpx;
+				color: white;
+				align-items: center;
+				justify-content: center;
+				margin-left: 10rpx;
+				margin-top: 20rpx;
+				
+				.image{
+					width: 60rpx;
+					height: 82rpx;
+				}
+				
+				.info {
+					width: 294rpx;
+					height: 46rpx;
+					font-size: 18px;
+					color: #5E95EE;
+					text-align: center;
+					font-weight: 300;
 				}
 			}
 		}
@@ -185,7 +195,7 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
-		background-color: white;
+		background-color: #C4C4C4;
 
 		.item {
 			display: flex;
@@ -201,26 +211,6 @@
 			padding: 20rpx 20rpx;
 			margin: 0 20rpx;
 			margin-top: 20rpx;
-		}
-	}
-
-	.bottom_tabelbar {
-		width: 100%;
-		position: fixed;
-		bottom: 0;
-
-		.tabelbar_item {
-			background-color: #eeeeee;
-			display: inline-block;
-			width: 50%;
-			height: 100rpx;
-			line-height: 100rpx;
-			text-align: center;
-			font-family: "黑体";
-		}
-
-		.active {
-			color: red;
 		}
 	}
 </style>

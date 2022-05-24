@@ -2,7 +2,9 @@
 	
  <view class="releaseProfessional">
     <view class="header">
-      <view class="header_logo">logo</view>
+		<view class="header_logo_square">
+			<view class="header_logo">logo</view>
+	    </view>
       <view class="header_list">
         <view
           class="header_tab"
@@ -18,124 +20,147 @@
         >
       </view>
     </view>
-
-    <view class="info_item" >
-      <view class="label"><span class="required_label">*</span>公司</view>
-      <view class="inp">
-		<uni-easyinput v-model="company" :placeholder="tabStatus===1?'请输入公司名称':'快递公司/美团/抖音'">
-		</uni-easyinput>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="label">岗位</view>
-      <view class="inp">
-        <uni-easyinput v-model="job" :placeholder="tabStatus===1?'输入岗位名称':'外卖/快递/直播/网约车'">
-        </uni-easyinput>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="label"><span class="required_label">*</span>薪资描述</view>
-      <view class="inp">
-        <uni-easyinput type = "number" v-model="salary" placeholder="如:28W或者14*13">
-        </uni-easyinput>
-      </view>
-    </view>
-
-	<view class="info_item">
-	  <view class="label"><span class="required_label">*</span>薪资范围</view>
-	  <view class="inp">
-	    <view class="box_sort">
-			<view class="inputbox">
-				<uni-easyinput placeholder="最低工资" v-model="dSalary"
-				></uni-easyinput>
-			</view>
-			<view>---</view>
-			<view class="inputbox">
-				<uni-easyinput placeholder="最高工资" v-model="hSalary"
-				></uni-easyinput>
+	
+	<view class="input_square">
+		<view class="info_item_class1" >
+		<view class="label">公司<span class="required_label">*</span></view>
+		<view class="inp">
+			<uni-easyinput 
+			v-model="company" 
+			:placeholder="tabStatus===1?'请输入公司名称':'快递公司/美团/抖音'"
+			:styles="styles"
+			>
+			</uni-easyinput>
+			<view class="input_underline"></view>
+		</view>
+		</view>
+	
+		<view class="info_item_class1">
+		<view class="label">岗位</view>
+		<view class="inp">
+			<uni-easyinput 
+			v-model="job" 
+			:placeholder="tabStatus===1?'输入岗位名称':'外卖/快递/直播/网约车'"
+			:styles="styles"
+			>
+			</uni-easyinput>
+			<view class="input_underline"></view>
+		</view>
+		</view>
+	
+		<view class="info_item_class1">
+		<view class="label">薪资描述<span class="required_label">*</span></view>
+		<view class="inp">
+			<uni-easyinput 
+			v-model="salary" 
+			placeholder="如:28W或者14*13"
+			:styles="styles"
+			>
+			</uni-easyinput>
+			<view class="input_underline"></view>
+		</view>
+		</view>
+	
+		<view class="info_item_class2">
+		<view class="label">薪资范围<span class="required_label">*</span></view>
+		<view class="inp">
+			<view class="box_sort">
+				<view class="inputbox">
+					<uni-easyinput placeholder="最低工资" v-model="dSalary"
+					></uni-easyinput>
+				</view>
+				<view class="dashed_line"></view>
+				<view class="inputbox">
+					<uni-easyinput placeholder="最高工资" v-model="hSalary"
+					></uni-easyinput>
+				</view>
 			</view>
 		</view>
-	  </view>
-	</view>
-
-    <view class="info_item" v-if="tabStatus === 1">
-      <view class="label">类型</view>
-      <view class="inp">
-        <view class="type_list">
-          <view
-            class="type_item"
-            v-for="item in type_list"
-            :key="item.id"
-            :class="{ sel_item: selType === item.id }"
-            @click="changeSelType(item.id)"
-          >
-            {{ item.label }}
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view class="info_item" v-if="tabStatus === 1">
-      <view class="label">学历</view>
-      <view class="inp">
-		<picker @change="changeEducation" :value="index" :range="eduList">
-		<view class="sel_education">
-		  {{ sel_education }}
-		</view>	
+		</view>
+	
+		<view class="info_item_class3" v-if="tabStatus === 1">
+		<view class="label">类型</view>
+		<view class="inp">
+			<view class="type_list">
+			<view
+				class="type_item"
+				v-for="item in typelist"
+				:key="item.id"
+				:class="{ sel_item: selType.id === item.id }"
+				@click="changeSelType(item.id)"
+			>
+				{{ item.name }}
+			</view>
+			</view>
+		</view>
+		</view>
+	
+		<view class="info_item_class4" v-if="tabStatus === 1">
+		<view class="label">学历</view>
+		<picker @change="changeEducation"
+		value="3" 
+		:range="eduList" 
+		range-key = "degreeName" >
+		<view class="inp_class4">
+			<view class="sel_education">
+			{{ selEducation.name }}
+			</view>	
+			<view class="arrow_area"></view>
+		</view>
 		</picker>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="label">行业</view>
-      <view class="inp">
-		<picker @change="changeIndustry" :value="index" :range="tabStatus === 1 ? induList[0] : induList[1]">
-		<view class="sel_education">
-		  {{ sel_industry }}
-		</view>	
+		<view class="input_underline"></view>
+		</view>
+	
+		<view class="info_item_class4">
+		<view class="label">行业</view>
+		<picker @change="changeIndustry"
+		:range="tabStatus === 1 ? induList.ordinary : induList.emerging"
+		range-key="industry"
+		>
+		<view class="inp_class4">
+			<view class="sel_education">
+			{{ selIndustry.name }}
+			</view>	
+			<view class="arrow_area"></view>
+		</view>
 		</picker>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="label">城市</view>
-      <view class="inp">
-        <navigator  url="../Professional/common/switchCity/switchCity">
-		<button type="default" class="label">{{storeCity.defaultCity}}</button>
+		<view class="input_underline"></view>
+		</view>
+	
+		<view class="info_item_class4">
+		<view class="label">城市</view>
+		<navigator  url="../Professional/common/switchCity/switchCity">
+		<view class="inp_class4">
+			<view type="default" class="label">{{storeCity.defaultCity}}</view>
+			<view class="arrow_area"></view>
+		</view>
 		</navigator>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="label">备注</view>
-      <view class="inp">
-        <uni-easyinput
-          type="textarea"
-          v-model="job_note"
-          placeholder="可填写工作详细信息,如福利补贴,福利待遇等"
-        >
-        </uni-easyinput>
-      </view>
-    </view>
-
-    <view class="info_item">
-      <view class="detailTitle">
-        <view class="instructions_label">说明</view>
-        <icon type="info" color="grey" size="10px" @click="showDetail"></icon>
-      </view>
-      <view class="instructions_text"> 严禁发布不良信息，违法必究 </view>
-    </view>
-
-    <view class="release_botton" @click="submit">点击发布</view>
-
-    <!-- <view class="bottom_tabelbar">
-      <navigator class="tabelbar_item active" url="./releaseProfessional"
-        >发布信息</navigator
-      >
-      <navigator class="tabelbar_item" url="../index/index">薪资查询</navigator>
-    </view> -->
+		<view class="input_underline"></view>
+		</view>
+	
+		<view class="info_item_class5">
+		<view class="label">备注</view>
+		<view class="inp_class5">
+			<uni-easyinput
+			type="textarea"
+			v-model="job_note"
+			placeholder="可填写工作详细信息,如福利补贴,福利待遇等"
+			:styles="styles"
+			>
+			</uni-easyinput>
+		</view>
+		</view>
+	
+		<view class="info_item_class6">
+		<view class="detailTitle">
+			<view class="instructions_label">说明</view>
+			<icon type="info" color="red" size="30rpx" @click="showDetail"></icon>
+		</view>
+		<view class="instructions_text"> 严禁发布不良信息，违法必究 </view>
+		</view>
+	
+		<view class="release_botton" @click="submit">点击发布</view>
+	</view>
   </view>
 </template>
 
@@ -145,11 +170,10 @@ import {
 	reactive,
 	onMounted
 } from 'vue';
-import sendPostRequest from "../utils/utils/sendPostRequest.js"
-import edu_list from "./json/edu_list.json";
-import indu_list from "./json/indu_list.json";
-import typeList from "./json/typeList.json";
-import router from "../utils/route.js";
+import sendPostRequest from "../../utils/sendPostRequest.js"
+import {EDU_LIST,INDU_LIST} from "./constants.js";
+import TYPE_LIST from "../../config/typeData.js";
+import router from "../../utils/route.js";
 import store from '../../store/index.js'
 
 export default {
@@ -162,7 +186,7 @@ export default {
 			salary.value = null
 			dSalary.value = ''
 			hSalary.value = ''
-			sel_industry.value = '请选择行业'
+			selIndustry.name = '请选择行业'
 			job_note.value = ''
 		}
 		//切换tab
@@ -173,7 +197,7 @@ export default {
 			   || job_note.value !== ''
 			   || dSalary.value !== ''
 			   || hSalary.value !== ''
-			   || sel_industry.value !== '请选择行业'
+			   || selIndustry.name !== '请选择行业'
 			   || salary.value !== null
 			   || storeCity.defaultCity !== '选择城市'
 			 ){
@@ -192,9 +216,15 @@ export default {
 			}
 			
 		}
+		
+		//样式变量
+		const styles = {
+			borderColor: 'white'
+		}
+		
 		//公司
 		const company = ref('')
-		//      || storeCity !== '选择城市'
+		
 		//岗位
 		const job = ref('')
 		
@@ -210,25 +240,42 @@ export default {
 		const hSalary = ref('')
 		
 		//类型
-		const type_list = typeList;
-		const selType = ref(1);
+		const typelist = TYPE_LIST;
+		const selType = reactive({
+			id:1,
+			name:""
+		});
 		const changeSelType = (data) => {
-			selType.value = data
+			selType.id = data
 		}
 		
 		// TODO 学历、行业两个数据来源，接口、待修复，目前采用的本地JSON数据
 		//学历
-		const sel_education = ref("请选择学历")
-		const eduList = reactive(edu_list);
+		const selEducation = reactive({
+			id:0,
+			name:"请选择学历"
+		})
+		const eduList = reactive(EDU_LIST);
 		function changeEducation(e) {
-			sel_education.value = eduList[e.detail.value]
+			selEducation.name = eduList[e.detail.value].degreeName
+			selEducation.id = eduList[e.detail.value].id
+			console.log("selEducation.id",selEducation.id)
 		}
 		
 		//行业
-		const sel_industry = ref("请选择行业")
-		const induList = reactive(indu_list);
+		const selIndustry = reactive({
+			id : 0,
+			name : "请选择行业"
+		})
+		const induList = reactive(INDU_LIST);
 		function changeIndustry(e) {
-			sel_industry.value = indu_list[tabStatus.value - 1][e.detail.value]
+			if(tabStatus.value === 1){
+				selIndustry.name = induList.ordinary[e.detail.value].industry
+				selIndustry.id = induList.ordinary[e.detail.value].id
+			}else{
+				selIndustry.name = induList.emerging[e.detail.value].industry
+				selIndustry.id = induList.emerging[e.detail.value].id
+			}
 		}
 		
 		//待遇
@@ -237,7 +284,7 @@ export default {
 		//
 		function showDetail() {
 			uni.showModal({
-				content: "严禁发布不良信息，违法必究\r\n所有数据未经允许不得盗用，侵权必究\r\n信息均为用户自愿共享发布\r\n希望大家能自觉遵守声明",
+				content: "严禁发布不良信息，违法必究\r\r\n所有数据未经允许不得盗用，侵权必究\r\n信息均为用户自愿共享发布\r\n希望大家能自觉遵守声明",
 				showCancel: false,
 			})
 		}
@@ -265,11 +312,10 @@ export default {
 							salaryNUm: parseInt(salary.value),
 							salaryStr:salary.value,
 							salaryRange:dSalary.value+hSalary.value,
-							type: tabStatus.value === 1 ? selType.value : 0, //0为选择新兴职业时的类型代码
-							// degree: sel_education.value,
-							degree:1,
-							profession: tabStatus.value,
-							openId : "13334521234",
+							type: tabStatus.value === 1 ? selType.id : 0, //0为选择新兴职业时的类型代码
+							degree: selEducation.id,
+							profession: selIndustry.id ,
+							openid : "53de05c8582341ad9a8a967f4baf00bc",
 							from : "WEI_XIN",					
 							explain: job_note.value,
 						}
@@ -300,8 +346,8 @@ export default {
 							salaryNUm: parseInt(salary.value),
 							salaryStr:salary.value,
 							salaryRange:dSalary.value+hSalary.value,
-							profession: tabStatus.value,
-							openId : "13334521234",
+							profession: selIndustry.id,
+							openid : "53de05c8582341ad9a8a967f4baf00bc",
 							from : "WEI_XIN",						
 							explain: job_note.value,
 						}
@@ -327,6 +373,7 @@ export default {
 			//getIndexedList()
 		})
 		return {
+			styles,
 			dSalary,
 			hSalary,
 			storeCity,
@@ -335,12 +382,12 @@ export default {
 			job,
 			tabStatus,
 			changeTab,
-			type_list,
+			typelist,
 			job_note,
 			selType,
 			changeSelType,
-			sel_education,
-			sel_industry,
+			selEducation,
+			selIndustry,
 			changeEducation,
 			changeIndustry,
 			submit,
@@ -355,11 +402,10 @@ export default {
 <style lang="scss" scoped>
 .releaseProfessional {
   box-sizing: border-box;
-  background-color: #00bf57;
+  background: linear-gradient(81.13deg, #457DEA 18.47%, rgba(93, 178, 248, 0.794338) 96.22%, rgba(197, 216, 248, 0.7) 125.81%);
   width: 100%;
   min-height: 100vh;
   padding: 20rpx;
-  padding-bottom: 170rpx;
 
   .header {
     width: 100%;
@@ -368,14 +414,23 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .header_logo {
-      margin-top: 25rpx;
-      font-size: 60rpx;
-    }
+	.header_logo_square{
+		height: 200rpx;
+		width: 200rpx;
+		border-radius: 50%;
+		background-color: #C4C4C4;
+		
+		.header_logo {
+		  height: 150rpx;
+		  width: 150rpx;
+		  text-align: center;
+		  font-size: 60rpx;
+		}
+	}
+    
 
     .header_list {
-      margin-top: 25rpx;
+      margin-top: 10rpx;
       font-size: 24rpx;
       display: flex;
       flex-direction: row;
@@ -393,182 +448,197 @@ export default {
       }
     }
   }
-
-  .release_botton {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 35rpx;
-    color: #00bf57;
-    background-color: #fff;
-    border-radius: 8rpx;
-    margin: 40rpx auto;
-  }
-
-  .info_item {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20rpx;
-    background-color: #fff;
-    border-radius: 10rpx;
-    box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
-    margin-bottom: 30rpx;
-
-    .label {
-      font-size: 30rpx;
-      margin: 10rpx;
-      color: gray;
-
-      .required_label {
-        color: red;
-        margin-right: 5rpx;
-      }
-    }
-
-    .inp {
-        .city_item {
-          font-size: 22rpx;
-          padding: 10rpx 30rpx 10rpx 20rpx;
-          border: 1rpx solid rgba(0, 0, 0, 0.1);
-          border-radius: 10rpx;
-          color: gray;
-          position: relative;
-
-          .city_close {
-            font-size: 15rpx;
-            position: absolute;
-            top: 5rpx;
-            right: 10rpx;
-          }
-        }
-      .box_sort{
+  .input_square{
+	  background: #FFFFFF;
+	  border-radius: 76rpx 76rpx 0px 0px;
+	  height: 1200px;
+	  margin-bottom: -10px;
+	  
+	.label {
+	  font-size: 30rpx;
+	  margin: 10rpx;
+	  color: gray;
+	  padding-left: 15rpx;
+	}
+	
+	.required_label {
+	  color: red;
+	  margin-right: 5rpx;
+	}
+	
+	.input_underline{
+	  width: 600rpx;
+	  border: 1px solid #D1D5DA;
+	  margin-left: 20rpx;
+	}
+	
+	.info_item_class1{
+	  margin-bottom: 30rpx;
+	  margin-top: 30rpx;
+	  padding: 20rpx;
+	
+		.inp{
+		}
+	}
+	
+	.info_item_class2{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		.inp{
+			
+			.box_sort{
+				display: flex;
+				justify-content: space-around;
+				.inputbox{
+					width: 250rpx;
+					border: 1px solid #D1D5DA;
+					border-radius: 6px;
+				}
+				.dashed_line{
+					height: 0rpx;
+					width: 80rpx;
+					border: 1px dashed #D1D5DA;
+					align-self: center;
+				}
+			}
+		}
+	}
+	
+	.info_item_class3{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		
+		.type_list {
 		  display: flex;
-		  justify-content: space-around;
-	  }
-	  .inputbox{
-		  width: 250rpx;
-	  }
-
-      .type_list {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 20rpx auto;
-
-        .type_item {
-          margin: 0 10rpx;
-          flex: 1;
-          display: flex;
-          justify-content: center;
-          font-size: 22rpx;
-          padding: 15rpx 0;
-          border: 1rpx solid rgba(0, 0, 0, 0.1);
-          border-radius: 10rpx;
-          color: gray;
-        }
-
-        .sel_item {
-          border-color: #00bf57;
-          color: #00bf57;
-        }
-      }
-
-      .sel_education {
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        width: 100%;
-        height: 72rpx;
-        background: #fff;
-        color: gray;
-        border: 1rpx solid #dcdfe6;
-        border-radius: 8rpx;
-        font-size: 28rpx;
-        padding: 0 20rpx;
-      }
-    }
-
-    .instructions_label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 40rpx;
-      color: gray;
-      margin: 10rpx 0;
-      margin-right: 20rpx;
-    }
-
-    .instructions_text {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 30rpx;
-      color: gray;
-      margin: 30rpx 0;
-    }
-  }
-
-  .release_bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    box-sizing: border-box;
-    width: 100%;
-    height: 150rpx;
-    background-color: #00bf57;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .release_botton {
-      width: 80%;
-      height: 80rpx;
+		  justify-content: space-between;
+		  align-items: center;
+		  margin: 20rpx auto;
+		
+		  .type_item {
+		    margin: 0 10rpx;
+		    flex: 1;
+		    display: flex;
+		    justify-content: center;
+		    font-size: 22rpx;
+		    padding: 15rpx 0;
+		    border: 1rpx solid rgba(0, 0, 0, 0.1);
+		    border-radius: 10rpx;
+		    color: gray;
+		  }
+		
+		  .sel_item {
+		    border-color: #5E95EE;
+		    color: #5E95EE;
+		  }
+		}
+	}
+	
+	.info_item_class4{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		
+		.inp_class4{
+			display: flex;
+			justify-content: space-between;
+			
+			.sel_education {
+			  background: #fff;
+			  color: gray;
+			  font-size: 28rpx;
+			  padding: 0 20rpx;
+			  margin-top: 20rpx;
+			  margin-bottom: 10rpx;
+			  margin-left: 2rpx;
+			}
+			
+			.arrow_area{
+				width: 20rpx;
+				height: 20rpx;
+				border-top: 1px solid #D0D0D0;
+				border-right: 1px solid #D0D0D0;
+				transform: rotate(45deg);
+				margin-right: 54rpx;
+				margin-top: 28rpx;
+			}
+		}
+	}
+	
+	.info_item_class5{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		
+		.inp_class5{
+			width: 630rpx;
+			height: 200rpx;
+			border: 1px solid #D1D5DA;
+			border-radius: 6px;
+			margin: 0 auto;
+			margin-top: 20rpx;
+		}
+	}
+	
+	.info_item_class6{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 600rpx;
+		height: 168rpx;
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		margin-left: 30rpx;
+		padding: 20rpx;
+		border: 1px solid #D1D5DA;
+		box-shadow: 0px 5px 8px #E0E4EA;
+		border-radius: 6px;
+		
+		.detailTitle {
+		  display: flex;
+		  flex-direction: row;
+		  justify-content: center;
+		  align-items: baseline;
+		  background: #FCFCFC;
+		  
+		  .instructions_label {
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 40rpx;
+		    color: gray;
+		    margin: 10rpx 0;
+		    margin-right: 20rpx;
+		  }
+		  
+		}
+		
+		.instructions_text {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  font-size: 30rpx;
+		  color: gray;
+		  margin: 30rpx 0;
+		}
+	}
+	
+	.release_botton {
+      width: 600rpx;
+      height: 96rpx;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 40rpx;
       color: #fff;
       border: 1px solid #fff;
-      border-radius: 8rpx;
+	  background: #FF5959;
+	  border-radius: 6px;
+	  margin: 0 auto;
     }
   }
+
 }
 
-.detailTitle {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
-}
-
-.bottom_tabelbar {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  margin-left: -20rpx;
-
-  .tabelbar_item {
-    background-color: #eeeeee;
-    display: inline-block;
-    width: 50%;
-    height: 100rpx;
-    line-height: 100rpx;
-    text-align: center;
-    font-family: "黑体";
-  }
-
-  .active {
-    color: red;
-  }
-}
-</style>
-
-
-<style lang="scss">
-	.skdfhj{}
 </style>

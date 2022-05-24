@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports[Symbol.toStringTag] = "Module";
 var common_vendor = require("./common/vendor.js");
-var pages_utils_cityListTools = require("./pages/utils/cityListTools.js");
+var utils_cityListTools = require("./utils/cityListTools.js");
 var store_index = require("./store/index.js");
-require("./pages/utils/utils/sendPostRequest.js");
-require("./pages/utils/route.js");
+require("./utils/sendPostRequest.js");
+require("./utils/route.js");
+require("./config/configData.js");
+require("./config/allCityData.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/releaseProfessional/releaseProfessional.js";
@@ -19,13 +21,14 @@ const _sfc_main = {
   onLaunch: function() {
   },
   onShow: function() {
-    pages_utils_cityListTools.finalUsedCityList();
+    utils_cityListTools.finalUsedCityList();
   },
   onHide: function() {
   }
 };
+var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/App.vue"]]);
 function createApp() {
-  const app = common_vendor.createSSRApp(_sfc_main);
+  const app = common_vendor.createSSRApp(App);
   app.use(store_index.store);
   return {
     app

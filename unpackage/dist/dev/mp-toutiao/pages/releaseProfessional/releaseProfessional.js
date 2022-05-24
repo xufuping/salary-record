@@ -2,7 +2,7 @@
 var common_vendor = require("../../common/vendor.js");
 var pages_utils_utils_dropdownMenuSelection = require("../utils/utils/dropdownMenuSelection.js");
 var pages_utils_utils_checkStrContain = require("../utils/utils/checkStrContain.js");
-var pages_utils_utils_sendPostRequest = require("../utils/utils/sendPostRequest.js");
+var pages_utils_utils_sendPostRequest = require("../utils/sendPostRequest.js");
 var pages_utils_route = require("../utils/route.js");
 var edu_list = [
   "\u5176\u4ED6",

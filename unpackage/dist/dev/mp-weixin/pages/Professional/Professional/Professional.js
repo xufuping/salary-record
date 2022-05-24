@@ -1,69 +1,11 @@
 "use strict";
 var common_vendor = require("../../../common/vendor.js");
-const data$1 = [
-  {
-    id: 1,
-    name: "\u817E\u8BAF"
-  },
-  {
-    id: 2,
-    name: "\u767E\u5EA6"
-  },
-  {
-    id: 3,
-    name: "\u7F8E\u56E2"
-  },
-  {
-    id: 4,
-    name: "\u534E\u4E3A"
-  },
-  {
-    id: 5,
-    name: "\u5B57\u8282\u8DF3\u52A8"
-  },
-  {
-    id: 6,
-    name: "\u963F\u91CC\u5DF4\u5DF4"
-  },
-  {
-    id: 7,
-    name: "\u79D1\u5927\u8BAF\u98DE"
-  }
-];
-var ordinary_list = {
-  data: data$1
-};
-const data = [
-  {
-    id: 1,
-    name: "\u6296\u97F3"
-  },
-  {
-    id: 2,
-    name: "\u5FEB\u624B"
-  },
-  {
-    id: 3,
-    name: "\u7F8E\u56E2"
-  },
-  {
-    id: 4,
-    name: "B\u7AD9"
-  },
-  {
-    id: 5,
-    name: "\u6EF4\u6EF4"
-  },
-  {
-    id: 6,
-    name: "\u997F\u4E86\u4E48"
-  }
-];
-var emerging_list = {
-  data
-};
+var config_configData = require("../../../config/configData.js");
 const _sfc_main = {
-  setup() {
+  props: {
+    target: Number
+  },
+  setup(props) {
     const tabStatus = common_vendor.ref(1);
     const changeTab = (target) => {
       tabStatus.value = target;
@@ -79,19 +21,18 @@ const _sfc_main = {
       }
     }
     const moreList = common_vendor.reactive({});
-    const ordinaryList = common_vendor.reactive(ordinary_list);
-    const emergingList = common_vendor.reactive(emerging_list);
+    const ordinaryList = common_vendor.reactive(config_configData.HOT_ORDINARY);
+    const emergingList = common_vendor.reactive(config_configData.HOT_EMERGING);
     function loadingList() {
       moreList.value = tabStatus.value === 1 ? common_vendor.toRaw(ordinaryList.data) : common_vendor.toRaw(emergingList.data);
     }
     const search = (value) => {
-      console.log(value);
+      console.log("VALUE", value);
       common_vendor.index.navigateTo({
-        url: (tabStatus.value === 1 ? "../searchDetail/Ordinary/ordinary" : "../searchDetail/Emerging/Emerging") + "?inputValue=" + (value === "prefix" ? inputValue.value : value)
+        url: (tabStatus.value === 1 ? "../searchDetail/Ordinary/ordinary" : "../searchDetail/Emerging/Emerging") + "?inputValue=" + value
       });
     };
     return {
-      loadingList,
       inputValue,
       search,
       selectHotOptions,
@@ -106,14 +47,12 @@ const _sfc_main = {
 if (!Array) {
   const _easycom_uni_collapse_item2 = common_vendor.resolveComponent("uni-collapse-item");
   const _easycom_uni_collapse2 = common_vendor.resolveComponent("uni-collapse");
-  const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
-  (_easycom_uni_collapse_item2 + _easycom_uni_collapse2 + _easycom_uni_easyinput2)();
+  (_easycom_uni_collapse_item2 + _easycom_uni_collapse2)();
 }
 const _easycom_uni_collapse_item = () => "../../../uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item.js";
 const _easycom_uni_collapse = () => "../../../uni_modules/uni-collapse/components/uni-collapse/uni-collapse.js";
-const _easycom_uni_easyinput = () => "../../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
 if (!Math) {
-  (_easycom_uni_collapse_item + _easycom_uni_collapse + _easycom_uni_easyinput)();
+  (_easycom_uni_collapse_item + _easycom_uni_collapse)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -129,13 +68,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["show-arrow"]: false
     })
   } : {}, {
-    g: common_vendor.o($setup.search),
-    h: common_vendor.o(($event) => $setup.inputValue = $event),
-    i: common_vendor.p({
-      placeholder: "\u8BF7\u8F93\u5165\u516C\u53F8\u540D\u79F0/\u57CE\u5E02/\u5C97\u4F4D",
-      prefixIcon: "search",
-      modelValue: $setup.inputValue
-    }),
+    g: $setup.inputValue,
+    h: common_vendor.o(($event) => $setup.inputValue = $event.detail.value),
+    i: common_vendor.o(($event) => $setup.search($setup.inputValue)),
     j: common_vendor.f($setup.tabStatus === 1 ? $setup.ordinaryList.data : $setup.emergingList.data, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.name),
@@ -150,5 +85,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-20eca980"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-20eca980"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/Professional/Professional/Professional.vue"]]);
 wx.createPage(MiniProgramPage);

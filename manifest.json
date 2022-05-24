@@ -54,7 +54,9 @@
         "setting" : {
             "urlCheck" : false,
             "checkSiteMap" : false,
-            "es6" : false
+            "es6" : false,
+            "postcss" : true,
+            "minified" : false
         },
         "usingComponents" : true,
         "devServer" : {
@@ -69,6 +71,11 @@
                         "^/api" : ""
                     }
                 }
+            }
+        },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于小程序位置接口的效果展示"
             }
         }
     },

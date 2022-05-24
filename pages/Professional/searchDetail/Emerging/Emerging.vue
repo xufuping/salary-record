@@ -1,26 +1,32 @@
 <template>
 	<view class="professionPage">
+		
 		<view class="header">
 			<view class="header_logo">新兴职业</view>
 		</view>
+		
 		<view class="content_search">
 			<uni-easyinput v-model="sendInformation.information" placeholder="请输入公司名称/城市/岗位" prefixIcon="search"
 				@iconClick="search()">
 			</uni-easyinput>
 		</view>
+		
 		<view class="content_more">
+			
 			<view class="more_list">
 				<view class="label">城市</view>
 				<view class="list_scroll">
 					<view class="sel_list">
-						<view class="sel_item" :class="item.active" v-for="item in cityList.data" :key="item.id"
-							@click="chooseCity(item.id)">{{ item.name }}
+						<!-- 此行下面class待修改 -->
+						<view class="sel_item" :class="{active:(cityClassID.id === item.cityCode ? true : false)}" v-for="item in cityList" :key="item.cityCode"
+							@click="chooseCity(item.cityCode)">{{ item.city }}
 						</view>
 						<!-- TODO 更多内容没有做 -->
 						<view class="sel_item" @click="open">更多</view>
 					</view>
 				</view>
 			</view>
+			
 			<view class="more_list">
 				<view class="label">收入区间</view>
 				<view class="input_salary">
@@ -34,6 +40,7 @@
 					<view v-if="yearOrMonthSalary" @click="changeYearOrMonthSalary" class="year-month">年薪</view>
 				</view>
 			</view>
+			
 			<view class="more_list">
 				<view class="label">常见区间（月薪）</view>
 				<view class="list_scroll">
@@ -44,22 +51,20 @@
 					</view>
 				</view>
 			</view>
-			<view class="more_line"></view>
+			
 			<view class="content_table">
 				<view class="table_sel_list">
-					<view v-for="item in listItem" class="sel_item" :class="{seled_item:tabTarget===item}" @click="changeTabTarget(item)">{{item}}</view>
+					<view v-for="item in selSortTypeItem" class="sel_item" :class="{seled_item:tabTarget.order===item.order}" @click="changeTabTarget(item.order)">{{item.sortType}}</view>
 				</view>
-				<view v-for="item in detail" :key="item.id" class="searchItem">
+				<view v-for="item in detail.data" :key="item.id" class="searchItem">
 					<searchItem :detail="item" :type="2"></searchItem>
 				</view>
 			</view>
 		</view>
-		<view class="footer">
-			<view class="bottom_tabelbar">
-				<navigator class="tabelbar_item" url="../Ordinary/ordinary">普通职业
-				</navigator>
-				<navigator class="tabelbar_item active" url="../Emerging/Emerging">新兴职业</navigator>
-			</view>
+		
+		<view class="bottom_tabelbar">
+			<view class="tabelbar_item" @click="changePage(1)" >普通职业</view>
+			<view class="tabelbar_item" :class="seledType.type" @click="changePage(2)" >新兴职业</view>
 		</view>
 		
 		<searchPopup
@@ -85,18 +90,18 @@
 		onMounted
 	} from "vue";
 	import searchItem from "../../common/searchItem.vue";
-	import searchPopup from "../../common/SearchPopup.vue"
+	import searchPopup from "../../common/SearchPopup.vue";
 
-	import pop_list from "../../../../static/json/pop_list.json";
-	import city_pop_list from "./json/city_pop_list.json";
+	import {SCREEN_CITY} from "../../../../config/configData.js";
+	import {addHotCity} from "../../../../utils/cityListTools.js";
+	import {SALARY_LIST,selSortType} from "./constants.js";
+	import sendPostRequest from "../../../../utils/sendPostRequest.js";
+	import router from "../../../../utils/route.js";
+	import {getPopCityList} from '../../../../utils/cityListTools.js'
+	
+	//测试变量导入
+	import {EMERGING,ENV} from "../../../../config/MAKRDATA.js"
 
-	import city_list from "./json/city_list.json";
-	import salary_list from "./json/salary_list.json";
-
-	import sendPostRequest from "../../../utils/utils/sendPostRequest.js";
-	import router from "../../../utils/route.js";
-
-	const list=['按时间排序','按点赞数排序','按可信度排序']
 	export default {
 		components: {
 			searchItem,
@@ -107,24 +112,32 @@
 		},
 		setup(props) {
 			onMounted(() => {
-				// search();
+				search();
 			});
-			//tab 切换
-			const listItem = list;
-			const tabStatus = ref(1);
-			const changeTab = (target) => {
-				tabStatus.value = target;
-			};
 
+			//排序
+			const selSortTypeItem = selSortType;
+			const tabTarget = reactive({
+				order:""
+			});
+			//发送信息对象
 			const sendInformation = reactive({
 				information: props.inputValue,
 				city: 0,
 				dSalary: null,
 				hSalary: null,
-				order: tabStatus.value,
+				order: "",
 				currentPage: 0,
 				pageSize: 0
 			});
+			
+			const changeTabTarget = (target) => {
+				if(tabTarget.order === target) return
+				tabTarget.order = target;
+				sendInformation.order = target;
+				search();
+			};
+			
 			//筛选
 			const showCollapse = ref(false);
 			const closeCollapse = () => {
@@ -135,18 +148,22 @@
 				showCollapse.value = true;
 				console.log(showCollapse.value);
 			};
+			
 			//热门
 			const showList = ref(true);
 			const changeList = () => {
 				showList.value = !showList.value;
 			};
 
-			function chooseCity(cityId) {
-				for (let i = 0; i < cityList.data.length; i++) {
-					cityList.data[i].active = "";
+			function chooseCity(cityCode) {
+				// TODO 多选实现
+				if(cityClassID.id !== cityCode){
+					sendInformation.city = cityCode;
+					cityClassID.id = cityCode
+					search()
+				}else{
+					cityClassID.id = 0
 				}
-				cityList.data[cityId - 1].active = "active";
-				sendInformation.city = cityId;
 			}
 
 			const yearOrMonthSalary = ref(false); //year为true，month为false
@@ -185,11 +202,14 @@
 						break;
 				}
 			}
+			
+			const cityClassID = reactive({id:0})
+			const cityList = reactive(addHotCity(SCREEN_CITY));
+			const salaryList = reactive(SALARY_LIST);
 
-			const cityList = reactive(city_list);
-			const salaryList = reactive(salary_list);
-
+			//搜索操作
 			function search() {
+				detail.data = []
 				if (sendInformation.information === "" || !sendInformation.information) return;
 				if (!checkSalary()) {
 					uni.showModal({
@@ -201,15 +221,23 @@
 				// console.log("searching!", toRaw(sendInformation));
 				const data={}
 				if(sendInformation.information) data.information=sendInformation.information
-				if(target.value) data.order = target.value
+				if (tabTarget.order) data.order=sendInformation.order ;
 				sendPostRequest(router.emergingGetActicleList, data, {
 						success(res) {
 							if(res.message === "success"){
-							console.log(res);
-							operateData(data);
-							}else{}
+							operateData(res.data.data);
+							}
+							else{
+								if(ENV === "self"){
+									operateData(EMERGING.data.data)
+								}
+							}
 						},
-						fail(error) {}
+						fail() {
+							if(ENV === "self"){
+								operateData(EMERGING.data.data)
+							}
+						}
 					},
 					true);
 			}
@@ -223,23 +251,19 @@
 				return false;
 			}
 
-			function operateData(data) {
-				sendInformation.currentPage = data.data.currentPage;
-				sendInformation.pageSize = data.data.pageSize;
-				detail.length = 0;
-				for (let i = 0; i < data.data.data.length; i++) {
-					detail.push(data.data.data[i]);
-				}
+			function operateData(info) {
+				// sendInformation.currentPage = data.data.data.currentPage;
+				// sendInformation.pageSize = data.data.data.pageSize;
+				console.log("info",info)
+				detail.data = [];
+				Array.isArray(info) && info.forEach(item=>{
+					detail.data.push(item);
+				})
 			}
 
-			//搜索结果筛选
-			const tabTarget = ref(1);
-			const changeTabTarget = (target) => {
-				tabTarget.value = target;
-				
-				// switchResult(target);
-			};
-			const detail = reactive([]);
+			const detail = reactive({
+				data:[]
+			});
 			
 			//底部弹窗
 			const showIndexedList=ref(false)
@@ -252,7 +276,7 @@
 			const changeShowIndexedList=(data)=>{
 				showIndexedList.value=data
 			}
-			const popList = pop_list;
+			const popList = getPopCityList();
 			const getResult=(res)=>{
 				console.log('getResult',res)
 			}
@@ -263,12 +287,31 @@
 				}
 			}
 			
+			//测试数据
 			const myList=[
 				'qwe','wsd','dff','ssxc','asd123','sd34',123
 			]
+			
+			//页面跳转
+			const seledType = reactive({
+				type:"active" 
+			})
+			const changePage = (value) =>{
+				if(value === 2){
+					return
+				}else{
+					seledType.type = ""
+					uni.redirectTo({
+						url: "../Ordinary/ordinary"
+					})
+					}
+			}
 
 			return {
-				listItem,
+				cityClassID,
+				seledType,
+				changePage,
+				selSortTypeItem,
 				getResult,
 				showIndexedList,
 				changeShowIndexedList,
@@ -279,12 +322,10 @@
 				open,
 				searchPopup,
 				detail,
-				tabStatus,
 				changeList,
 				showList,
 				cityList,
 				salaryList,
-				changeTab,
 				showCollapse,
 				closeCollapse,
 				openCollapse,
@@ -357,7 +398,7 @@
 			border-radius: 10rpx;
 			box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
 			background-color: #fff;
-			margin-bottom: 10px;
+			margin-bottom: 90rpx;
 
 			.more_list {
 				display: flex;
@@ -534,6 +575,8 @@
 				line-height: 100rpx;
 				text-align: center;
 				font-family: "黑体";
+				padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+				padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
 			}
 
 			.active {

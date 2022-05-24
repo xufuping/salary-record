@@ -1,93 +1,14 @@
 "use strict";
 var common_vendor = require("../../../../common/vendor.js");
-var pages_utils_utils_sendPostRequest = require("../../../utils/utils/sendPostRequest.js");
-var pages_utils_route = require("../../../utils/route.js");
-var pop_list = [
-  {
-    letter: "A",
-    data: [
-      "\u963F\u514B\u82CF\u673A\u573A",
-      "\u963F\u62C9\u5C71\u53E3\u673A\u573A",
-      "\u963F\u52D2\u6CF0\u673A\u573A",
-      "\u963F\u91CC\u6606\u838E\u673A\u573A",
-      "\u5B89\u5E86\u5929\u67F1\u5C71\u673A\u573A",
-      "\u6FB3\u95E8\u56FD\u9645\u673A\u573A"
-    ]
-  },
-  {
-    letter: "B",
-    data: [
-      "\u4FDD\u5C71\u673A\u573A",
-      "\u5305\u5934\u673A\u573A",
-      "\u5317\u6D77\u798F\u6210\u673A\u573A",
-      "\u5317\u4EAC\u5357\u82D1\u673A\u573A",
-      "\u5317\u4EAC\u9996\u90FD\u56FD\u9645\u673A\u573A"
-    ]
-  },
-  {
-    letter: "c",
-    data: [
-      "\u4FDD\u5C71\u673A\u573A",
-      "\u5305\u5934\u673A\u573A",
-      "\u5317\u6D77\u798F\u6210\u673A\u573A",
-      "\u5317\u4EAC\u5357\u82D1\u673A\u573A",
-      "\u5317\u4EAC\u9996\u90FD\u56FD\u9645\u673A\u573A"
-    ]
-  },
-  {
-    letter: "d",
-    data: [
-      "\u4FDD\u5C71\u673A\u573A",
-      "\u5305\u5934\u673A\u573A",
-      "\u5317\u6D77\u798F\u6210\u673A\u573A",
-      "\u5317\u4EAC\u5357\u82D1\u673A\u573A",
-      "\u5317\u4EAC\u9996\u90FD\u56FD\u9645\u673A\u573A"
-    ]
-  }
-];
-const data$1 = [
-  {
-    id: 1,
-    name: "\u91CD\u5E86",
-    active: ""
-  },
-  {
-    id: 2,
-    name: "\u5317\u4EAC",
-    active: ""
-  },
-  {
-    id: 3,
-    name: "\u4E0A\u6D77",
-    active: ""
-  }
-];
-var city_list = {
-  data: data$1
-};
-const data = [
-  {
-    id: 1,
-    name: "0-10k",
-    active: ""
-  },
-  {
-    id: 2,
-    name: "10k-50k",
-    active: ""
-  },
-  {
-    id: 3,
-    name: "50k\u4EE5\u4E0A",
-    active: ""
-  }
-];
-var salary_list = {
-  data
-};
+var config_configData = require("../../../../config/configData.js");
+var utils_cityListTools = require("../../../../utils/cityListTools.js");
+var pages_Professional_searchDetail_Emerging_constants = require("./constants.js");
+var utils_sendPostRequest = require("../../../../utils/sendPostRequest.js");
+var utils_route = require("../../../../utils/route.js");
+var config_MAKRDATA = require("../../../../config/MAKRDATA.js");
+require("../../../../config/allCityData.js");
 const searchItem = () => "../../common/searchItem.js";
 const searchPopup = () => "../../common/SearchPopup.js";
-const list = ["\u6309\u65F6\u95F4\u6392\u5E8F", "\u6309\u70B9\u8D5E\u6570\u6392\u5E8F", "\u6309\u53EF\u4FE1\u5EA6\u6392\u5E8F"];
 const _sfc_main = {
   components: {
     searchItem,
@@ -98,21 +19,28 @@ const _sfc_main = {
   },
   setup(props) {
     common_vendor.onMounted(() => {
+      search();
     });
-    const listItem = list;
-    const tabStatus = common_vendor.ref(1);
-    const changeTab = (target2) => {
-      tabStatus.value = target2;
-    };
+    const selSortTypeItem = pages_Professional_searchDetail_Emerging_constants.selSortType;
+    const tabTarget = common_vendor.reactive({
+      order: ""
+    });
     const sendInformation = common_vendor.reactive({
       information: props.inputValue,
       city: 0,
       dSalary: null,
       hSalary: null,
-      order: tabStatus.value,
+      order: "",
       currentPage: 0,
       pageSize: 0
     });
+    const changeTabTarget = (target) => {
+      if (tabTarget.order === target)
+        return;
+      tabTarget.order = target;
+      sendInformation.order = target;
+      search();
+    };
     const showCollapse = common_vendor.ref(false);
     const closeCollapse = () => {
       showCollapse.value = false;
@@ -126,12 +54,14 @@ const _sfc_main = {
     const changeList = () => {
       showList.value = !showList.value;
     };
-    function chooseCity(cityId) {
-      for (let i = 0; i < cityList.data.length; i++) {
-        cityList.data[i].active = "";
+    function chooseCity(cityCode) {
+      if (cityClassID.id !== cityCode) {
+        sendInformation.city = cityCode;
+        cityClassID.id = cityCode;
+        search();
+      } else {
+        cityClassID.id = 0;
       }
-      cityList.data[cityId - 1].active = "active";
-      sendInformation.city = cityId;
     }
     const yearOrMonthSalary = common_vendor.ref(false);
     function changeYearOrMonthSalary() {
@@ -165,9 +95,11 @@ const _sfc_main = {
           break;
       }
     }
-    const cityList = common_vendor.reactive(city_list);
-    const salaryList = common_vendor.reactive(salary_list);
+    const cityClassID = common_vendor.reactive({ id: 0 });
+    const cityList = common_vendor.reactive(utils_cityListTools.addHotCity(config_configData.SCREEN_CITY));
+    const salaryList = common_vendor.reactive(pages_Professional_searchDetail_Emerging_constants.SALARY_LIST);
     function search() {
+      detail.data = [];
       if (sendInformation.information === "" || !sendInformation.information)
         return;
       if (!checkSalary()) {
@@ -177,19 +109,25 @@ const _sfc_main = {
         });
         return;
       }
-      const data2 = {};
+      const data = {};
       if (sendInformation.information)
-        data2.information = sendInformation.information;
-      if (target.value)
-        data2.order = target.value;
-      pages_utils_utils_sendPostRequest.sendPostRequest(pages_utils_route.router.emergingGetActicleList, data2, {
+        data.information = sendInformation.information;
+      if (tabTarget.order)
+        data.order = sendInformation.order;
+      utils_sendPostRequest.sendPostRequest(utils_route.router.emergingGetActicleList, data, {
         success(res) {
           if (res.message === "success") {
-            console.log(res);
-            operateData(data2);
+            operateData(res.data.data);
+          } else {
+            {
+              operateData(config_MAKRDATA.EMERGING.data.data);
+            }
           }
         },
-        fail(error) {
+        fail() {
+          {
+            operateData(config_MAKRDATA.EMERGING.data.data);
+          }
         }
       }, true);
     }
@@ -202,29 +140,26 @@ const _sfc_main = {
       }
       return false;
     }
-    function operateData(data2) {
-      sendInformation.currentPage = data2.data.currentPage;
-      sendInformation.pageSize = data2.data.pageSize;
-      detail.length = 0;
-      for (let i = 0; i < data2.data.data.length; i++) {
-        detail.push(data2.data.data[i]);
-      }
+    function operateData(info) {
+      console.log("info", info);
+      detail.data = [];
+      Array.isArray(info) && info.forEach((item) => {
+        detail.data.push(item);
+      });
     }
-    const tabTarget = common_vendor.ref(1);
-    const changeTabTarget = (target2) => {
-      tabTarget.value = target2;
-    };
-    const detail = common_vendor.reactive([]);
+    const detail = common_vendor.reactive({
+      data: []
+    });
     const showIndexedList = common_vendor.ref(false);
     const searchPopup2 = common_vendor.ref(null);
     const open = () => {
       showIndexedList.value = true;
       searchPopup2.value.popup.open("bottom");
     };
-    const changeShowIndexedList = (data2) => {
-      showIndexedList.value = data2;
+    const changeShowIndexedList = (data) => {
+      showIndexedList.value = data;
     };
-    const popList = pop_list;
+    const popList = utils_cityListTools.getPopCityList();
     const getResult = (res) => {
       console.log("getResult", res);
     };
@@ -242,8 +177,24 @@ const _sfc_main = {
       "sd34",
       123
     ];
+    const seledType = common_vendor.reactive({
+      type: "active"
+    });
+    const changePage = (value) => {
+      if (value === 2) {
+        return;
+      } else {
+        seledType.type = "";
+        common_vendor.index.redirectTo({
+          url: "../Ordinary/ordinary"
+        });
+      }
+    };
     return {
-      listItem,
+      cityClassID,
+      seledType,
+      changePage,
+      selSortTypeItem,
       getResult,
       showIndexedList,
       changeShowIndexedList,
@@ -254,12 +205,10 @@ const _sfc_main = {
       open,
       searchPopup: searchPopup2,
       detail,
-      tabStatus,
       changeList,
       showList,
       cityList,
       salaryList,
-      changeTab,
       showCollapse,
       closeCollapse,
       openCollapse,
@@ -294,12 +243,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       prefixIcon: "search",
       modelValue: $setup.sendInformation.information
     }),
-    d: common_vendor.f($setup.cityList.data, (item, k0, i0) => {
+    d: common_vendor.f($setup.cityList, (item, k0, i0) => {
       return {
-        a: common_vendor.t(item.name),
-        b: common_vendor.n(item.active),
-        c: item.id,
-        d: common_vendor.o(($event) => $setup.chooseCity(item.id), item.id)
+        a: common_vendor.t(item.city),
+        b: ($setup.cityClassID.id === item.cityCode ? true : false) ? 1 : "",
+        c: item.cityCode,
+        d: common_vendor.o(($event) => $setup.chooseCity(item.cityCode), item.cityCode)
       };
     }),
     e: common_vendor.o((...args) => $setup.open && $setup.open(...args)),
@@ -333,14 +282,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $setup.chooseSalary(item.id), item.id)
       };
     }),
-    q: common_vendor.f($setup.listItem, (item, k0, i0) => {
+    q: common_vendor.f($setup.selSortTypeItem, (item, k0, i0) => {
       return {
-        a: common_vendor.t(item),
-        b: $setup.tabTarget === item ? 1 : "",
-        c: common_vendor.o(($event) => $setup.changeTabTarget(item))
+        a: common_vendor.t(item.sortType),
+        b: $setup.tabTarget.order === item.order ? 1 : "",
+        c: common_vendor.o(($event) => $setup.changeTabTarget(item.order))
       };
     }),
-    r: common_vendor.f($setup.detail, (item, k0, i0) => {
+    r: common_vendor.f($setup.detail.data, (item, k0, i0) => {
       return {
         a: "5ff45318-3-" + i0,
         b: common_vendor.p({
@@ -350,10 +299,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.id
       };
     }),
-    s: common_vendor.sr("searchPopup", "5ff45318-4"),
-    t: common_vendor.o($setup.changeShowIndexedList),
-    v: common_vendor.o($setup.getResult),
-    w: common_vendor.p({
+    s: common_vendor.o(($event) => $setup.changePage(1)),
+    t: common_vendor.n($setup.seledType.type),
+    v: common_vendor.o(($event) => $setup.changePage(2)),
+    w: common_vendor.sr("searchPopup", "5ff45318-4"),
+    x: common_vendor.o($setup.changeShowIndexedList),
+    y: common_vendor.o($setup.getResult),
+    z: common_vendor.p({
       comBoxText: "\u8BF7\u8F93\u5165\u57CE\u5E02",
       showIndexedList: $setup.showIndexedList,
       comBoxList: $setup.myList,
@@ -361,5 +313,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5ff45318"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5ff45318"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/Professional/searchDetail/Emerging/Emerging.vue"]]);
 wx.createPage(MiniProgramPage);

@@ -134,5 +134,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     o: common_vendor.n($props.border ? "" : "uni-combox__no-border")
   });
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-06b292c9"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-06b292c9"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/uni_modules/uni-combox/components/uni-combox/uni-combox.vue"]]);
 wx.createComponent(Component);

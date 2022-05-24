@@ -1,8 +1,6 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-var pages_utils_createDataInfo = require("../utils/createDataInfo.js");
-require("../utils/utils/sendPostRequest.js");
-require("../utils/route.js");
+var utils_createDataInfo = require("../../utils/createDataInfo.js");
 const _sfc_main = {
   onShareAppMessage(res) {
     if (res.from === "button") {
@@ -20,8 +18,6 @@ const _sfc_main = {
         url: `../Professional/Professional/Professional?target=${target}`
       });
     };
-    pages_utils_createDataInfo.createProfession();
-    pages_utils_createDataInfo.getAllProfession();
     const getPhoneNumber = (e) => {
     };
     function enter() {
@@ -30,7 +26,7 @@ const _sfc_main = {
       });
     }
     return {
-      createProfession: pages_utils_createDataInfo.createProfession,
+      createProfession: utils_createDataInfo.createProfession,
       getPhoneNumber,
       content,
       enterProfessional,
@@ -43,9 +39,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.o((...args) => $setup.enter && $setup.enter(...args)),
     b: common_vendor.o(($event) => $setup.enterProfessional(1)),
     c: common_vendor.o(($event) => $setup.enterProfessional(2)),
-    d: common_vendor.o((...args) => $setup.createProfession && $setup.createProfession(...args)),
-    e: common_vendor.o((...args) => $setup.getPhoneNumber && $setup.getPhoneNumber(...args)),
-    f: common_vendor.f($setup.content, (item, index, i0) => {
+    d: common_vendor.f($setup.content, (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: index
@@ -53,6 +47,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record-wdx/salary-record/pages/index/index.vue"]]);
 _sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);

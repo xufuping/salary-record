@@ -1,6 +1,6 @@
 "use strict";
 var common_vendor = require("../../../common/vendor.js");
-var pages_utils_utils_sendPostRequest = require("../../utils/utils/sendPostRequest.js");
+var pages_utils_utils_sendPostRequest = require("../../utils/sendPostRequest.js");
 var pages_utils_route = require("../../utils/route.js");
 const _sfc_main = {
   props: {

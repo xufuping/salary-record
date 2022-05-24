@@ -25,11 +25,10 @@
 /* 文章场景相关 */
 .releaseProfessional.data-v-ce65f5b8 {
   box-sizing: border-box;
-  background-color: #00bf57;
+  background: linear-gradient(81.13deg, #457DEA 18.47%, rgba(93, 178, 248, 0.794338) 96.22%, rgba(197, 216, 248, 0.7) 125.81%);
   width: 100%;
   min-height: 100vh;
   padding: 20rpx;
-  padding-bottom: 170rpx;
 }
 .releaseProfessional .header.data-v-ce65f5b8 {
   width: 100%;
@@ -39,12 +38,20 @@
   flex-direction: column;
   align-items: center;
 }
-.releaseProfessional .header .header_logo.data-v-ce65f5b8 {
-  margin-top: 25rpx;
+.releaseProfessional .header .header_logo_square.data-v-ce65f5b8 {
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 50%;
+  background-color: #C4C4C4;
+}
+.releaseProfessional .header .header_logo_square .header_logo.data-v-ce65f5b8 {
+  height: 150rpx;
+  width: 150rpx;
+  text-align: center;
   font-size: 60rpx;
 }
 .releaseProfessional .header .header_list.data-v-ce65f5b8 {
-  margin-top: 25rpx;
+  margin-top: 10rpx;
   font-size: 24rpx;
   display: flex;
   flex-direction: row;
@@ -59,65 +66,64 @@
   border-bottom: 4rpx solid #fff;
   border-radius: 5%;
 }
-.releaseProfessional .release_botton.data-v-ce65f5b8 {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 35rpx;
-  color: #00bf57;
-  background-color: #fff;
-  border-radius: 8rpx;
-  margin: 40rpx auto;
+.releaseProfessional .input_square.data-v-ce65f5b8 {
+  background: #FFFFFF;
+  border-radius: 76rpx 76rpx 0px 0px;
+  height: 1200px;
+  margin-bottom: -10px;
 }
-.releaseProfessional .info_item.data-v-ce65f5b8 {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 20rpx;
-  background-color: #fff;
-  border-radius: 10rpx;
-  box-shadow: 0px 0px 15rpx rgba(0, 0, 0, 0.2);
-  margin-bottom: 30rpx;
-}
-.releaseProfessional .info_item .label.data-v-ce65f5b8 {
+.releaseProfessional .input_square .label.data-v-ce65f5b8 {
   font-size: 30rpx;
   margin: 10rpx;
   color: gray;
+  padding-left: 15rpx;
 }
-.releaseProfessional .info_item .label .required_label.data-v-ce65f5b8 {
+.releaseProfessional .input_square .required_label.data-v-ce65f5b8 {
   color: red;
   margin-right: 5rpx;
 }
-.releaseProfessional .info_item .inp .city_item.data-v-ce65f5b8 {
-  font-size: 22rpx;
-  padding: 10rpx 30rpx 10rpx 20rpx;
-  border: 1rpx solid rgba(0, 0, 0, 0.1);
-  border-radius: 10rpx;
-  color: gray;
-  position: relative;
+.releaseProfessional .input_square .input_underline.data-v-ce65f5b8 {
+  width: 600rpx;
+  border: 1px solid #D1D5DA;
+  margin-left: 20rpx;
 }
-.releaseProfessional .info_item .inp .city_item .city_close.data-v-ce65f5b8 {
-  font-size: 15rpx;
-  position: absolute;
-  top: 5rpx;
-  right: 10rpx;
+.releaseProfessional .input_square .info_item_class1.data-v-ce65f5b8 {
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  padding: 20rpx;
 }
-.releaseProfessional .info_item .inp .box_sort.data-v-ce65f5b8 {
+.releaseProfessional .input_square .info_item_class2.data-v-ce65f5b8 {
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  padding: 20rpx;
+}
+.releaseProfessional .input_square .info_item_class2 .inp .box_sort.data-v-ce65f5b8 {
   display: flex;
   justify-content: space-around;
 }
-.releaseProfessional .info_item .inp .inputbox.data-v-ce65f5b8 {
+.releaseProfessional .input_square .info_item_class2 .inp .box_sort .inputbox.data-v-ce65f5b8 {
   width: 250rpx;
+  border: 1px solid #D1D5DA;
+  border-radius: 6px;
 }
-.releaseProfessional .info_item .inp .type_list.data-v-ce65f5b8 {
+.releaseProfessional .input_square .info_item_class2 .inp .box_sort .dashed_line.data-v-ce65f5b8 {
+  height: 0rpx;
+  width: 80rpx;
+  border: 1px dashed #D1D5DA;
+  align-self: center;
+}
+.releaseProfessional .input_square .info_item_class3.data-v-ce65f5b8 {
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  padding: 20rpx;
+}
+.releaseProfessional .input_square .info_item_class3 .type_list.data-v-ce65f5b8 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 20rpx auto;
 }
-.releaseProfessional .info_item .inp .type_list .type_item.data-v-ce65f5b8 {
+.releaseProfessional .input_square .info_item_class3 .type_list .type_item.data-v-ce65f5b8 {
   margin: 0 10rpx;
   flex: 1;
   display: flex;
@@ -128,25 +134,72 @@
   border-radius: 10rpx;
   color: gray;
 }
-.releaseProfessional .info_item .inp .type_list .sel_item.data-v-ce65f5b8 {
-  border-color: #00bf57;
-  color: #00bf57;
+.releaseProfessional .input_square .info_item_class3 .type_list .sel_item.data-v-ce65f5b8 {
+  border-color: #5E95EE;
+  color: #5E95EE;
 }
-.releaseProfessional .info_item .inp .sel_education.data-v-ce65f5b8 {
-  box-sizing: border-box;
+.releaseProfessional .input_square .info_item_class4.data-v-ce65f5b8 {
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  padding: 20rpx;
+}
+.releaseProfessional .input_square .info_item_class4 .inp_class4.data-v-ce65f5b8 {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 72rpx;
+  justify-content: space-between;
+}
+.releaseProfessional .input_square .info_item_class4 .inp_class4 .sel_education.data-v-ce65f5b8 {
   background: #fff;
   color: gray;
-  border: 1rpx solid #dcdfe6;
-  border-radius: 8rpx;
   font-size: 28rpx;
   padding: 0 20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+  margin-left: 2rpx;
 }
-.releaseProfessional .info_item .instructions_label.data-v-ce65f5b8 {
+.releaseProfessional .input_square .info_item_class4 .inp_class4 .arrow_area.data-v-ce65f5b8 {
+  width: 20rpx;
+  height: 20rpx;
+  border-top: 1px solid #D0D0D0;
+  border-right: 1px solid #D0D0D0;
+  transform: rotate(45deg);
+  margin-right: 54rpx;
+  margin-top: 28rpx;
+}
+.releaseProfessional .input_square .info_item_class5.data-v-ce65f5b8 {
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  padding: 20rpx;
+}
+.releaseProfessional .input_square .info_item_class5 .inp_class5.data-v-ce65f5b8 {
+  width: 630rpx;
+  height: 200rpx;
+  border: 1px solid #D1D5DA;
+  border-radius: 6px;
+  margin: 0 auto;
+  margin-top: 20rpx;
+}
+.releaseProfessional .input_square .info_item_class6.data-v-ce65f5b8 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600rpx;
+  height: 168rpx;
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+  padding: 20rpx;
+  border: 1px solid #D1D5DA;
+  box-shadow: 0px 5px 8px #E0E4EA;
+  border-radius: 6px;
+}
+.releaseProfessional .input_square .info_item_class6 .detailTitle.data-v-ce65f5b8 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  background: #FCFCFC;
+}
+.releaseProfessional .input_square .info_item_class6 .detailTitle .instructions_label.data-v-ce65f5b8 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,7 +208,7 @@
   margin: 10rpx 0;
   margin-right: 20rpx;
 }
-.releaseProfessional .info_item .instructions_text.data-v-ce65f5b8 {
+.releaseProfessional .input_square .info_item_class6 .instructions_text.data-v-ce65f5b8 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -163,76 +216,16 @@
   color: gray;
   margin: 30rpx 0;
 }
-.releaseProfessional .release_bottom.data-v-ce65f5b8 {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 150rpx;
-  background-color: #00bf57;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.releaseProfessional .release_bottom .release_botton.data-v-ce65f5b8 {
-  width: 80%;
-  height: 80rpx;
+.releaseProfessional .input_square .release_botton.data-v-ce65f5b8 {
+  width: 600rpx;
+  height: 96rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 40rpx;
   color: #fff;
   border: 1px solid #fff;
-  border-radius: 8rpx;
+  background: #FF5959;
+  border-radius: 6px;
+  margin: 0 auto;
 }
-.detailTitle.data-v-ce65f5b8 {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
-}
-.bottom_tabelbar.data-v-ce65f5b8 {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  margin-left: -20rpx;
-}
-.bottom_tabelbar .tabelbar_item.data-v-ce65f5b8 {
-  background-color: #eeeeee;
-  display: inline-block;
-  width: 50%;
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  font-family: "黑体";
-}
-.bottom_tabelbar .active.data-v-ce65f5b8 {
-  color: red;
-}
-/**
- * 这里是uni-app内置的常用样式变量
- *
- * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
- * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
- *
- */
-/**
- * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
- *
- * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
- */
-/* 颜色变量 */
-/* 行为相关颜色 */
-/* 文字基本颜色 */
-/* 背景颜色 */
-/* 边框颜色 */
-/* 尺寸变量 */
-/* 文字尺寸 */
-/* 图片尺寸 */
-/* Border Radius */
-/* 水平间距 */
-/* 垂直间距 */
-/* 透明度 */
-/* 文章场景相关 */

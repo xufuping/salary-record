@@ -17,7 +17,7 @@
   "tabBar": {
     "borderStyle": "black",
     "color": "#8F8F94",
-    "selectedColor": "#f33e54",
+    "selectedColor": "#5E95EE",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -45,6 +45,11 @@
           "^/api": ""
         }
       }
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
   "usingComponents": {},

@@ -70,7 +70,7 @@
   border-radius: 10rpx;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 90rpx;
 }
 .professionPage .content_more .more_list.data-v-5ff45318 {
   display: flex;
@@ -179,6 +179,10 @@
   line-height: 100rpx;
   text-align: center;
   font-family: "黑体";
+  padding-bottom: constant(safe-area-inset-bottom);
+  /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom);
+  /*兼容 IOS>11.2*/
 }
 .professionPage .bottom_tabelbar .active.data-v-5ff45318 {
   color: red;

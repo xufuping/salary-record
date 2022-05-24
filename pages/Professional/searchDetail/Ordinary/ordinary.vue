@@ -1,64 +1,70 @@
 <template>
 	<view class="professionPage">
+		
 		<view class="header">
-			<view class="header_logo">普通职业</view>
+			<view class="header_circle">
+				<view class="header_logo">LOGO</view>
+			</view>
 		</view>
+		
 		<view class="content_search">
 			<uni-easyinput v-model="sendInformation.information" placeholder="请输入公司名称/城市/岗位" @iconClick="search()"
 				prefixIcon="search"></uni-easyinput>
 		</view>
+		
 		<view class="content_more">
-			<!-- TODO 可以封装成一个组件，但是有点麻烦 -->
-			<!-- <ChooseList label="类型" :typeList="typeList" :todo="chooseType()" :more="open()"/> -->
+			
 			<view class="more_list">
 				<view class="label">类型</view>
+				<view class="label_underline"></view>
 				<view class="list_scroll">
 					<view class="sel_list">
-						<view class="sel_item" :class="item.active" v-for="item in typeList.data" :key="item.id"
-							@click="chooseType(item.id)">{{item.name}}</view>
-						<!-- TODO 更多内容没有做 -->
+						<view class="sel_item" :class="{active:(type.id === item.id ? true : false)}" v-for="item in typeList" :key="item.id"
+							@click="chooseType(item)">{{item.name}}</view>
+					</view>
+				</view>
+			</view>
+			
+			<view class="more_list">
+				<view class="label">城市</view>
+				<view class="label_underline"></view>
+				<view class="list_scroll">
+					<view class="sel_list">
+						<view class="sel_item" :class="{active:(cityClassID.id === item.cityCode ? true : false)}" v-for="item in cityList" :key="item.cityCode"
+							@click="chooseCity(item.cityCode)">{{item.city}}</view>
 						<!-- <view class="sel_item" @click="open(0)">更多</view> -->
 					</view>
 				</view>
 			</view>
-			<view class="more_list">
-				<view class="label">城市</view>
-				<view class="list_scroll">
-					<view class="sel_list">
-						<view class="sel_item" :class="item.active" v-for="item in cityList.data" :key="item.id"
-							@click="chooseCity(item.id)">{{item.name}}</view>
-						<!-- TODO 更多内容没有做 -->
-						<view class="sel_item" @click="open(0)">更多</view>
-					</view>
-				</view>
-			</view>
+			
 			<view class="more_list">
 				<view class="label">行业</view>
+				<view class="label_underline"></view>
 				<view class="list_scroll">
 					<view class="sel_list">
-						<view class="sel_item" :class="item.active" v-for="item in jobList.data" :key="item.id"
+						<view class="sel_item" :class="{active:(jobClassID.id === item.id ? true : false)}" v-for="item in jobList.data" :key="item.id"
 							@click="chooseJob(item.id)">{{item.name}}</view>
-						<!-- TODO 更多内容没有做 -->
-						<view class="sel_item" @click="open(1)">更多</view>
+						<!-- <view class="sel_item" @click="open(1)">更多</view> -->
 					</view>
-				</view>
+				</view> 
 			</view>
-			<view class="more_line"></view>
+			
 			<view class="content_table">
+				<view class="label_underline"></view>
 				<view class="table_sel_list">
-					<view v-for="item in selSortTypeItem" :key="item" class="sel_item" :class="{seled_item:tabTarget===item}" @click="changeTabTarget(item)">{{item}}</view>
+					<view v-for="item in selSortTypeItem" :key="item.order" class="sel_item" :class="{seled_item:tabTarget.order===item.order}" @click="changeTabTarget(item.order)">{{item.sortType}}</view>
 				</view>
 				<view v-for="item in detail.data" :key="item.id" class="searchItem">
 					<searchItem :detail="item" :type="1"></searchItem>
 				</view>
 			</view>
 		</view>
-		<view class="footer">
-			<view class="bottom_tabelbar">
-				<view class="tabelbar_item active" @click="changePage(1)" >普通职业</view>
-				<view class="tabelbar_item" @click="changePage(2)" >新兴职业</view>
-			</view>
+		
+		<view class="bottom_tabelbar">
+			<view class="tabelbar_item" :class="seledType.type" @click="changePage(1)" >普通职业</view>
+			<view class="tabelbar_item" @click="changePage(2)" >新兴职业</view>
 		</view>
+		
 		<!-- 选择城市 -->
 		<searchPopup
 		v-for="item in searchPopupList"
@@ -73,9 +79,6 @@
 		@getResult="item.getResult"
 		>
 		</searchPopup>
-		
-		
-		<!-- :ref="item.ref" -->
 	</view>
 </template>
 
@@ -86,41 +89,53 @@
 		toRaw,
 		onMounted
 	} from 'vue'
-	import searchItem from "../../common/searchItem.vue"
-	import searchPopup from "../../common/SearchPopup.vue"
-	// import ChooseList from "../../common/ChooseList.vue";
+	import searchItem from "../../common/searchItem.vue";
+	import searchPopup from "../../common/SearchPopup.vue";
 
-	import pop_list from "../../../../static/json/pop_list.json";
+	import TYPE_LIST from '../../../../config/typeData.js';
+	import {SCREEN_CITY} from "../../../../config/configData.js";
+	import {addHotCity} from "../../../../utils/cityListTools.js";
+	import {JOB_LIST,selSortType} from "./constants.js";
 
-	import type_list from "./json/type_list.json";
-	import city_list from "./json/city_list.json";
-	import job_list from "./json/job_list.json";
-
-	import sendPostRequest from "../../../utils/utils/sendPostRequest.js"
-	import router from "../../../utils/route.js";
-	import {getPopCityList} from '../../../utils/cityListTools.js'
-
-	const selSortType=['按时间排序','按点赞数排序','按可信度排序']
+	import sendPostRequest from "../../../../utils/sendPostRequest.js";
+	import router from "../../../../utils/route.js";
+	import {getPopCityList} from '../../../../utils/cityListTools.js';
+	
+	//测试导入
+	import {ORDINARY,ENV} from "../../../../config/MAKRDATA.js"
+	
 
 	export default {
 		components: {
 			searchItem,
 			searchPopup
-			// ChooseList
 		},
 		props: {
 			inputValue: String
 		},
 		setup(props) {
+			onMounted(() => {
+				search();
+				// changeTabTarget();
+			})
+			
 			//页面切换
+			const seledType =  reactive({
+				type:"active"
+			})
 			const changePage = (value) =>{
-				uni.redirectTo({
-					url:value === 1 ? "../Ordinary/ordinary" : "../Emerging/Emerging"
-				})
+				if(value === 1){
+					return
+				}else{
+					seledType.type = ""
+					uni.redirectTo({
+						url:"../Emerging/Emerging"
+					})
+				}
 			}
 			
+			//弹框
 			const popList = getPopCityList();
-
 			const searchPopupList=reactive([
 				{
 					id:0,
@@ -152,28 +167,34 @@
 					},
 				},
 			])
-
-			const selSortTypeItem = selSortType
 			
-			onMounted(() => {
-				// search();
-				showAll();
+			const detail = reactive({
+				data:[]
+			});
+			const selSortTypeItem = selSortType
+			const tabTarget = reactive({
+				order:""
 			})
-			//tab 切换
-			const tabStatus = ref(1) //1-按时间排序 2-按点赞数排序 3-按可信度排序
-			const changeTab = (target) => {
-				tabStatus.value = target
-			}
+			
 			//发送信息对象
 			const sendInformation = reactive({
 				information: props.inputValue,
-				city: 0,
+				city: [],
 				type: "",
 				profession: "",
-				order: tabStatus.value,
+				order: "",
 				currentPage: 1,
 				pageSize: 10
 			})
+			
+			//排序
+			const changeTabTarget = (target = "") => {
+				if(tabTarget.order === target) return
+				tabTarget.order = target;
+				sendInformation.order = target;
+				search();
+			}
+			
 			//筛选
 			const showCollapse = ref(false)
 			const closeCollapse = () => {
@@ -190,99 +211,100 @@
 				showList.value = !showList.value
 			}
 
-			function chooseType(typeId) {
-				for (let i = 0; i < typeList.data.length; i++) {
-					typeList.data[i].active = "";
+			function chooseType(typeInfo) {
+				// TODO 类型筛选入参是什么数据类型？ 
+				if(type.id !== typeInfo.id){
+					sendInformation.type = typeInfo.id;
+					type.id = typeInfo.id;
+					search()
+				}else{
+					type.id=0
 				}
-				typeList.data[typeId - 1].active = "active";
-				sendInformation.type = typeId;
-				console.log(typeId)
 			}
 
-			function chooseCity(cityId) {
-				sendInformation.city = cityId;
-				for (let i = 0; i < cityList.data.length; i++) {
-					cityList.data[i].active = "";
+			function chooseCity(cityCode) {
+				// TODO 多选实现
+				if(cityClassID.id !== cityCode){
+					sendInformation.city = cityCode;
+					cityClassID.id = cityCode
+					search()
+				}else{
+					cityClassID.id = 0
 				}
-				cityList.data[cityId - 1].active = "active";
 			}
 
 			function chooseJob(jobId) {
-				sendInformation.profession = jobId;
-				for (let i = 0; i < jobList.data.length; i++) {
-					jobList.data[i].active = "";
+				if(jobClassID.id !== jobId){
+					sendInformation.profession = jobId;
+					jobClassID.id = jobId;
+					search()
+				}else{
+					jobClassID.id=0
 				}
-				jobList.data[jobId - 1].active = "active";
 			}
-
-			const typeList = reactive(type_list);
-			const cityList = reactive(city_list);
-			const jobList = reactive(job_list);
-
-			//显示所有职业列表
-			const dataAll = {
-				currentPage:1,
-				pageSize:5
-			}
-			function showAll(){
-				sendPostRequest(router.ordinaryGetAllWork,dataAll, {
-						success(res) {
-							if(res.message === "success"){
-							operateData(res.data.data);
-							}
-							else{}
-						},
-						fail() {}
-					},true)
-			}
+			
+			const type = reactive({id:0})
+			const typeList = reactive(TYPE_LIST);
+			
+			const cityClassID = reactive({id:0})
+			const cityList = reactive(addHotCity(SCREEN_CITY));
+			
+			const jobClassID = reactive({id:0})
+			const jobList = reactive(JOB_LIST);
 
 			//搜索操作
 			function search() {
+				detail.data = []
 				let data={}
 				if (sendInformation.information) data.information=sendInformation.information;
-				if (tabTarget.value ) data.order=tabTarget.value ;
+				if (tabTarget.order) data.order=sendInformation.order ;
 
 				sendPostRequest(router.ordinaryGetActicleList, data, {
 						success(res) {
 							if(res.message === "success"){
 							operateData(res.data.data);
 							}
-							else{}
+							else{
+								if(ENV === "self"){
+									operateData(ORDINARY.data.data)
+								}
+							}
 						},
-						fail() {}
+						fail() {
+							if(ENV === "self"){
+								operateData(ORDINARY.data.data)
+							}
+						}
 					},
 					true)
 			}
 			
-			function operateData(data) {
+			function operateData(info) {
 				// sendInformation.currentPage = data.data.data.currentPage;
 				// sendInformation.pageSize = data.data.data.pageSize;
+				console.log("info",info)
 				detail.data = [];
-				data.forEach(item=>{
+				Array.isArray(info) && info.forEach(item=>{
 					detail.data.push(item);
 				})
 			}
 
-			//搜索结果筛选
-			const tabTarget = ref(1)
-			const changeTabTarget = (target) => {
-				tabTarget.value = target;
-				search();
-			}
-			let detail = reactive({
-				data:[]
-			});
+			
 			const PopupRefList =reactive([])
 			const pushPopupRef=(e)=>{
 				if(e) PopupRefList.push(e)
 			}
 			const open = (data) => {
-				console.log(PopupRefList)
+				console.log("PopupRefList",PopupRefList)
 				searchPopupList[data].showIndexedList=true
 				PopupRefList[data].popup.open('bottom')
 			}
-			const selectedItem = reactive([]);
+			
 			return {
+				seledType,
+				type,
+				cityClassID,
+				jobClassID,
 				changePage,
 				selSortTypeItem,
 				pushPopupRef,
@@ -290,7 +312,6 @@
 				sendInformation,
 				open,
 				detail,
-				tabStatus,
 				changeList,
 				chooseType,
 				chooseCity,
@@ -299,15 +320,13 @@
 				typeList,
 				cityList,
 				jobList,
-				changeTab,
 				showCollapse,
 				closeCollapse,
 				openCollapse,
 				tabTarget,
 				changeTabTarget,
 				search,
-				operateData,
-				selectedItem
+				operateData
 			}
 		}
 	}
@@ -316,11 +335,11 @@
 <style scoped lang="scss">
 	.professionPage {
 		box-sizing: border-box;
-		background-color: #00bf57;
+		background: linear-gradient(105.57deg, #457DEA 15.49%, rgba(93, 178, 248, 0.794338) 88.26%, rgba(197, 216, 248, 0.7) 119.2%);
 		width: 100%;
 		min-height: 100vh;
 		padding: 20rpx;
-
+		
 		.header {
 			width: 100%;
 			height: 250rpx;
@@ -329,9 +348,21 @@
 			flex-direction: column;
 			align-items: center;
 
-			.header_logo {
-				margin-top: 25rpx;
-				font-size: 60rpx;
+			.header_circle {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 190rpx;
+				height: 190rpx;
+				background: #C4C4C4;
+				border-radius: 50%;
+				
+				.header_logo{
+					font-family: 'Microsoft Uighur';
+					font-style: normal;
+					font-weight: 400;
+					font-size: 64rpx;
+				}
 			}
 
 			.header_list {
@@ -355,7 +386,8 @@
 		}
 
 		.content_search {
-			border-radius: 8rpx;
+			border-radius: 34rpx;
+			background-color: #fff;
 			overflow: hidden;
 			margin-bottom: 10px;
 		}
@@ -383,6 +415,15 @@
 					margin-left: 15rpx;
 					font-size: 24rpx;
 					color: gray;
+					margin: 10rpx;
+				}
+				
+				.label_underline{
+					width: 630rpx;
+					height: 0px;
+					border: 1px solid #E2E5E9;
+					margin-left: 10rpx;
+					margin-bottom: 10rpx;
 				}
 
 				.list_scroll {
@@ -401,15 +442,16 @@
 							width: 100rpx;
 							text-align: center;
 							padding: 10rpx;
-							border: 1rpx solid #00bf57;
-							color: #00bf57;
+							border: 1rpx solid #5E95EE;
+							color: #5E95EE;
 							border-radius: 20rpx;
-							margin-right: 10rpx;
+							margin-right: 30rpx;
+							margin-left: 10rpx;
 						}
 
 						.active {
-							background-color: #00bf57;
 							color: white;
+							background-color: #5E95EE;
 						}
 					}
 				}
@@ -426,6 +468,15 @@
 			}
 
 			.content_table {
+				.label_underline{
+					width: 630rpx;
+					height: 0px;
+					border: 1px solid #E2E5E9;
+					margin-left: 10rpx;
+					margin-top: 20rpx;
+					margin-bottom: 10rpx;
+				}
+				
 				.table_sel_list {
 					width: 100%;
 					display: flex;
@@ -434,15 +485,23 @@
 					margin-bottom: 40rpx;
 
 					.sel_item {
+						width: 170rpx;
+						height: 42rpx;	
 						padding: 10rpx 0;
 						margin: 0 20rpx;
 						font-size: 28rpx;
-						color: gray;
+						color: #D1D5DA;
 					}
 
 					.seled_item {
-						color: #00bf57;
-						border-bottom: 2rpx solid #00bf57;
+						padding: 10rpx 0;
+						margin: 0 20rpx;
+						color: #6A758B;
+						width: 170rpx;
+						height: 42rpx;	
+						background: #EEF4FA;
+						border-radius: 50px;
+						text-align: center;
 					}
 				}
 
@@ -477,13 +536,13 @@
 				}
 			}
 		}
-
+		
 		.bottom_tabelbar {
 			width: 100%;
 			position: fixed;
 			bottom: 0;
 			margin-left: -20rpx;
-
+		
 			.tabelbar_item {
 				background-color: #eeeeee;
 				display: inline-block;
@@ -492,25 +551,13 @@
 				line-height: 100rpx;
 				text-align: center;
 				font-family: "黑体";
+				padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+				padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
 			}
-
+		
 			.active {
-				color: red;
+				color: #5E95EE;
 			}
-		}
-	}
-</style>
-<style lang="scss">
-	.professionPage {
-		.content_search {
-			.is-input-border.data-v-abe12412 {
-				background-color: #fff;
-			}
-		}
-
-		.uni-indexed-list.data-v-0f58ddf9 {
-			top: auto;
-			height: 400rpx;
 		}
 	}
 </style>

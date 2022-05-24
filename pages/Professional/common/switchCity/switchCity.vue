@@ -89,12 +89,13 @@
 
 <script>
 import {ref,reactive,onMounted} from "vue";
-import { commonMessage } from './commonMessageZhCn'
-import { AutoPredictor } from '../../../utils/autoPredictor'
-import sendPostRequest from '../../../utils/utils/sendPostRequest'
-import utils from '../../../utils/utils'
+import { COMMON_MESSAGE } from './constants.js'
+import { AutoPredictor } from '../../../../utils/autoPredictor.js'
+import sendPostRequest from '../../../../utils/sendPostRequest'
+import utils from '../../../../utils/toolsFnAndGetPosition.js'
 import store from "../../../../store/index.js"
-import {getCityInfoByName,getCityListSortedByInitialLetter,addHotCity,LETTERS} from '../../../utils/cityListTools.js'
+import {SET_HOT_LIST} from '../../../../config/configData.js'
+import {getCityInfoByName,getCityListSortedByInitialLetter,addHotCity,LETTERS} from '../../../../utils/cityListTools.js'
 
 const {
   isNotEmpty,
@@ -113,13 +114,13 @@ const windowHeight = ref(0);
 const cityList = reactive({
 	data:[]
 	});
-const HOT_CITY_LIST = addHotCity();
+const HOT_CITY_LIST = addHotCity(SET_HOT_LIST);
 const hotCityList = reactive(HOT_CITY_LIST);
 const showChosenLetterToast = ref(false);
 const scrollTopId = ref('');
 const city = reactive({
 	code:0,
-	seledCity:commonMessage['location.getting']
+	seledCity:COMMON_MESSAGE['location.getting']
 })
 const inputName = ref ('');
 const completeList = reactive({
@@ -138,7 +139,7 @@ const toastShowLetter =ref('')
 				city.code = compareCity[0].cityCode;
 			}
 			else{
-				city.seledCity = commonMessage['location.noCompareCity.fail']
+				city.seledCity = COMMON_MESSAGE['location.noCompareCity.fail']
 			}
 	    }
 	});
@@ -152,7 +153,7 @@ const toastShowLetter =ref('')
 		success: function (res) {
 			getLocationFromGeoCoord(res)
 		},
-		fail:function(){onFail(commonMessage['location.city.fail'])}
+		fail:function(){onFail(COMMON_MESSAGE['location.city.fail'])}
 	});
   }
 
