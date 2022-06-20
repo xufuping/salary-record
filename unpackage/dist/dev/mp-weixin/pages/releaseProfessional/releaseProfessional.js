@@ -55,25 +55,25 @@ const _sfc_main = {
       id: 0,
       name: "\u8BF7\u9009\u62E9\u5B66\u5386"
     });
-    const eduList = common_vendor.reactive(pages_releaseProfessional_constants.EDU_LIST);
+    let eduList = common_vendor.reactive([]);
+    {
+      eduList = pages_releaseProfessional_constants.EDU_LIST;
+    }
     function changeEducation(e) {
       selEducation.name = eduList[e.detail.value].degreeName;
       selEducation.id = eduList[e.detail.value].id;
-      console.log("selEducation.id", selEducation.id);
     }
     const selIndustry = common_vendor.reactive({
       id: 0,
       name: "\u8BF7\u9009\u62E9\u884C\u4E1A"
     });
-    const induList = common_vendor.reactive(pages_releaseProfessional_constants.INDU_LIST);
+    let induList = common_vendor.reactive([]);
+    {
+      induList = tabStatus.value === 1 ? pages_releaseProfessional_constants.INDU_LIST.ordinary : pages_releaseProfessional_constants.INDU_LIST.emerging;
+    }
     function changeIndustry(e) {
-      if (tabStatus.value === 1) {
-        selIndustry.name = induList.ordinary[e.detail.value].industry;
-        selIndustry.id = induList.ordinary[e.detail.value].id;
-      } else {
-        selIndustry.name = induList.emerging[e.detail.value].industry;
-        selIndustry.id = induList.emerging[e.detail.value].id;
-      }
+      selIndustry.name = induList[e.detail.value].professionName;
+      selIndustry.id = induList[e.detail.value].id;
     }
     const job_note = common_vendor.ref("");
     function showDetail() {
@@ -246,7 +246,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   } : {}, {
     v: common_vendor.t($setup.selIndustry.name),
     w: common_vendor.o((...args) => $setup.changeIndustry && $setup.changeIndustry(...args)),
-    x: $setup.tabStatus === 1 ? $setup.induList.ordinary : $setup.induList.emerging,
+    x: $setup.induList,
     y: common_vendor.t($setup.storeCity.defaultCity),
     z: common_vendor.o(($event) => $setup.job_note = $event),
     A: common_vendor.p({
@@ -259,5 +259,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     C: common_vendor.o((...args) => $setup.submit && $setup.submit(...args))
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ce65f5b8"], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/releaseProfessional/releaseProfessional.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ce65f5b8"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/releaseProfessional/releaseProfessional.vue"]]);
 wx.createPage(MiniProgramPage);

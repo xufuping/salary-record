@@ -18,17 +18,17 @@ export const JOB_LIST = {
 	]
 }
 
-export const selSortType=[
-				{
-					order:"",
-					sortType:"按时间排序"
-				},
-				{
-					order:"LIKE_COUNT",
-					sortType:"按点赞数排序"
-				},
-				{
-					order:"CREDIBILITY",
-					sortType:"按可信度排序"
-				}
-				]
+export const selSortType = [
+	{
+		order: "",
+		sortType: "按时间排序"
+	},
+	{
+		order: "LIKE_COUNT",
+		sortType: "按点赞数排序"
+	},
+	{
+		order: "CREDIBILITY",
+		sortType: "按可信度排序"
+	}
+]

@@ -2,7 +2,7 @@
 var common_vendor = require("../common/vendor.js");
 function sendPostRequest(route, data, callBackFn, isShowModal) {
   common_vendor.index.request({
-    url: "http://47.101.157.10:8084" + route,
+    url: "https://47.101.157.10/api" + route,
     method: "POST",
     data,
     success(data2) {

@@ -40,40 +40,40 @@
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 34rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  color: #3A3B3D;
+  color: #3a3b3d;
 }
 .search_card_item .item_label .posSalary .num.data-v-43b3d620 {
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 34rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  color: #F87933;
+  color: #f87933;
 }
 .search_card_item .item_label .posSalary .unit.data-v-43b3d620 {
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 34rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  color: #F87933;
+  color: #f87933;
 }
 .search_card_item .item_address.data-v-43b3d620 {
-  width: 64.94px;
-  height: 14.12px;
-  background: #F4F6F9;
-  border-radius: 5px;
+  width: 130rpx;
+  height: 29rpx;
+  background: #f4f6f9;
+  border-radius: 10rpx;
 }
 .search_card_item .item_address .comAddress.data-v-43b3d620 {
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 16rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
   color: #767575;
@@ -92,17 +92,17 @@
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 26rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  color: #B8B8B8;
+  color: #b8b8b8;
   margin-left: 20rpx;
 }
 .search_card_item .item_content .company_logo.data-v-43b3d620 {
   width: 38rpx;
   height: 38rpx;
-  background: #C9B6B6;
-  border-radius: 6px;
+  background: #c9b6b6;
+  border-radius: 12rpx;
 }
 .search_card_item .item_more.data-v-43b3d620 {
   display: flex;
@@ -117,10 +117,10 @@
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 16rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  color: #C5C5C5;
+  color: #c5c5c5;
 }
 .search_card_item .item_more .item_more_left .more_item.data-v-43b3d620 {
   margin-right: 15rpx;
@@ -129,8 +129,8 @@
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 16rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  color: #C5C5C5;
+  color: #c5c5c5;
 }

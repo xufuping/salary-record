@@ -3,85 +3,130 @@ const ORDINARY = {
   "code": 200,
   "message": "success",
   "data": {
-    "totalCount": 2,
+    "totalCount": 3,
     "totalPage": 1,
     "currentPage": 1,
     "pageSize": 5,
     "data": [
       {
-        "id": 2,
-        "company": "\u91CD\u90AE",
-        "post": "\u5B66\u751F",
+        "id": 7,
+        "company": "\u897F\u5B89\u5E021111",
+        "post": "\u5DE5\u4F5C",
         "city": {
-          "id": 1,
-          "cityName": "\u91CD\u5E86",
+          "id": 110100,
+          "cityName": "\u5317\u4EAC\u5E02",
           "cityPreId": null,
+          "UpdateTime": null,
           "cityTotalNum": null,
           "updateTime": null
         },
-        "salary": 1111,
+        "salaryNum": 0,
+        "salaryStr": "20w",
+        "salaryRange": "\u5E74\u85AA20w",
         "type": {
           "id": 1,
           "typeName": "\u793E\u62DB"
         },
         "degree": {
-          "id": 1,
-          "degreeName": "\u5927\u5B66"
-        },
-        "profession": {
-          "id": 1,
-          "professionName": "\u91D1\u878D",
-          "status": null
-        },
-        "user": {
-          "id": 1,
-          "from": null,
-          "openId": 1,
-          "userName": "wangzd"
-        },
-        "explain": "1",
-        "status": 2,
-        "createTime": "2022-01-06T13:43:39.000+00:00",
-        "lookCount": null,
-        "likeCount": null,
-        "credibility": null
-      },
-      {
-        "id": 3,
-        "company": "\u91CD\u5E86xx\u516C\u53F8",
-        "post": "\u540E\u7AEF",
-        "city": {
-          "id": 1,
-          "cityName": "\u91CD\u5E86",
-          "cityPreId": null,
-          "cityTotalNum": null,
-          "updateTime": null
-        },
-        "salary": 1e4,
-        "type": {
-          "id": 1,
-          "typeName": "\u793E\u62DB"
-        },
-        "degree": {
-          "id": 1,
-          "degreeName": "\u5927\u5B66"
+          "id": 2,
+          "degreeName": "\u9AD8\u4E2D"
         },
         "profession": {
           "id": 2,
           "professionName": "\u8BA1\u7B97\u673A",
-          "status": null
+          "status": 1
         },
         "user": {
           "id": 1,
-          "from": null,
-          "openId": 1,
-          "userName": "wangzd"
+          "userName": "wzd",
+          "openId": null,
+          "phone": 1222,
+          "openidWx": null
         },
-        "explain": " \u8FD9\u662F\u4E00\u4E2A\u6D4B\u8BD5",
-        "status": 2,
-        "createTime": "2022-01-15T13:36:56.000+00:00",
-        "lookCount": null,
-        "likeCount": null,
+        "explain": null,
+        "status": null,
+        "from": null,
+        "createTime": null,
+        "lookCount": 1,
+        "likeCount": 1,
+        "credibility": null
+      },
+      {
+        "id": 11,
+        "company": "\u6D4B\u8BD55.7",
+        "post": "\u6D4B\u8BD5",
+        "city": {
+          "id": 610100,
+          "cityName": "\u897F\u5B89\u5E02",
+          "cityPreId": null,
+          "UpdateTime": null,
+          "cityTotalNum": null,
+          "updateTime": null
+        },
+        "salaryNum": 0,
+        "salaryStr": "1",
+        "salaryRange": "122",
+        "type": {
+          "id": 2,
+          "typeName": "\u5B9E\u4E60"
+        },
+        "degree": {
+          "id": 2,
+          "degreeName": "\u9AD8\u4E2D"
+        },
+        "profession": null,
+        "user": {
+          "id": 1115,
+          "userName": "wangdz",
+          "openId": null,
+          "phone": 15123301497,
+          "openidWx": null
+        },
+        "explain": null,
+        "status": null,
+        "from": null,
+        "createTime": null,
+        "lookCount": 16,
+        "likeCount": 0,
+        "credibility": null
+      },
+      {
+        "id": 12,
+        "company": "\u6D4B\u8BD55.9",
+        "post": "\u55EF\u55EF",
+        "city": {
+          "id": 610100,
+          "cityName": "\u897F\u5B89\u5E02",
+          "cityPreId": null,
+          "UpdateTime": null,
+          "cityTotalNum": null,
+          "updateTime": null
+        },
+        "salaryNum": 0,
+        "salaryStr": "10",
+        "salaryRange": "14115",
+        "type": {
+          "id": 2,
+          "typeName": "\u5B9E\u4E60"
+        },
+        "degree": {
+          "id": 2,
+          "degreeName": "\u9AD8\u4E2D"
+        },
+        "profession": null,
+        "user": {
+          "id": 1115,
+          "userName": "wangdz",
+          "openId": null,
+          "phone": 15123301497,
+          "openidWx": null
+        },
+        "explain": null,
+        "status": null,
+        "from": null,
+        "createTime": null,
+        "lookCount": 0,
+        "likeCount": 8,
         "credibility": null
       }
     ]
@@ -97,8 +142,8 @@ const EMERGING = {
     "pageSize": 5,
     "data": [
       {
-        "id": 2,
-        "company": "\u7F8E\u56E2",
+        "id": 4,
+        "company": "\u9001\u5916\u5417",
         "post": "\u5916\u5356\u5458",
         "city": {
           "id": 110100,
@@ -108,54 +153,56 @@ const EMERGING = {
           "cityTotalNum": null,
           "updateTime": null
         },
-        "salary": 1e4,
+        "salaryNum": 0,
+        "salaryStr": "20w",
+        "salaryRange": "\u5E74\u85AA20w",
         "profession": {
           "id": 2,
           "professionName": "\u8BA1\u7B97\u673A",
-          "status": 2
+          "status": 1
         },
         "user": {
-          "id": 1112,
-          "userName": "wangzd",
+          "id": 1,
+          "userName": "wzd",
           "openId": null,
-          "phone": 17782408
+          "phone": 1222,
+          "openidWx": null
         },
-        "explain": "\u8FD9\u662F\u4E00\u4E2A\u6D4B\u8BD5",
+        "explain": "1111",
         "status": null,
         "from": null,
-        "createTime": "2022-02-28T16:00:00.000+00:00",
-        "lookCount": null,
-        "likeCount": null,
+        "createTime": "2022-04-16T16:00:00.000+00:00",
+        "lookCount": 6,
+        "likeCount": 0,
         "credibility": null
       },
       {
-        "id": 3,
-        "company": "\u534E\u4E3A",
-        "post": "\u540E\u7AEF",
+        "id": 8,
+        "company": "\u6D4B\u8BD5\u65B0\u51745.7",
+        "post": "\u6B6A\u54AA",
         "city": {
-          "id": 110100,
-          "cityName": "\u5317\u4EAC\u5E02",
+          "id": 420100,
+          "cityName": "\u6B66\u6C49\u5E02",
           "cityPreId": null,
           "UpdateTime": null,
           "cityTotalNum": null,
           "updateTime": null
         },
-        "salary": 1e4,
-        "profession": {
-          "id": 2,
-          "professionName": "\u8BA1\u7B97\u673A",
-          "status": 2
-        },
+        "salaryNum": 0,
+        "salaryStr": "213",
+        "salaryRange": "25",
+        "profession": null,
         "user": {
-          "id": 1112,
-          "userName": "wangzd",
+          "id": 1115,
+          "userName": "wangdz",
           "openId": null,
-          "phone": 17782408
+          "phone": 15123301497,
+          "openidWx": null
         },
-        "explain": "\u8FD9\u662F\u4E00\u4E2A\u6D4B\u8BD5",
+        "explain": "\u6D4B\u8BD55\uFF0C7\u65B0\u5174",
         "status": null,
         "from": null,
-        "createTime": "2022-03-01T16:00:00.000+00:00",
+        "createTime": "2022-05-06T16:00:00.000+00:00",
         "lookCount": null,
         "likeCount": null,
         "credibility": null

@@ -25,7 +25,7 @@
 /* 文章场景相关 */
 .professionPage.data-v-20eca980 {
   box-sizing: border-box;
-  background: linear-gradient(110.6deg, #457DEA 16.45%, rgba(93, 178, 248, 0.794338) 78.47%, rgba(197, 216, 248, 0.7) 102.08%);
+  background: linear-gradient(110.6deg, #457dea 16.45%, rgba(93, 178, 248, 0.794338) 78.47%, rgba(197, 216, 248, 0.7) 102.08%);
   width: 100%;
   min-height: 100vh;
   padding: 20rpx;
@@ -40,7 +40,7 @@
   margin-top: 25rpx;
   border-radius: 50%;
   font-size: 60rpx;
-  background: #C4C4C4;
+  background: #c4c4c4;
 }
 .professionPage .header .header_logo.data-v-20eca980 {
   font-family: "Microsoft Uighur";
@@ -72,13 +72,13 @@
   margin-top: 20rpx;
   border-radius: 8rpx;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 20rpx;
 }
 .professionPage .content_search .content_search_box.data-v-20eca980 {
   display: flex;
   justify-content: space-between;
-  background: #FFFFFF;
-  border-radius: 34px;
+  background: #ffffff;
+  border-radius: 68rpx;
   width: 750rpx;
 }
 .professionPage .content_search .content_search_box .content_search_input.data-v-20eca980 {
@@ -93,12 +93,12 @@
   justify-content: space-evenly;
   align-items: center;
   width: 138rpx;
-  height: 68rpx;
+  height: 75rpx;
   position: relative;
   z-index: 2;
-  background: linear-gradient(270deg, #4684F8 -20.25%, rgba(77, 146, 248, 0.93541) 31.77%, rgba(93, 178, 248, 0.794338) 117.72%);
-  box-shadow: 0px 0px 4px #5E95EE;
-  border-radius: 46px;
+  background: linear-gradient(270deg, #4684f8 -20.25%, rgba(77, 146, 248, 0.93541) 31.77%, rgba(93, 178, 248, 0.794338) 117.72%);
+  box-shadow: 0px 0px 4px #5e95ee;
+  border-radius: 92rpx;
 }
 .professionPage .content_search .content_search_button .content_search_img.data-v-20eca980 {
   width: 32rpx;
@@ -110,20 +110,20 @@
 .professionPage .hot_box.data-v-20eca980 {
   width: 686rpx;
   height: 396rpx;
-  background: #FFFFFF;
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 20rpx;
 }
 .professionPage .hot_box .under_line.data-v-20eca980 {
   width: 612rpx;
   height: 0px;
-  border: 1px solid #DCDFE3;
+  border: 2rpx solid #dcdfe3;
   margin-left: 20rpx;
   margin-top: 5rpx;
 }
 .professionPage .hot_box .hot_title_1.data-v-20eca980 {
   width: 106rpx;
   height: 34rpx;
-  font-size: 13px;
+  font-size: 26rpx;
   color: #828080;
   margin-left: 20rpx;
   padding-top: 20rpx;
@@ -131,7 +131,7 @@
 .professionPage .hot_box .hot_title_2.data-v-20eca980 {
   width: 106rpx;
   height: 34rpx;
-  font-size: 13px;
+  font-size: 26rpx;
   color: #828080;
   margin-left: 20rpx;
 }
@@ -146,10 +146,10 @@
   font-family: "Microsoft YaHei";
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 26rpx;
   line-height: 135.48%;
   letter-spacing: 0.02em;
-  background: linear-gradient(90deg, #F87933 -14.26%, #FB9E6B 164.86%);
+  background: linear-gradient(90deg, #f87933 -14.26%, #fb9e6b 164.86%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -158,7 +158,7 @@
   margin-right: 10rpx;
 }
 .professionPage .hot_box .text_area .hot_item_blue.data-v-20eca980 {
-  background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
+  background: linear-gradient(90deg, #4581ea -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -179,12 +179,12 @@
   border-radius: 10rpx;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 20rpx;
 }
 .professionPage .content_more .more_title .under_line.data-v-20eca980 {
   width: 612rpx;
   height: 0px;
-  border: 1px solid #DCDFE3;
+  border: 2rpx solid #dcdfe3;
   margin-left: 20rpx;
   margin-top: 5rpx;
 }
@@ -203,8 +203,8 @@
 .professionPage .content_more .more_list .more_list_item.data-v-20eca980 {
   padding: 15rpx;
   margin: 10rpx 20rpx;
-  border: 1rpx solid #5E95EE;
-  color: #4581EA;
+  border: 1rpx solid #5e95ee;
+  color: #4581ea;
   border-radius: 12rpx;
 }
 .professionPage .content_more .more_list .fill_item.data-v-20eca980 {
@@ -218,6 +218,6 @@
   padding: 10rpx;
   height: 800rpx;
   border-radius: 10rpx;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 60rpx rgba(0, 0, 0, 0.2);
   background-color: #fff;
 }

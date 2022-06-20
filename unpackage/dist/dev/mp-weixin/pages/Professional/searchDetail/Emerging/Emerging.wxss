@@ -25,7 +25,7 @@
 /* 文章场景相关 */
 .professionPage.data-v-5ff45318 {
   box-sizing: border-box;
-  background: linear-gradient(105.57deg, #457DEA 15.49%, rgba(93, 178, 248, 0.794338) 88.26%, rgba(197, 216, 248, 0.7) 119.2%);
+  background: linear-gradient(105.57deg, #457dea 15.49%, rgba(93, 178, 248, 0.794338) 88.26%, rgba(197, 216, 248, 0.7) 119.2%);
   width: 100%;
   min-height: 100vh;
   padding: 20rpx;
@@ -44,7 +44,7 @@
   align-items: center;
   width: 190rpx;
   height: 190rpx;
-  background: #C4C4C4;
+  background: #c4c4c4;
   border-radius: 50%;
 }
 .professionPage .header .header_circle .header_logo.data-v-5ff45318 {
@@ -56,7 +56,7 @@
 .professionPage .label_underline.data-v-5ff45318 {
   width: 630rpx;
   height: 0px;
-  border: 1px solid #E2E5E9;
+  border: 2rpx solid #e2e5e9;
   margin-left: 10rpx;
   margin-bottom: 10rpx;
 }
@@ -64,7 +64,7 @@
   border-radius: 34rpx;
   background-color: #fff;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 20rpx;
 }
 .professionPage .content_more.data-v-5ff45318 {
   box-sizing: border-box;
@@ -72,7 +72,7 @@
   padding: 20rpx;
   padding-bottom: 5rpx;
   border-radius: 10rpx;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 60rpx rgba(0, 0, 0, 0.2);
   background-color: #fff;
   margin-bottom: 90rpx;
 }
@@ -94,7 +94,7 @@
 .professionPage .content_more .more_list .label_underline.data-v-5ff45318 {
   width: 630rpx;
   height: 0px;
-  border: 1px solid #E2E5E9;
+  border: 2rpx solid #e2e5e9;
   margin-left: 10rpx;
   margin-bottom: 10rpx;
 }
@@ -112,9 +112,9 @@
   display: flex;
   width: 134rpx;
   line-height: 60rpx;
-  border: 1rpx solid #5E95EE;
+  border: 1rpx solid #5e95ee;
   border-radius: 42rpx;
-  color: #5E95EE;
+  color: #5e95ee;
   text-align: center;
   margin-left: 20rpx;
   align-items: center;
@@ -126,7 +126,7 @@
 .professionPage .content_more .more_list .input_salary .middle_dashed_line.data-v-5ff45318 {
   width: 32rpx;
   height: 0px;
-  border: 1px dashed #C4C4C4;
+  border: 2rpx dashed #c4c4c4;
 }
 .professionPage .content_more .more_list .input_salary .year-month.data-v-5ff45318 {
   width: 100rpx;
@@ -146,14 +146,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 32rpx;
 }
 .professionPage .content_more .more_list .list_scroll .sel_list .sel_item.data-v-5ff45318 {
   flex-shrink: 0;
   width: 100rpx;
   text-align: center;
   padding: 10rpx;
-  border: 1rpx solid #5E95EE;
-  color: #5E95EE;
+  border: 1rpx solid #5e95ee;
+  color: #5e95ee;
   border-radius: 20rpx;
   margin-right: 10rpx;
 }
@@ -162,21 +163,21 @@
   width: 150rpx;
   text-align: center;
   padding: 10rpx;
-  border: 1rpx solid #5E95EE;
-  color: #5E95EE;
+  border: 1rpx solid #5e95ee;
+  color: #5e95ee;
   border-radius: 20rpx;
   margin-right: 10rpx;
 }
 .professionPage .content_more .more_list .list_scroll .sel_list .active.data-v-5ff45318 {
   color: white;
-  background-color: #5E95EE;
+  background-color: #5e95ee;
 }
 .professionPage .content_more .more_list .list_scroll.data-v-5ff45318::-webkit-scrollbar {
   display: none;
 }
 .professionPage .content_more .more_line.data-v-5ff45318 {
   margin-top: 20rpx;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 2rpx solid rgba(0, 0, 0, 0.06);
   border-radius: 10%;
 }
 .professionPage .content_more .content_table .table_sel_list.data-v-5ff45318 {
@@ -192,16 +193,16 @@
   padding: 10rpx 0;
   margin: 0 20rpx;
   font-size: 28rpx;
-  color: #D1D5DA;
+  color: #d1d5da;
 }
 .professionPage .content_more .content_table .table_sel_list .seled_item.data-v-5ff45318 {
   padding: 10rpx 0;
   margin: 0 20rpx;
-  color: #6A758B;
+  color: #6a758b;
   width: 170rpx;
   height: 42rpx;
-  background: #EEF4FA;
-  border-radius: 50px;
+  background: #eef4fa;
+  border-radius: 100rpx;
   text-align: center;
 }
 .professionPage .content_more .content_table .searchItem.data-v-5ff45318 {
@@ -227,5 +228,5 @@
   /*兼容 IOS>11.2*/
 }
 .professionPage .bottom_tabelbar .active.data-v-5ff45318 {
-  color: #5E95EE;
+  color: #5e95ee;
 }

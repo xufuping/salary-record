@@ -1,8 +1,7 @@
 "use strict";
 var common_vendor = require("../../../common/vendor.js");
 var config_configData = require("../../../config/configData.js");
-var utils_sendPostRequest = require("../../../utils/sendPostRequest.js");
-var utils_route = require("../../../utils/route.js");
+var config_professionalMockData = require("../../../config/professionalMockData.js");
 const _sfc_main = {
   props: {
     target: Number
@@ -28,27 +27,10 @@ const _sfc_main = {
       data: []
     });
     const getHotData = () => {
-      const workType = {
-        workType: "NEW"
-      };
-      utils_sendPostRequest.sendPostRequest(utils_route.router.getHotWork, workType, {
-        success(res) {
-          if (res.message === "success") {
-            operateData(res.data);
-          }
-        },
-        fail() {
-        }
-      }, true);
-      utils_sendPostRequest.sendPostRequest(utils_route.router.getHotCity, {}, {
-        success(res) {
-          if (res.message === "success") {
-            operateAreaData(res.data);
-          }
-        },
-        fail() {
-        }
-      }, true);
+      {
+        operateData(config_professionalMockData.HOT_PROFESSION.data);
+        operateAreaData(config_professionalMockData.HOT_CITYDATA.data);
+      }
     };
     const operateData = (result) => {
       emergingList.data = [];
@@ -137,5 +119,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   } : {});
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-20eca980"], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/Professional/Professional/Professional.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-20eca980"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/Professional/Professional.vue"]]);
 wx.createPage(MiniProgramPage);

@@ -4,8 +4,6 @@ exports[Symbol.toStringTag] = "Module";
 var common_vendor = require("./common/vendor.js");
 var utils_cityListTools = require("./utils/cityListTools.js");
 var store_index = require("./store/index.js");
-require("./utils/sendPostRequest.js");
-require("./utils/route.js");
 require("./config/configData.js");
 require("./config/allCityData.js");
 if (!Math) {
@@ -26,7 +24,7 @@ const _sfc_main = {
   onHide: function() {
   }
 };
-var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/xuqingfeng/web/project/salary-record/App.vue"]]);
+var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/App.vue"]]);
 function createApp() {
   const app = common_vendor.createSSRApp(App);
   app.use(store_index.store);

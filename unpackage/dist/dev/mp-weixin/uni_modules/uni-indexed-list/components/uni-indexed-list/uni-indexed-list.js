@@ -190,5 +190,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     l: common_vendor.t($data.lists[$data.touchmoveIndex].key)
   } : {});
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0f58ddf9"], ["__file", "/Users/xuqingfeng/web/project/salary-record/uni_modules/uni-indexed-list/components/uni-indexed-list/uni-indexed-list.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0f58ddf9"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/uni_modules/uni-indexed-list/components/uni-indexed-list/uni-indexed-list.vue"]]);
 wx.createComponent(Component);

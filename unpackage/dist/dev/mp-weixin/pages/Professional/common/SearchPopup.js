@@ -96,12 +96,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       showSelect: true
     })
   } : {}, {
-    j: common_vendor.sr("popup", "2a8a41e0-0"),
+    j: common_vendor.sr("popup", "504172d6-0"),
     k: common_vendor.p({
       type: "bottom",
       ["background-color"]: "#fff"
     })
   });
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/Professional/common/SearchPopup.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/common/SearchPopup.vue"]]);
 wx.createComponent(Component);

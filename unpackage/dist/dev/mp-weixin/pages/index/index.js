@@ -1,6 +1,5 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
-var utils_createDataInfo = require("../../utils/createDataInfo.js");
 const _sfc_main = {
   onShareAppMessage(res) {
     if (res.from === "button") {
@@ -26,7 +25,6 @@ const _sfc_main = {
       });
     }
     return {
-      createProfession: utils_createDataInfo.createProfession,
       getPhoneNumber,
       content,
       enterProfessional,
@@ -47,6 +45,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/index/index.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/index/index.vue"]]);
 _sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);

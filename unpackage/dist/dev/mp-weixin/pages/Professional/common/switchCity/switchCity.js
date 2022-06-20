@@ -6,16 +6,8 @@ var utils_toolsFnAndGetPosition = require("../../../../utils/toolsFnAndGetPositi
 var store_index = require("../../../../store/index.js");
 var config_configData = require("../../../../config/configData.js");
 var utils_cityListTools = require("../../../../utils/cityListTools.js");
-require("../../../../utils/sendPostRequest.js");
-require("../../../../utils/route.js");
 require("../../../../config/allCityData.js");
-const {
-  isNotEmpty,
-  safeGet,
-  getLocationUrl,
-  getCountyListUrl,
-  onFail
-} = utils_toolsFnAndGetPosition.utils;
+const { isNotEmpty, safeGet, getLocationUrl, getCountyListUrl, onFail } = utils_toolsFnAndGetPosition.utils;
 const _sfc_main = {
   setup() {
     const sideBarLetterList = common_vendor.reactive({
@@ -74,7 +66,9 @@ const _sfc_main = {
         }
       });
       const winHeight = sysInfo.windowHeight;
-      const sideBarLetterListValue = utils_cityListTools.LETTERS.map((letter) => ({ name: letter }));
+      const sideBarLetterListValue = utils_cityListTools.LETTERS.map((letter) => ({
+        name: letter
+      }));
       windowHeight.value = winHeight;
       sideBarLetterList.data = sideBarLetterListValue;
       cityList.data = cityListSortedByInitialLetter;
@@ -194,5 +188,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: $setup.windowHeight + "px"
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/Professional/common/switchCity/switchCity.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/common/switchCity/switchCity.vue"]]);
 wx.createPage(MiniProgramPage);

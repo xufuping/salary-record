@@ -2,7 +2,7 @@
 var common_vendor = require("../../../common/vendor.js");
 var utils_sendPostRequest = require("../../../utils/sendPostRequest.js");
 var utils_route = require("../../../utils/route.js");
-var config_MAKRDATA = require("../../../config/MAKRDATA.js");
+var config_professionalDetailMock = require("../../../config/professionalDetailMock.js");
 const _sfc_main = {
   props: {
     type: Number,
@@ -15,25 +15,12 @@ const _sfc_main = {
     const type = common_vendor.ref(props.type);
     const id = common_vendor.ref(props.id);
     function search() {
-      let data = {
+      ({
         workId: id.value
-      };
-      utils_sendPostRequest.sendPostRequest(type.value === 1 ? utils_route.router.ordinaryGetDetail : utils_route.router.emergingGetDetail, data, {
-        success(res) {
-          if (res.message === "success") {
-            operateData(res.data);
-          } else {
-            {
-              operateData(config_MAKRDATA.EMERGING.data.data);
-            }
-          }
-        },
-        fail() {
-          {
-            operateData(config_MAKRDATA.EMERGING.data.data);
-          }
-        }
-      }, true);
+      });
+      {
+        type.value === 1 ? operateData(config_professionalDetailMock.ORDINARY_DETAIL.data) : operateData(config_professionalDetailMock.EMERGING_DETAIL.data);
+      }
     }
     function operateData(data) {
       var _a, _b;
@@ -135,5 +122,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     o: common_vendor.t($setup.detailData.quantity)
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a9323b40"], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/Professional/professionalDetail/professionalDetail.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a9323b40"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/professionalDetail/professionalDetail.vue"]]);
 wx.createPage(MiniProgramPage);

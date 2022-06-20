@@ -4,8 +4,6 @@ var config_typeData = require("../../../../config/typeData.js");
 var config_configData = require("../../../../config/configData.js");
 var utils_cityListTools = require("../../../../utils/cityListTools.js");
 var pages_Professional_searchDetail_Ordinary_constants = require("./constants.js");
-var utils_sendPostRequest = require("../../../../utils/sendPostRequest.js");
-var utils_route = require("../../../../utils/route.js");
 var config_MAKRDATA = require("../../../../config/MAKRDATA.js");
 require("../../../../config/allCityData.js");
 const searchItem = () => "../../common/searchItem.js";
@@ -43,27 +41,29 @@ const _sfc_main = {
         showIndexedList: false,
         comBoxList: ["\u91CD\u5E86", "\u5357\u4EAC", "\u5317\u4EAC", "\u4E0A\u6D77", "\u56DB\u5DDD", "\u6210\u90FD", "\u6C99\u576A\u575D"],
         indexedList: popList,
-        changeShowIndexedList: (data2, index2) => {
-          searchPopupList[index2].showIndexedList = data2;
+        changeShowIndexedList: (data, index2) => {
+          searchPopupList[index2].showIndexedList = data;
         },
-        getResult: (data2, index2) => {
-          console.log("data", data2, index2);
+        getResult: (data, index2) => {
+          console.log("data", data, index2);
         }
       },
       {
         id: 1,
         comBoxText: "\u8BF7\u8F93\u5165\u884C\u4E1A",
         showIndexedList: false,
-        comBoxList: [{
-          id: 1,
-          name: "123"
-        }],
+        comBoxList: [
+          {
+            id: 1,
+            name: "123"
+          }
+        ],
         indexedList: popList,
-        changeShowIndexedList: (data2, index2) => {
-          searchPopupList[index2].showIndexedList = data2;
+        changeShowIndexedList: (data, index2) => {
+          searchPopupList[index2].showIndexedList = data;
         },
-        getResult: (data2) => {
-          console.log("data", data2, index);
+        getResult: (data) => {
+          console.log("data", data, index);
         }
       }
     ]);
@@ -109,6 +109,7 @@ const _sfc_main = {
         type.id = typeInfo.id;
         search();
         sendInformation.typeIds = [];
+        console.log("ccii", sendInformation.typeIds);
       } else {
         type.id = 0;
         sendInformation.typeIds = [];
@@ -141,33 +142,19 @@ const _sfc_main = {
     const cityList = common_vendor.reactive(utils_cityListTools.addHotCity(config_configData.SCREEN_CITY));
     const jobClassID = common_vendor.reactive({ id: 0 });
     const jobList = common_vendor.reactive(pages_Professional_searchDetail_Ordinary_constants.JOB_LIST);
-    let data = {};
     function search() {
       detail.data = [];
       if (sendInformation.information)
-        data.information = sendInformation.information;
+        ;
       if (tabTarget.order)
-        data.order = sendInformation.order;
+        ;
       if (sendInformation.cityIds.length !== 0)
-        data.cityIds = sendInformation.cityIds;
+        ;
       if (sendInformation.typeIds.length !== 0)
-        data.typeIds = sendInformation.typeIds;
-      utils_sendPostRequest.sendPostRequest(utils_route.router.ordinaryGetActicleList, data, {
-        success(res) {
-          if (res.message === "success") {
-            operateData(res.data.data);
-          } else {
-            {
-              operateData(config_MAKRDATA.ORDINARY.data.data);
-            }
-          }
-        },
-        fail() {
-          {
-            operateData(config_MAKRDATA.ORDINARY.data.data);
-          }
-        }
-      }, true);
+        ;
+      {
+        operateData(config_MAKRDATA.ORDINARY.data.data);
+      }
     }
     function operateData(info) {
       detail.data = [];
@@ -180,10 +167,10 @@ const _sfc_main = {
       if (e)
         PopupRefList.push(e);
     };
-    const open = (data2) => {
+    const open = (data) => {
       console.log("PopupRefList", PopupRefList);
-      searchPopupList[data2].showIndexedList = true;
-      PopupRefList[data2].popup.open("bottom");
+      searchPopupList[data].showIndexedList = true;
+      PopupRefList[data].popup.open("bottom");
     };
     return {
       seledType,
@@ -298,5 +285,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: $setup.pushPopupRef
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-571a6f38"], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/Professional/searchDetail/Ordinary/ordinary.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-571a6f38"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/searchDetail/Ordinary/ordinary.vue"]]);
 wx.createPage(MiniProgramPage);

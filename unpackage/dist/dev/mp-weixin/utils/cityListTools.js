@@ -1,24 +1,13 @@
 "use strict";
 var common_vendor = require("../common/vendor.js");
-var utils_sendPostRequest = require("./sendPostRequest.js");
-var utils_route = require("./route.js");
 var config_configData = require("../config/configData.js");
 var config_allCityData = require("../config/allCityData.js");
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z"];
 const getCityList = () => {
   return new Promise((resolve) => {
-    utils_sendPostRequest.sendPostRequest(utils_route.router.ordinaryGetDetail, {}, {
-      success(res) {
-        if (res.message === "success") {
-          resolve(res.data);
-        } else {
-          resolve(config_allCityData.CITY_DATA);
-        }
-      },
-      fail() {
-        resolve(config_allCityData.CITY_DATA);
-      }
-    }, true);
+    {
+      resolve(config_allCityData.CITY_DATA);
+    }
   });
 };
 const finalUsedCityList = () => {

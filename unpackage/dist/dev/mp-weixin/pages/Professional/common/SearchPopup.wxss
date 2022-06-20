@@ -46,7 +46,7 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  border-bottom: 1rpx solid #B9B9B9;
+  border-bottom: 1rpx solid #b9b9b9;
   padding: 20rpx 0;
 }
 .pop_list .selList {

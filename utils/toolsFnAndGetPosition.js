@@ -1,7 +1,7 @@
 import { LETTERS } from './cityListTools.js'
-	
-const config={
-	key:"WPEBZ-BPM6O-RH2WA-S2MWT-LQ6JJ-OYBZH"
+
+const config = {
+  key: "WPEBZ-BPM6O-RH2WA-S2MWT-LQ6JJ-OYBZH"
 }
 
 // API

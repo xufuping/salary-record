@@ -23,8 +23,11 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.indexPage.data-v-57280228 {
+  width: 770rpx;
+}
 .header.data-v-57280228 {
-  background: #C4C4C4;
+  background: #c4c4c4;
   width: 770rpx;
   height: 350rpx;
   border-radius: 0 0 50px 30px;
@@ -39,16 +42,16 @@
 }
 .header .headselect.data-v-57280228 {
   position: absolute;
-  width: 324px;
-  height: 123px;
-  left: 26px;
+  width: 628rpx;
+  height: 246rpx;
+  left: 26rpx;
   top: 180rpx;
 }
 .header .salary.data-v-57280228 {
   display: flex;
   width: 328rpx;
   height: 38rpx;
-  font-size: 14px;
+  font-size: 28rpx;
   color: white;
   align-items: center;
   justify-content: center;
@@ -61,13 +64,14 @@
   width: 628rpx;
   height: 246rpx;
   justify-content: center;
-  margin: 15rpx 0;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   box-shadow: 0px 3px 6px 2.5px rgba(113, 128, 174, 0.41);
-  border-radius: 12px;
+  border-radius: 24rpx;
+  margin-top: 15rpx;
+  margin-left: 32rpx;
 }
 .header .outer .item_line.data-v-57280228 {
-  border: #5E95EE solid 0.5rpx;
+  border: #5e95ee solid 0.5rpx;
   width: 500rpx;
 }
 .header .outer .item_ordinary.data-v-57280228 {
@@ -89,8 +93,8 @@
 .header .outer .item_ordinary .info.data-v-57280228 {
   width: 294rpx;
   height: 46rpx;
-  font-size: 18px;
-  color: #5E95EE;
+  font-size: 36rpx;
+  color: #5e95ee;
   text-align: center;
   font-weight: 300;
 }
@@ -113,8 +117,8 @@
 .header .outer .item_emerging .info.data-v-57280228 {
   width: 294rpx;
   height: 46rpx;
-  font-size: 18px;
-  color: #5E95EE;
+  font-size: 36rpx;
+  color: #5e95ee;
   text-align: center;
   font-weight: 300;
 }
@@ -124,7 +128,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
 }
 .content .item.data-v-57280228 {
   display: flex;

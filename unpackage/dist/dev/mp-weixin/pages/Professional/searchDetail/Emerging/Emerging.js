@@ -3,8 +3,6 @@ var common_vendor = require("../../../../common/vendor.js");
 var config_configData = require("../../../../config/configData.js");
 var utils_cityListTools = require("../../../../utils/cityListTools.js");
 var pages_Professional_searchDetail_Emerging_constants = require("./constants.js");
-var utils_sendPostRequest = require("../../../../utils/sendPostRequest.js");
-var utils_route = require("../../../../utils/route.js");
 var config_MAKRDATA = require("../../../../config/MAKRDATA.js");
 require("../../../../config/allCityData.js");
 const searchItem = () => "../../common/searchItem.js";
@@ -109,27 +107,13 @@ const _sfc_main = {
         });
         return;
       }
-      const data = {};
       if (sendInformation.information)
-        data.information = sendInformation.information;
+        ;
       if (tabTarget.order)
-        data.order = sendInformation.order;
-      utils_sendPostRequest.sendPostRequest(utils_route.router.emergingGetActicleList, data, {
-        success(res) {
-          if (res.message === "success") {
-            operateData(res.data.data);
-          } else {
-            {
-              operateData(config_MAKRDATA.EMERGING.data.data);
-            }
-          }
-        },
-        fail() {
-          {
-            operateData(config_MAKRDATA.EMERGING.data.data);
-          }
-        }
-      }, true);
+        ;
+      {
+        operateData(config_MAKRDATA.EMERGING.data.data);
+      }
     }
     function checkSalary() {
       const testReg = /^(0|[1-9][0-9]*)$/;
@@ -168,15 +152,7 @@ const _sfc_main = {
         salaryList.data[i].active = "";
       }
     }
-    const myList = [
-      "qwe",
-      "wsd",
-      "dff",
-      "ssxc",
-      "asd123",
-      "sd34",
-      123
-    ];
+    const myList = ["qwe", "wsd", "dff", "ssxc", "asd123", "sd34", 123];
     const seledType = common_vendor.reactive({
       type: "active"
     });
@@ -313,5 +289,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5ff45318"], ["__file", "/Users/xuqingfeng/web/project/salary-record/pages/Professional/searchDetail/Emerging/Emerging.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5ff45318"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/searchDetail/Emerging/Emerging.vue"]]);
 wx.createPage(MiniProgramPage);
