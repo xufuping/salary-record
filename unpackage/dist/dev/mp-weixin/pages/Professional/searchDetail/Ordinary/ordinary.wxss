@@ -31,27 +31,16 @@
   padding: 20rpx;
 }
 .professionPage .header.data-v-571a6f38 {
-  width: 100%;
-  height: 250rpx;
-  color: #fff;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.professionPage .header .header_circle.data-v-571a6f38 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto;
   width: 190rpx;
   height: 190rpx;
-  background: #c4c4c4;
   border-radius: 50%;
+  margin-bottom: 20rpx;
 }
-.professionPage .header .header_circle .header_logo.data-v-571a6f38 {
-  font-family: "Microsoft Uighur";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 64rpx;
+.professionPage .header .header_logo.data-v-571a6f38 {
+  width: 190rpx;
+  height: 190rpx;
 }
 .professionPage .content_search.data-v-571a6f38 {
   border-radius: 34rpx;

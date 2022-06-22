@@ -19,7 +19,7 @@ const _sfc_main = {
     };
     const tabStatus = common_vendor.ref(1);
     const changeTab = (data) => {
-      if (company.value !== "" || job.value !== "" || job_note.value !== "" || dSalary.value !== "" || hSalary.value !== "" || selIndustry.name !== "\u8BF7\u9009\u62E9\u884C\u4E1A" || salary.value !== null || storeCity.defaultCity !== "\u9009\u62E9\u57CE\u5E02") {
+      if (company.value !== "" || job.value !== "" || job_note.value !== "" || dSalary.value !== "" || hSalary.value !== "" || selIndustry.name !== "\u8BF7\u9009\u62E9\u884C\u4E1A" || salary.value !== null || storeCity.defaultCity !== "\u5317\u4EAC\u5E02") {
         common_vendor.index.showModal({
           content: "\u6B64\u64CD\u4F5C\u4F1A\u6E05\u7A7A\u5DF2\u8F93\u5165\u4FE1\u606F\uFF0C\u786E\u5B9A\u5417\uFF1F",
           success(res) {
@@ -217,19 +217,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       styles: $setup.styles,
       modelValue: $setup.salary
     }),
-    k: common_vendor.o(($event) => $setup.dSalary = $event),
-    l: common_vendor.p({
-      placeholder: "\u6700\u4F4E\u5DE5\u8D44",
-      modelValue: $setup.dSalary
-    }),
-    m: common_vendor.o(($event) => $setup.hSalary = $event),
-    n: common_vendor.p({
-      placeholder: "\u6700\u9AD8\u5DE5\u8D44",
-      modelValue: $setup.hSalary
-    }),
-    o: $setup.tabStatus === 1
+    k: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    p: common_vendor.f($setup.typelist, (item, k0, i0) => {
+    l: common_vendor.f($setup.typelist, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.name),
         b: item.id,
@@ -238,25 +228,25 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    q: $setup.tabStatus === 1
+    m: $setup.tabStatus === 1
   }, $setup.tabStatus === 1 ? {
-    r: common_vendor.t($setup.selEducation.name),
-    s: common_vendor.o((...args) => $setup.changeEducation && $setup.changeEducation(...args)),
-    t: $setup.eduList
+    n: common_vendor.t($setup.selEducation.name),
+    o: common_vendor.o((...args) => $setup.changeEducation && $setup.changeEducation(...args)),
+    p: $setup.eduList
   } : {}, {
-    v: common_vendor.t($setup.selIndustry.name),
-    w: common_vendor.o((...args) => $setup.changeIndustry && $setup.changeIndustry(...args)),
-    x: $setup.induList,
-    y: common_vendor.t($setup.storeCity.defaultCity),
-    z: common_vendor.o(($event) => $setup.job_note = $event),
-    A: common_vendor.p({
+    q: common_vendor.t($setup.selIndustry.name),
+    r: common_vendor.o((...args) => $setup.changeIndustry && $setup.changeIndustry(...args)),
+    s: $setup.induList,
+    t: common_vendor.t($setup.storeCity.defaultCity),
+    v: common_vendor.o(($event) => $setup.job_note = $event),
+    w: common_vendor.p({
       type: "textarea",
       placeholder: "\u53EF\u586B\u5199\u5DE5\u4F5C\u8BE6\u7EC6\u4FE1\u606F,\u5982\u798F\u5229\u8865\u8D34,\u798F\u5229\u5F85\u9047\u7B49",
       styles: $setup.styles,
       modelValue: $setup.job_note
     }),
-    B: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
-    C: common_vendor.o((...args) => $setup.submit && $setup.submit(...args))
+    x: common_vendor.o((...args) => $setup.showDetail && $setup.showDetail(...args)),
+    y: common_vendor.o((...args) => $setup.submit && $setup.submit(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ce65f5b8"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/releaseProfessional/releaseProfessional.vue"]]);

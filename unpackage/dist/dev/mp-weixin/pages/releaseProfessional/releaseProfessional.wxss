@@ -32,22 +32,14 @@
 }
 .releaseProfessional .header.data-v-ce65f5b8 {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 190rpx;
   height: 190rpx;
   margin: 0 auto;
-  margin-top: 25rpx;
   border-radius: 50%;
-  font-size: 60rpx;
-  background: #c4c4c4;
 }
-.releaseProfessional .header .header_logo.data-v-ce65f5b8 {
-  font-family: "Microsoft Uighur";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 64rpx;
-  color: #fff;
+.releaseProfessional .header .image.data-v-ce65f5b8 {
+  width: 190rpx;
+  height: 190rpx;
 }
 .releaseProfessional .header_list.data-v-ce65f5b8 {
   font-size: 24rpx;
@@ -70,7 +62,6 @@
 .releaseProfessional .input_square.data-v-ce65f5b8 {
   background: #ffffff;
   border-radius: 76rpx 76rpx 0px 0px;
-  height: 2400rpx;
   margin-bottom: -20rpx;
 }
 .releaseProfessional .input_square .label.data-v-ce65f5b8 {
@@ -225,8 +216,8 @@
   align-items: center;
   font-size: 40rpx;
   color: #fff;
-  border: 1px solid #fff;
-  background: #ff5959;
+  border: 2rpx solid #fff;
+  background: #4581EA;
   border-radius: 12rpx;
   margin: 0 auto;
 }

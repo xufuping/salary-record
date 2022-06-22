@@ -102,7 +102,7 @@
       <view class="capsule_upper" @click="believeOprater(changeTide.believe)">
         <image
           class="capsule_upper_image"
-          src="../../../static/img/professionalDetail/Vector 15.png"
+          src="../../../static/img/professionalDetail/Vector15.png"
         ></image>
         <view class="capsule_upper_text">真实可信</view>
       </view>
@@ -113,7 +113,7 @@
       >
         <image
           class="capsule_lower_image"
-          src="../../../static/img/professionalDetail/Vector 16.png"
+          src="../../../static/img/professionalDetail/Vector16.png"
         ></image>
         <view class="capsule_lower_text">不真实</view>
       </view>
@@ -125,11 +125,11 @@
           <view class="pen_icon">
             <image
               class="vector_1"
-              src="../../../static/img/professionalDetail/Vector 6.png"
+              src="../../../static/img/professionalDetail/Vector6.png"
             ></image>
             <image
               class="vector_2"
-              src="../../../static/img/professionalDetail/Vector 7.png"
+              src="../../../static/img/professionalDetail/Vector7.png"
             ></image>
           </view>
           <view class="input_box_text">
@@ -336,7 +336,7 @@ export default {
     .header_card_after {
       width: 678rpx;
       height: 222rpx;
-      background-image: url("~@/static/img/professionalDetail/Group 24.png");
+      background-image: url("~@/static/img/professionalDetail/Group24.png");
       border-radius: 36rpx;
 
       .header_salary {

@@ -19,25 +19,18 @@ const _sfc_main = {
     };
     const getPhoneNumber = (e) => {
     };
-    function enter() {
-      common_vendor.index.navigateTo({
-        url: "#"
-      });
-    }
     return {
       getPhoneNumber,
       content,
-      enterProfessional,
-      enter
+      enterProfessional
     };
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o((...args) => $setup.enter && $setup.enter(...args)),
-    b: common_vendor.o(($event) => $setup.enterProfessional(1)),
-    c: common_vendor.o(($event) => $setup.enterProfessional(2)),
-    d: common_vendor.f($setup.content, (item, index, i0) => {
+    a: common_vendor.o(($event) => $setup.enterProfessional(1)),
+    b: common_vendor.o(($event) => $setup.enterProfessional(2)),
+    c: common_vendor.f($setup.content, (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: index

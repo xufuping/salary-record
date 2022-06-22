@@ -1,9 +1,8 @@
 <template>
   <view class="indexPage">
     <view class="header">
-      <!-- <view class="headLogo">SALARY SHOW</view> -->
       <view class="headselect">
-        <view @click="enter" class="salary">请选择您想要查询的职位:</view>
+        <view class="salary">请选择您想要查询的职位:</view>
         <view class="outer">
           <view @click="enterProfessional(1)" class="item_ordinary">
             <image
@@ -69,17 +68,11 @@ export default {
     }
 
     const getPhoneNumber = (e) => {};
-
-    function enter() {
-      uni.navigateTo({
-        url: "#",
-      });
-    }
+	
     return {
       getPhoneNumber,
       content,
-      enterProfessional,
-      enter,
+      enterProfessional
     };
   },
 };
@@ -87,30 +80,22 @@ export default {
 
 <style lang="scss" scoped>
 .indexPage {
-  width: 770rpx;
 }
 
 .header {
   background: #c4c4c4;
-  width: 770rpx;
+  width: 750rpx;
   height: 350rpx;
   border-radius: 0 0 50px 30px;
   background-image: url("~@/static/img/background/background.png");
 
-  .headLogo {
-    width: 50%;
-    color: white;
-    font-size: 75rpx;
-    margin: 0 auto;
-    text-align: center;
-  }
-
   .headselect {
-    position: absolute;
-    width: 628rpx;
+    display: flex;
+	flex-direction: column;
+    width: 750rpx;
     height: 246rpx;
-    left: 26rpx;
-    top: 180rpx;
+	padding-top: 180rpx;
+	align-items: center;
   }
 
   .salary {
@@ -121,7 +106,6 @@ export default {
     color: white;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
   }
 
   .outer {
@@ -135,64 +119,68 @@ export default {
     box-shadow: 0px 3px 6px 2.5px rgba(113, 128, 174, 0.41);
     border-radius: 24rpx;
     margin-top: 15rpx;
-    margin-left: 32rpx;
 
     .item_line {
-      border: #5e95ee solid 0.5rpx;
+      border: 1rpx solid #5e95ee;
       width: 500rpx;
     }
 
     .item_ordinary {
       display: flex;
-      flex-wrap: nowrap;
       width: 400rpx;
       height: 46rpx;
       border-radius: 20rpx;
       color: white;
       align-items: center;
       justify-content: center;
-      margin-left: 10rpx;
-      margin-bottom: 20rpx;
+      margin-bottom: 25rpx;
 
       .image {
-        width: 60rpx;
+        width: 52rpx;
         height: 82rpx;
+		margin-left: 28rpx;
       }
 
       .info {
         width: 294rpx;
         height: 46rpx;
-        font-size: 36rpx;
-        color: #5e95ee;
-        text-align: center;
-        font-weight: 300;
+        font-size: 34rpx;
+		text-align: center;
+        background: linear-gradient(90deg, #2799F5 28.48%, #6AD3FB 130.07%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+		padding-left: 22rpx;
+	    padding-right: 26rpx;    
       }
     }
 
     .item_emerging {
       display: flex;
-      flex-wrap: nowrap;
       width: 400rpx;
       height: 46rpx;
       border-radius: 20rpx;
       color: white;
       align-items: center;
       justify-content: center;
-      margin-left: 10rpx;
-      margin-top: 20rpx;
+      margin-top: 25rpx;
 
       .image {
-        width: 60rpx;
-        height: 82rpx;
+        width: 74rpx;
+        height: 76rpx;
       }
 
       .info {
         width: 294rpx;
         height: 46rpx;
-        font-size: 36rpx;
-        color: #5e95ee;
-        text-align: center;
-        font-weight: 300;
+        font-size: 34rpx;
+		text-align: center;
+        background: linear-gradient(90deg, #2799F5 28.48%, #6AD3FB 130.07%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
       }
     }
   }

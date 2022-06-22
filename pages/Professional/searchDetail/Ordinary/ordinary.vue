@@ -1,9 +1,7 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <view class="header_circle">
-        <view class="header_logo">LOGO</view>
-      </view>
+      <image class="header_logo" src="../../../../static/logo.png"></image>
     </view>
 
     <view class="content_search">
@@ -385,29 +383,17 @@ export default {
   padding: 20rpx;
 
   .header {
-    width: 100%;
-    height: 250rpx;
-    color: #fff;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .header_circle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 190rpx;
-      height: 190rpx;
-      background: #c4c4c4;
-      border-radius: 50%;
-
-      .header_logo {
-        font-family: "Microsoft Uighur";
-        font-style: normal;
-        font-weight: 400;
-        font-size: 64rpx;
-      }
-    }
+    margin: 0 auto;
+    width: 190rpx;
+    height: 190rpx;
+    border-radius: 50%;
+    margin-bottom: 20rpx;
+	
+	.header_logo {
+		width: 190rpx;
+		height: 190rpx;
+	}
   }
 
   .content_search {

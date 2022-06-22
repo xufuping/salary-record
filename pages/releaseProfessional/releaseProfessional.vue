@@ -1,7 +1,7 @@
 <template>
   <view class="releaseProfessional">
     <view class="header">
-      <view class="header_logo">logo</view>
+      <image  class="image" src="../../static/logo.png"></image>
     </view>
 
     <view class="header_list">
@@ -63,7 +63,7 @@
         </view>
       </view>
 
-      <view class="info_item_class2">
+      <!-- <view class="info_item_class2">
         <view class="label">薪资范围<span class="required_label">*</span></view>
         <view class="inp">
           <view class="box_sort">
@@ -82,7 +82,7 @@
             </view>
           </view>
         </view>
-      </view>
+      </view> -->
 
       <view class="info_item_class3" v-if="tabStatus === 1">
         <view class="label">类型</view>
@@ -210,7 +210,7 @@ export default {
         hSalary.value !== "" ||
         selIndustry.name !== "请选择行业" ||
         salary.value !== null ||
-        storeCity.defaultCity !== "选择城市"
+        storeCity.defaultCity !== "北京市"
       ) {
         uni.showModal({
           content: "此操作会清空已输入信息，确定吗？",
@@ -469,23 +469,15 @@ export default {
 
   .header {
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 190rpx;
     height: 190rpx;
     margin: 0 auto;
-    margin-top: 25rpx;
     border-radius: 50%;
-    font-size: 60rpx;
-    background: #c4c4c4;
 
-    .header_logo {
-      font-family: "Microsoft Uighur";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 64rpx;
-      color: #fff;
-    }
+    .image{
+		width: 190rpx;
+		height: 190rpx;
+	}
   }
 
   .header_list {
@@ -512,7 +504,6 @@ export default {
   .input_square {
     background: #ffffff;
     border-radius: 76rpx 76rpx 0px 0px;
-    height: 2400rpx;
     margin-bottom: -20rpx;
 
     .label {
@@ -691,8 +682,8 @@ export default {
       align-items: center;
       font-size: 40rpx;
       color: #fff;
-      border: 1px solid #fff;
-      background: #ff5959;
+      border: 2rpx solid #fff;
+      background: #4581EA;
       border-radius: 12rpx;
       margin: 0 auto;
     }

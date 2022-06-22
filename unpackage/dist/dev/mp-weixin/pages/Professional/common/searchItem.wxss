@@ -101,13 +101,13 @@
 .search_card_item .item_content .company_logo.data-v-43b3d620 {
   width: 38rpx;
   height: 38rpx;
-  background: #c9b6b6;
   border-radius: 12rpx;
 }
 .search_card_item .item_more.data-v-43b3d620 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10rpx;
 }
 .search_card_item .item_more .item_more_left.data-v-43b3d620 {
   display: flex;

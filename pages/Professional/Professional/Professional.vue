@@ -1,11 +1,10 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <view class="header_logo">logo</view>
+      <image class="header_logo" src="../../../static/logo.png"></image>
     </view>
 
     <view class="header_list">
-      <!-- 1-普通职业 2-灵活职业 -->
       <view
         class="headerTab"
         :class="{ headerTabLine: tabStatus === 1 }"
@@ -106,6 +105,7 @@ export default {
   setup(props) {
     onMounted(() => {
       getHotData();
+	  changeTab(props.target);
     });
     //样式切换变量
     let changeNum = ref(0);
@@ -249,33 +249,24 @@ export default {
 
   .header {
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 190rpx;
     height: 190rpx;
     margin: 0 auto;
-    margin-top: 25rpx;
     border-radius: 50%;
-    font-size: 60rpx;
-    background: #c4c4c4;
 
     .header_logo {
-      font-family: "Microsoft Uighur";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 64rpx;
-      color: #fff;
+      width: 190rpx;
+      height: 190rpx;
     }
   }
 
   .header_list {
-    font-size: 24rpx;
+    font-size: 30rpx;
     display: flex;
-    flex-direction: row;
     align-items: center;
     margin: 0 auto;
     color: #fff;
-    width: 363rpx;
+    width: 400rpx;
 
     .headerTab {
       margin: 0 40rpx;
@@ -305,10 +296,10 @@ export default {
 
       .content_search_input {
         color: gray;
-        padding: 13rpx;
-        padding-left: 20rpx;
+        padding-left: 30rpx;
         width: 500rpx;
-        font-size: 30rpx;
+        font-size: 28rpx;
+		padding-top: 15rpx;
       }
     }
 
@@ -336,6 +327,7 @@ export default {
 
       .content_search_button_text {
         color: white;
+		font-size: 24rpx;
       }
     }
   }
@@ -449,6 +441,12 @@ export default {
         border: 1rpx solid #5e95ee;
         color: #4581ea;
         border-radius: 12rpx;
+		font-size: 28rpx;
+		background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		text-fill-color: transparent;
       }
 
       .fill_item {

@@ -1,9 +1,7 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <view class="header_circle">
-        <view class="header_logo">LOGO</view>
-      </view>
+      <image class="header_logo" src="../../../../static/logo.png"></image>
     </view>
 
     <view class="content_search">
@@ -73,7 +71,7 @@
             >
             <image
               class="suffix_image"
-              src="../../../../static/img/professionalDetail/Polygon 3.png"
+              src="../../../../static/img/professionalDetail/Polygon3.png"
             ></image>
           </view>
         </view>
@@ -425,29 +423,17 @@ export default {
   padding: 20rpx;
 
   .header {
-    width: 100%;
-    height: 250rpx;
-    color: #fff;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .header_circle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 190rpx;
-      height: 190rpx;
-      background: #c4c4c4;
-      border-radius: 50%;
-
-      .header_logo {
-        font-family: "Microsoft Uighur";
-        font-style: normal;
-        font-weight: 400;
-        font-size: 64rpx;
-      }
-    }
+    width: 190rpx;
+    height: 190rpx;
+	margin: 0 auto;
+    border-radius: 50%;
+    margin-bottom: 20rpx;
+	
+	.header_logo {
+	  width: 190rpx;
+	  height: 190rpx;
+	}
   }
 
   .label_underline {
@@ -473,7 +459,6 @@ export default {
     border-radius: 10rpx;
     box-shadow: 0px 0px 60rpx rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    margin-bottom: 90rpx;
 
     .more_list {
       display: flex;
@@ -502,6 +487,8 @@ export default {
       .input_salary {
         display: flex;
         align-items: center;
+		margin-left: 10rpx;
+
 
         .input_salary_prefix {
           display: flex;
@@ -528,7 +515,7 @@ export default {
         .middle_dashed_line {
           width: 32rpx;
           height: 0px;
-          border: 2rpx dashed #c4c4c4;
+          border: 2rpx solid #c4c4c4;
         }
 
         .year-month {
@@ -553,6 +540,8 @@ export default {
           flex-direction: row;
           align-items: center;
           font-size: 32rpx;
+		  justify-content: space-between;
+		  margin-left: 10rpx;
 
           .sel_item {
             flex-shrink: 0;

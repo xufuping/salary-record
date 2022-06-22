@@ -151,7 +151,6 @@ export default {
     .company_logo {
       width: 38rpx;
       height: 38rpx;
-      background: #c9b6b6;
       border-radius: 12rpx;
     }
   }
@@ -160,6 +159,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+	margin-top: 10rpx;
 
     .item_more_left {
       display: flex;

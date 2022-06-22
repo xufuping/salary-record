@@ -3,8 +3,8 @@ const store = createStore({
 	state:{
 		//存放状态
 		city:{
-			defaultCityID:0,
-			defaultCity:"选择城市"
+			defaultCityID:110100,
+			defaultCity:"北京市"
 		}
 	},
 	mutations: {
@@ -14,8 +14,8 @@ const store = createStore({
 				state.city.defaultCity = cityInfo.seledCity
 			},
 			clearCity(state){
-				state.city.defaultCityID = 0;
-				state.city.defaultCity = "选择城市"
+				state.city.defaultCityID = 110100;
+				state.city.defaultCity = "北京市"
 			}
 		}
 })

@@ -32,31 +32,22 @@
 }
 .professionPage .header.data-v-20eca980 {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 190rpx;
   height: 190rpx;
   margin: 0 auto;
-  margin-top: 25rpx;
   border-radius: 50%;
-  font-size: 60rpx;
-  background: #c4c4c4;
 }
 .professionPage .header .header_logo.data-v-20eca980 {
-  font-family: "Microsoft Uighur";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 64rpx;
-  color: #fff;
+  width: 190rpx;
+  height: 190rpx;
 }
 .professionPage .header_list.data-v-20eca980 {
-  font-size: 24rpx;
+  font-size: 30rpx;
   display: flex;
-  flex-direction: row;
   align-items: center;
   margin: 0 auto;
   color: #fff;
-  width: 363rpx;
+  width: 400rpx;
 }
 .professionPage .header_list .headerTab.data-v-20eca980 {
   margin: 0 40rpx;
@@ -83,10 +74,10 @@
 }
 .professionPage .content_search .content_search_box .content_search_input.data-v-20eca980 {
   color: gray;
-  padding: 13rpx;
-  padding-left: 20rpx;
+  padding-left: 30rpx;
   width: 500rpx;
-  font-size: 30rpx;
+  font-size: 28rpx;
+  padding-top: 15rpx;
 }
 .professionPage .content_search .content_search_button.data-v-20eca980 {
   display: flex;
@@ -106,6 +97,7 @@
 }
 .professionPage .content_search .content_search_button .content_search_button_text.data-v-20eca980 {
   color: white;
+  font-size: 24rpx;
 }
 .professionPage .hot_box.data-v-20eca980 {
   width: 686rpx;
@@ -206,6 +198,12 @@
   border: 1rpx solid #5e95ee;
   color: #4581ea;
   border-radius: 12rpx;
+  font-size: 28rpx;
+  background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 .professionPage .content_more .more_list .fill_item.data-v-20eca980 {
   height: 0;

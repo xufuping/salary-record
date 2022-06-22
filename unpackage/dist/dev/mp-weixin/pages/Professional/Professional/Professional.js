@@ -9,6 +9,7 @@ const _sfc_main = {
   setup(props) {
     common_vendor.onMounted(() => {
       getHotData();
+      changeTab(props.target);
     });
     let changeNum = common_vendor.ref(0);
     let changeNumOfCity = common_vendor.ref(0);
