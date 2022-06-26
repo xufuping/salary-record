@@ -1,5 +1,5 @@
 <template>
-  <view class="search_card_item">
+  <view class="search_card_item" @click="enterDetail">
     <view class="item_label">
       <view class="posName">{{ information.posName }}</view>
       <view class="posSalary">
@@ -23,7 +23,7 @@
         <view class="more_item">点赞量:{{ information.quantity }}</view>
         <view class="more_item">发布时间:{{ information.releaseTime }}</view>
       </view>
-      <view class="enterDetail" @click="enterDetail">查看详情 ></view>
+      <view class="enterDetail">查看详情 ></view>
     </view>
   </view>
 </template>

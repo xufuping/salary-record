@@ -221,3 +221,6 @@
   border-radius: 12rpx;
   margin: 0 auto;
 }
+.releaseProfessional .input_square .bottom.data-v-ce65f5b8 {
+  height: 30rpx;
+}

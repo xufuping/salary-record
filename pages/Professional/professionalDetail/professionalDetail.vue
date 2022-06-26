@@ -185,16 +185,9 @@ export default {
 		      success(res) {
 		        if (res.message === "success") {
 		          operateData(res.data);
-		        } else {
-		          if (ENV === "self") {
-		            operateData(EMERGING.data.data);
-		          }
 		        }
 		      },
 		      fail() {
-		        if (ENV === "self") {
-		          operateData(EMERGING.data.data);
-		        }
 		      },
 		    },
 		    true
@@ -207,7 +200,7 @@ export default {
     function operateData(data) {
       detailData.posName = data.post; //岗位
       detailData.posSalary = data.salaryStr; //字符串薪资
-      detailData.comAddress = data.city.cityName; //城市
+      detailData.comAddress = data.city?.cityName; //城市
       detailData.education = data.degree?.degreeName; //学历
       detailData.profession = data.profession?.professionName; //行业
       detailData.comName = data.company; //公司

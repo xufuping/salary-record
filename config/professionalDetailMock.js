@@ -1,28 +1,28 @@
 export const ORDINARY_DETAIL = {
     "code": 200,
     "message": "success",
-    "data": {
+    "data":{
         "id": 7,
-        "company": "西安市1111",
-        "post": "工作",
+        "company": "北京网讯",
+        "post": "数字ic设计",
         "city": {
             "id": 110100,
-            "cityName": "北京市",
+            "cityName": "杭州",
             "cityPreId": null,
             "UpdateTime": null,
             "cityTotalNum": null,
             "updateTime": null
         },
         "salaryNum": 0,
-        "salaryStr": "20w",
-        "salaryRange": "年薪20w",
+        "salaryStr": "20k*14",
+        "salaryRange": "20k*14",
         "type": {
             "id": 1,
             "typeName": "社招"
         },
         "degree": {
-            "id": 2,
-            "degreeName": "高中"
+            "id": 4,
+            "degreeName": "本科"
         },
         "profession": {
             "id": 2,
@@ -36,10 +36,10 @@ export const ORDINARY_DETAIL = {
             "phone": 1222,
             "openidWx": null
         },
-        "explain": "1111",
+        "explain": null,
         "status": null,
-        "from": "WEN_XIN",
-        "createTime": "2022-04-17T13:56:29.000+00:00",
+        "from": null,
+        "createTime": null,
         "lookCount": 1,
         "likeCount": 1,
         "credibility": null
@@ -51,19 +51,19 @@ export const EMERGING_DETAIL = {
     "message": "success",
     "data": {
         "id": 4,
-        "company": "送外吗",
+        "company": "美团",
         "post": "外卖员",
         "city": {
             "id": 110100,
-            "cityName": "北京市",
+            "cityName": "重庆",
             "cityPreId": null,
             "UpdateTime": null,
             "cityTotalNum": null,
             "updateTime": null
         },
         "salaryNum": 0,
-        "salaryStr": "20w",
-        "salaryRange": "年薪20w",
+        "salaryStr": "8k",
+        "salaryRange": "8k",
         "profession": {
             "id": 2,
             "professionName": "计算机",
@@ -78,9 +78,9 @@ export const EMERGING_DETAIL = {
         },
         "explain": "1111",
         "status": null,
-        "from": "WEN_XIN",
-        "createTime": "2022-04-16T16:00:00.000+00:00",
-        "lookCount": 4,
+        "from": null,
+        "createTime": "2022-04-16",
+        "lookCount": 6,
         "likeCount": 0,
         "credibility": null
     }

@@ -112,12 +112,12 @@
       </view>
     </view>
 
-    <view class="bottom_tabelbar">
+    <!-- <view class="bottom_tabelbar">
       <view class="tabelbar_item" @click="changePage(1)">普通职业</view>
       <view class="tabelbar_item" :class="seledType.type" @click="changePage(2)"
         >灵活职业</view
       >
-    </view>
+    </view> -->
 
     <searchPopup
       ref="searchPopup"

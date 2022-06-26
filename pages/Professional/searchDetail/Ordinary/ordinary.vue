@@ -87,12 +87,12 @@
       </view>
     </view>
 
-    <view class="bottom_tabelbar">
+    <!-- <view class="bottom_tabelbar">
       <view class="tabelbar_item" :class="seledType.type" @click="changePage(1)"
         >普通职业</view
       >
       <view class="tabelbar_item" @click="changePage(2)">灵活职业</view>
-    </view>
+    </view> -->
 
     <!-- 选择城市 -->
     <searchPopup
@@ -411,7 +411,6 @@ export default {
     border-radius: 10rpx;
     box-shadow: 0px 0px 60rpx rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    margin-bottom: 90rpx;
 
     .more_list {
       display: flex;

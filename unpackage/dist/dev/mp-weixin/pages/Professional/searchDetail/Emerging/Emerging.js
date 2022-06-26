@@ -275,13 +275,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.id
       };
     }),
-    s: common_vendor.o(($event) => $setup.changePage(1)),
-    t: common_vendor.n($setup.seledType.type),
-    v: common_vendor.o(($event) => $setup.changePage(2)),
-    w: common_vendor.sr("searchPopup", "5ff45318-4"),
-    x: common_vendor.o($setup.changeShowIndexedList),
-    y: common_vendor.o($setup.getResult),
-    z: common_vendor.p({
+    s: common_vendor.sr("searchPopup", "5ff45318-4"),
+    t: common_vendor.o($setup.changeShowIndexedList),
+    v: common_vendor.o($setup.getResult),
+    w: common_vendor.p({
       comBoxText: "\u8BF7\u8F93\u5165\u57CE\u5E02",
       showIndexedList: $setup.showIndexedList,
       comBoxList: $setup.myList,

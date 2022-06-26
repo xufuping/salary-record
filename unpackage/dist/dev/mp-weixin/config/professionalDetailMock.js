@@ -4,26 +4,26 @@ const ORDINARY_DETAIL = {
   "message": "success",
   "data": {
     "id": 7,
-    "company": "\u897F\u5B89\u5E021111",
-    "post": "\u5DE5\u4F5C",
+    "company": "\u5317\u4EAC\u7F51\u8BAF",
+    "post": "\u6570\u5B57ic\u8BBE\u8BA1",
     "city": {
       "id": 110100,
-      "cityName": "\u5317\u4EAC\u5E02",
+      "cityName": "\u676D\u5DDE",
       "cityPreId": null,
       "UpdateTime": null,
       "cityTotalNum": null,
       "updateTime": null
     },
     "salaryNum": 0,
-    "salaryStr": "20w",
-    "salaryRange": "\u5E74\u85AA20w",
+    "salaryStr": "20k*14",
+    "salaryRange": "20k*14",
     "type": {
       "id": 1,
       "typeName": "\u793E\u62DB"
     },
     "degree": {
-      "id": 2,
-      "degreeName": "\u9AD8\u4E2D"
+      "id": 4,
+      "degreeName": "\u672C\u79D1"
     },
     "profession": {
       "id": 2,
@@ -37,10 +37,10 @@ const ORDINARY_DETAIL = {
       "phone": 1222,
       "openidWx": null
     },
-    "explain": "1111",
+    "explain": null,
     "status": null,
-    "from": "WEN_XIN",
-    "createTime": "2022-04-17T13:56:29.000+00:00",
+    "from": null,
+    "createTime": null,
     "lookCount": 1,
     "likeCount": 1,
     "credibility": null
@@ -51,19 +51,19 @@ const EMERGING_DETAIL = {
   "message": "success",
   "data": {
     "id": 4,
-    "company": "\u9001\u5916\u5417",
+    "company": "\u7F8E\u56E2",
     "post": "\u5916\u5356\u5458",
     "city": {
       "id": 110100,
-      "cityName": "\u5317\u4EAC\u5E02",
+      "cityName": "\u91CD\u5E86",
       "cityPreId": null,
       "UpdateTime": null,
       "cityTotalNum": null,
       "updateTime": null
     },
     "salaryNum": 0,
-    "salaryStr": "20w",
-    "salaryRange": "\u5E74\u85AA20w",
+    "salaryStr": "8k",
+    "salaryRange": "8k",
     "profession": {
       "id": 2,
       "professionName": "\u8BA1\u7B97\u673A",
@@ -78,9 +78,9 @@ const EMERGING_DETAIL = {
     },
     "explain": "1111",
     "status": null,
-    "from": "WEN_XIN",
-    "createTime": "2022-04-16T16:00:00.000+00:00",
-    "lookCount": 4,
+    "from": null,
+    "createTime": "2022-04-16",
+    "lookCount": 6,
     "likeCount": 0,
     "credibility": null
   }

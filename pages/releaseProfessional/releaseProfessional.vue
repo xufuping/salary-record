@@ -171,6 +171,8 @@
       </view>
 
       <view class="release_botton" @click="submit">点击发布</view>
+	  
+	  <view class="bottom"></view>
     </view>
   </view>
 </template>
@@ -687,6 +689,10 @@ export default {
       border-radius: 12rpx;
       margin: 0 auto;
     }
+	
+	.bottom{
+		height: 30rpx;
+	}
   }
 }
 </style>

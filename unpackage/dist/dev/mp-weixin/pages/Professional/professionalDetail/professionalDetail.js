@@ -23,12 +23,12 @@ const _sfc_main = {
       }
     }
     function operateData(data) {
-      var _a, _b;
+      var _a, _b, _c;
       detailData.posName = data.post;
       detailData.posSalary = data.salaryStr;
-      detailData.comAddress = data.city.cityName;
-      detailData.education = (_a = data.degree) == null ? void 0 : _a.degreeName;
-      detailData.profession = (_b = data.profession) == null ? void 0 : _b.professionName;
+      detailData.comAddress = (_a = data.city) == null ? void 0 : _a.cityName;
+      detailData.education = (_b = data.degree) == null ? void 0 : _b.degreeName;
+      detailData.profession = (_c = data.profession) == null ? void 0 : _c.professionName;
       detailData.comName = data.company;
       detailData.releaseTime = data.createTime;
       detailData.explain = data.explain;

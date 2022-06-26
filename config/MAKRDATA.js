@@ -12,26 +12,26 @@ export const ORDINARY = {
         "data": [
             {
                 "id": 7,
-                "company": "西安市1111",
-                "post": "工作",
+                "company": "北京网讯",
+                "post": "数字ic设计",
                 "city": {
                     "id": 110100,
-                    "cityName": "北京市",
+                    "cityName": "杭州",
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
                     "updateTime": null
                 },
                 "salaryNum": 0,
-                "salaryStr": "20w",
-                "salaryRange": "年薪20w",
+                "salaryStr": "20k*14",
+                "salaryRange": "20k*14",
                 "type": {
                     "id": 1,
                     "typeName": "社招"
                 },
                 "degree": {
-                    "id": 2,
-                    "degreeName": "高中"
+                    "id": 4,
+                    "degreeName": "本科"
                 },
                 "profession": {
                     "id": 2,
@@ -55,11 +55,11 @@ export const ORDINARY = {
             },
             {
                 "id": 11,
-                "company": "测试5.7",
-                "post": "测试",
+                "company": "上海银行深圳分行",
+                "post": "业务",
                 "city": {
                     "id": 610100,
-                    "cityName": "西安市",
+                    "cityName": "深圳",
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
@@ -73,8 +73,8 @@ export const ORDINARY = {
                     "typeName": "实习"
                 },
                 "degree": {
-                    "id": 2,
-                    "degreeName": "高中"
+                    "id": 4,
+                    "degreeName": "本科"
                 },
                 "profession": null,
                 "user": {
@@ -94,11 +94,11 @@ export const ORDINARY = {
             },
             {
                 "id": 12,
-                "company": "测试5.9",
-                "post": "嗯嗯",
+                "company": "百秋",
+                "post": "管培生",
                 "city": {
                     "id": 610100,
-                    "cityName": "西安市",
+                    "cityName": "上海",
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
@@ -112,8 +112,8 @@ export const ORDINARY = {
                     "typeName": "实习"
                 },
                 "degree": {
-                    "id": 2,
-                    "degreeName": "高中"
+                    "id": 5,
+                    "degreeName": "硕士及以上"
                 },
                 "profession": null,
                 "user": {
@@ -146,19 +146,19 @@ export const EMERGING = {
         "data": [
             {
                 "id": 4,
-                "company": "送外吗",
+                "company": "美团",
                 "post": "外卖员",
                 "city": {
                     "id": 110100,
-                    "cityName": "北京市",
+                    "cityName": "重庆",
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
                     "updateTime": null
                 },
                 "salaryNum": 0,
-                "salaryStr": "20w",
-                "salaryRange": "年薪20w",
+                "salaryStr": "8k",
+                "salaryRange": "8k",
                 "profession": {
                     "id": 2,
                     "professionName": "计算机",
@@ -174,26 +174,26 @@ export const EMERGING = {
                 "explain": "1111",
                 "status": null,
                 "from": null,
-                "createTime": "2022-04-16T16:00:00.000+00:00",
+                "createTime": "2022-04-16",
                 "lookCount": 6,
                 "likeCount": 0,
                 "credibility": null
             },
             {
                 "id": 8,
-                "company": "测试新兴5.7",
-                "post": "歪咪",
+                "company": "星艺传媒",
+                "post": "新媒体主播",
                 "city": {
                     "id": 420100,
-                    "cityName": "武汉市",
+                    "cityName": "西安市",
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
                     "updateTime": null
                 },
                 "salaryNum": 0,
-                "salaryStr": "213",
-                "salaryRange": "25",
+                "salaryStr": "6k",
+                "salaryRange": "6k",
                 "profession": null,
                 "user": {
                     "id": 1115,
@@ -202,14 +202,49 @@ export const EMERGING = {
                     "phone": 15123301497,
                     "openidWx": null
                 },
-                "explain": "测试5，7新兴",
+                "explain": "新媒体主播，工作时间自由，工时制，福利多多。",
                 "status": null,
                 "from": null,
-                "createTime": "2022-05-06T16:00:00.000+00:00",
+                "createTime": "2022-05-06",
                 "lookCount": null,
                 "likeCount": null,
                 "credibility": null
-            }
+            },
+			{
+			    "id": 4,
+			    "company": "曹操出行",
+			    "post": "网约车司机",
+			    "city": {
+			        "id": 110100,
+			        "cityName": "重庆",
+			        "cityPreId": null,
+			        "UpdateTime": null,
+			        "cityTotalNum": null,
+			        "updateTime": null
+			    },
+			    "salaryNum": 0,
+			    "salaryStr": "9k",
+			    "salaryRange": "9k",
+			    "profession": {
+			        "id": 2,
+			        "professionName": "计算机",
+			        "status": 1
+			    },
+			    "user": {
+			        "id": 1,
+			        "userName": "wzd",
+			        "openId": null,
+			        "phone": 1222,
+			        "openidWx": null
+			    },
+			    "explain": "1111",
+			    "status": null,
+			    "from": null,
+			    "createTime": "2022-04-30",
+			    "lookCount": 6,
+			    "likeCount": 0,
+			    "credibility": null
+			}
         ]
     }
 }

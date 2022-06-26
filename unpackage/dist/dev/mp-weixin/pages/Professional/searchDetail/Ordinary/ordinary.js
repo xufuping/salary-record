@@ -261,10 +261,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.id
       };
     }),
-    i: common_vendor.n($setup.seledType.type),
-    j: common_vendor.o(($event) => $setup.changePage(1)),
-    k: common_vendor.o(($event) => $setup.changePage(2)),
-    l: common_vendor.f($setup.searchPopupList, (item, k0, i0) => {
+    i: common_vendor.f($setup.searchPopupList, (item, k0, i0) => {
       return {
         a: common_vendor.sr($setup.pushPopupRef, "571a6f38-2-" + i0, {
           "f": 1
@@ -282,7 +279,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       };
     }),
-    m: $setup.pushPopupRef
+    j: $setup.pushPopupRef
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-571a6f38"], ["__file", "/Users/xuqingfeng/web/wudingxuan/salary-record/pages/Professional/searchDetail/Ordinary/ordinary.vue"]]);
