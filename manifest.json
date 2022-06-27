@@ -82,10 +82,10 @@
     "h5" : {
         "usingComponents" : true,
         "devServer" : {
-            "https" : true,
+            "https" : false,
             "proxy" : {
                 "/api" : {
-                    "target" : "http://203.56.169.102:8084",
+                    "target" : "https://47.101.157.10/api",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
@@ -95,16 +95,18 @@
             }
         },
         "router" : {
-            "mode" : "history",
+            "mode" : "hash",
             "base" : "./"
         },
         "sdkConfigs" : {
-            "maps" : {
-                "qqmap" : {
-                    "key" : "WPEBZ-BPM6O-RH2WA-S2MWT-LQ6JJ-OYBZH"
-                }
+            "maps" : {}
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : false
             }
-        }
+        },
+        "template" : "unpackage/dist/build/h5/index.html"
     },
     "mp-alipay" : {
         "usingComponents" : true
