@@ -1,5 +1,5 @@
 import utils from './toolsFnAndGetPosition.js'
-import {editCityDataUsedForSerach} from './cityListTools.js'
+import { editCityDataUsedForSerach } from './cityListTools.js'
 
 const { isNotEmpty, isChinese, getSlicedName } = utils;
 const CITY_NOT_FOUND = [{ city: '无匹配城市', code: "000" }];
@@ -24,7 +24,7 @@ export class AutoPredictor {
   }
 
   searchList(str) {
-	const CITY_LIST = editCityDataUsedForSerach()
+    const CITY_LIST = editCityDataUsedForSerach()
     let targetCity
     return CITY_LIST.filter(
       city => {
@@ -38,11 +38,11 @@ export class AutoPredictor {
     if (isChinese(str)) {
       const slicedChineseName = getSlicedName(cityObj, 'city', str.length)
       return slicedChineseName
-    } 
-	// else {
- //      const slicedPinyinName = getSlicedName(cityObj, 'short', str.length).toLowerCase()
- //      return slicedPinyinName
- //    }
+    }
+    // else {
+    //      const slicedPinyinName = getSlicedName(cityObj, 'short', str.length).toLowerCase()
+    //      return slicedPinyinName
+    //    }
     // 在城市数据中，添加简拼到“shorter”属性，就可以实现简拼搜索
     // getSlicedName(cityObj, 'shorter', str.length).toLowerCase()
   }
