@@ -145,17 +145,26 @@ export const EMERGING = {
         "pageSize": 5,
         "data": [
             {
+<<<<<<< HEAD
                 "id": 4,
+=======
+                "id": 2,
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
                 "company": "美团",
                 "post": "外卖员",
                 "city": {
                     "id": 110100,
+<<<<<<< HEAD
                     "cityName": "重庆",
+=======
+                    "cityName": "北京市",
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
                     "updateTime": null
                 },
+<<<<<<< HEAD
                 "salaryNum": 0,
                 "salaryStr": "8k",
                 "salaryRange": "8k",
@@ -186,11 +195,41 @@ export const EMERGING = {
                 "city": {
                     "id": 420100,
                     "cityName": "西安市",
+=======
+                "salary": 10000,
+                "profession": {
+                    "id": 2,
+                    "professionName": "计算机",
+                    "status": 2
+                },
+                "user": {
+                    "id": 1112,
+                    "userName": "wangzd",
+                    "openId": null,
+                    "phone": 17782408
+                },
+                "explain": "这是一个测试",
+                "status": null,
+                "from": null,
+                "createTime": "2022-02-28T16:00:00.000+00:00",
+                "lookCount": null,
+                "likeCount": null,
+                "credibility": null
+            },
+            {
+                "id": 3,
+                "company": "华为",
+                "post": "后端",
+                "city": {
+                    "id": 110100,
+                    "cityName": "北京市",
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
                     "cityPreId": null,
                     "UpdateTime": null,
                     "cityTotalNum": null,
                     "updateTime": null
                 },
+<<<<<<< HEAD
                 "salaryNum": 0,
                 "salaryStr": "6k",
                 "salaryRange": "6k",
@@ -245,6 +284,28 @@ export const EMERGING = {
 			    "likeCount": 0,
 			    "credibility": null
 			}
+=======
+                "salary": 10000,
+                "profession": {
+                    "id": 2,
+                    "professionName": "计算机",
+                    "status": 2
+                },
+                "user": {
+                    "id": 1112,
+                    "userName": "wangzd",
+                    "openId": null,
+                    "phone": 17782408
+                },
+                "explain": "这是一个测试",
+                "status": null,
+                "from": null,
+                "createTime": "2022-03-01T16:00:00.000+00:00",
+                "lookCount": null,
+                "likeCount": null,
+                "credibility": null
+            }
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
         ]
     }
 }

@@ -1,4 +1,3 @@
-<template>
   <view class="releaseProfessional">
     <view class="header">
       <image  class="image" src="../../static/logo.png"></image>
@@ -175,169 +174,6 @@
 	  <view class="bottom"></view>
     </view>
   </view>
-</template>
-
-<script>
-import { ref, reactive, onMounted } from "vue";
-import sendPostRequest from "../../utils/sendPostRequest.js";
-import { EDU_LIST, INDU_LIST } from "./constants.js";
-import TYPE_LIST from "../../config/typeData.js";
-import router from "../../utils/route.js";
-import store from "../../store/index.js";
-
-//环境控制变量
-import { ENV } from "../../config/MAKRDATA.js";
-
-export default {
-  setup() {
-    //清空页面信息
-    const clearPage = () => {
-      company.value = "";
-      job.value = "";
-      store.commit("clearCity");
-      salary.value = null;
-      dSalary.value = "";
-      hSalary.value = "";
-      selIndustry.name = "请选择行业";
-      job_note.value = "";
-    };
-    //切换tab
-    const tabStatus = ref(1);
-    const changeTab = (data) => {
-      if (
-        company.value !== "" ||
-        job.value !== "" ||
-        job_note.value !== "" ||
-        dSalary.value !== "" ||
-        hSalary.value !== "" ||
-        selIndustry.name !== "请选择行业" ||
-        salary.value !== null ||
-        storeCity.defaultCity !== "北京市"
-      ) {
-        uni.showModal({
-          content: "此操作会清空已输入信息，确定吗？",
-          success(res) {
-            if (res.confirm) {
-              clearPage();
-              tabStatus.value = data;
-            }
-          },
-        });
-      } else {
-        clearPage();
-        tabStatus.value = data;
-      }
-    };
-
-    //样式变量
-    const styles = {
-      borderColor: "white",
-    };
-
-    //公司
-    const company = ref("");
-
-    //岗位
-    const job = ref("");
-
-    //城市
-    const storeCity = store.state.city;
-
-    //薪资
-    const salary = ref(null);
-
-    //薪资范围
-    const dSalary = ref("");
-    const hSalary = ref("");
-
-    //类型
-    const typelist = TYPE_LIST;
-    const selType = reactive({
-      id: 1,
-      name: "",
-    });
-    const changeSelType = (data) => {
-      selType.id = data;
-    };
-
-    //学历
-    const selEducation = reactive({
-      id: 0,
-      name: "请选择学历",
-    });
-    let eduList = reactive([]);
-    if (ENV !== "self") {
-      sendPostRequest(
-        router.getAllDegere,
-        {},
-        {
-          success(res) {
-            if (res.message === "success") {
-              res.data.forEach((item) => {
-                eduList.push(item);
-              });
-            } else {
-            }
-          },
-          fail() {},
-        },
-        true
-      );
-    } else {
-      eduList = EDU_LIST;
-    }
-
-    function changeEducation(e) {
-      selEducation.name = eduList[e.detail.value].degreeName;
-      selEducation.id = eduList[e.detail.value].id;
-    }
-
-    //行业
-    const selIndustry = reactive({
-      id: 0,
-      name: "请选择行业",
-    });
-    let induList = reactive([]);
-    if (ENV !== "self") {
-      const data = {
-        type: tabStatus.value === 1 ? "NORMAL" : "NEW"
-      };
-      sendPostRequest(
-        router.getAllProfession,
-        data,
-        {
-          success(res) {
-            if (res.message === "success") {
-              res.data.forEach((item) => {
-                induList.push(item);
-              });
-            } else {
-            }
-          },
-          fail() {},
-        },
-        true
-      );
-    } else {
-      induList = tabStatus.value === 1 ? INDU_LIST.ordinary : INDU_LIST.emerging;
-    }
-    function changeIndustry(e) {
-        selIndustry.name = induList[e.detail.value].professionName;
-        selIndustry.id = induList[e.detail.value].id;
-    }
-
-    //待遇
-    const job_note = ref("");
-
-    //
-    function showDetail() {
-      uni.showModal({
-        content:
-          "严禁发布不良信息，违法必究\r\r\n所有数据未经允许不得盗用，侵权必究\r\n信息均为用户自愿共享发布\r\n希望大家能自觉遵守声明",
-        showCancel: false,
-      });
-    }
-
     //发布
     function submit() {
       if (company.value === "" || salary.value === "") {
@@ -454,22 +290,261 @@ export default {
     };
   },
 };
+=======
+import {
+	ref,
+	reactive,
+	onMounted
+} from 'vue';
+import sendPostRequest from "../../utils/sendPostRequest.js"
+import {EDU_LIST,INDU_LIST} from "./constants.js";
+import TYPE_LIST from "../../config/typeData.js";
+import router from "../../utils/route.js";
+import store from '../../store/index.js'
+
+export default {
+	setup() {
+		//清空页面信息
+		const clearPage = () =>{
+			company.value = ''
+			job.value = ''
+			store.commit("clearCity")
+			salary.value = null
+			dSalary.value = ''
+			hSalary.value = ''
+			selIndustry.name = '请选择行业'
+			job_note.value = ''
+		}
+		//切换tab
+		const tabStatus = ref(1)
+		const changeTab = (data) => {
+			if(company.value !== '' 
+			   || job.value !== ''
+			   || job_note.value !== ''
+			   || dSalary.value !== ''
+			   || hSalary.value !== ''
+			   || selIndustry.name !== '请选择行业'
+			   || salary.value !== null
+			   || storeCity.defaultCity !== '选择城市'
+			 ){
+				uni.showModal({
+					content: "此操作会清空已输入信息，确定吗？",
+					success(res) {
+						if (res.confirm) {
+									clearPage()
+									tabStatus.value = data
+								} 
+					},
+				})
+			}else{
+				clearPage()
+				tabStatus.value = data
+			}
+			
+		}
+		
+		//样式变量
+		const styles = {
+			borderColor: 'white'
+		}
+		
+		//公司
+		const company = ref('')
+		
+		//岗位
+		const job = ref('')
+		
+		//城市
+		const storeCity = store.state.city;
+		
+		
+		//薪资
+		const salary = ref(null)
+		
+		//薪资范围
+		const dSalary = ref('')
+		const hSalary = ref('')
+		
+		//类型
+		const typelist = TYPE_LIST;
+		const selType = reactive({
+			id:1,
+			name:""
+		});
+		const changeSelType = (data) => {
+			selType.id = data
+		}
+		
+		// TODO 学历、行业两个数据来源，接口、待修复，目前采用的本地JSON数据
+		//学历
+		const selEducation = reactive({
+			id:0,
+			name:"请选择学历"
+		})
+		const eduList = reactive(EDU_LIST);
+		function changeEducation(e) {
+			selEducation.name = eduList[e.detail.value].degreeName
+			selEducation.id = eduList[e.detail.value].id
+			console.log("selEducation.id",selEducation.id)
+		}
+		
+		//行业
+		const selIndustry = reactive({
+			id : 0,
+			name : "请选择行业"
+		})
+		const induList = reactive(INDU_LIST);
+		function changeIndustry(e) {
+			if(tabStatus.value === 1){
+				selIndustry.name = induList.ordinary[e.detail.value].industry
+				selIndustry.id = induList.ordinary[e.detail.value].id
+			}else{
+				selIndustry.name = induList.emerging[e.detail.value].industry
+				selIndustry.id = induList.emerging[e.detail.value].id
+			}
+		}
+		
+		//待遇
+		const job_note = ref('')
+
+		//
+		function showDetail() {
+			uni.showModal({
+				content: "严禁发布不良信息，违法必究\r\r\n所有数据未经允许不得盗用，侵权必究\r\n信息均为用户自愿共享发布\r\n希望大家能自觉遵守声明",
+				showCancel: false,
+			})
+		}
+		
+		//发布
+		function submit() {
+			if (company.value === "" || salary.value === "") {
+				uni.showModal({
+					content: "请填完带*的选项",
+					showCancel: false
+				})
+				return;
+			}
+			
+			//进行提交操作
+			if(tabStatus.value === 1){
+			uni.showModal({
+				content: "你确定要提交吗？",
+				success(res) {
+					if (res.confirm) {
+						let sendInformation = {
+							company: company.value,
+							post: job.value,
+							city: storeCity.defaultCityID,
+							salaryNUm: parseInt(salary.value),
+							salaryStr:salary.value,
+							salaryRange:dSalary.value+hSalary.value,
+							type: tabStatus.value === 1 ? selType.id : 0, //0为选择灵活职业时的类型代码
+							degree: selEducation.id,
+							profession: selIndustry.id ,
+							openid : "53de05c8582341ad9a8a967f4baf00bc",
+							from : "WEI_XIN",					
+							explain: job_note.value,
+						}
+						sendPostRequest(router.ordinaryPublish, sendInformation, {
+								success() {
+									uni.showModal({
+										content: "提交成功！",
+										showCancel: false
+									})
+								},
+								fail() {}
+							},
+							true);
+					} else if (res.cancel) {
+						return;
+					}
+				}
+			})
+			}else{
+			uni.showModal({
+				content: "你确定要提交吗？",
+				success(res) {
+					if (res.confirm) {
+						let sendInformation = {
+							company: company.value,
+							post: job.value,
+							city: storeCity.defaultCityID,
+							salaryNUm: parseInt(salary.value),
+							salaryStr:salary.value,
+							salaryRange:dSalary.value+hSalary.value,
+							profession: selIndustry.id,
+							openid : "53de05c8582341ad9a8a967f4baf00bc",
+							from : "WEI_XIN",						
+							explain: job_note.value,
+						}
+						sendPostRequest( router.emergingPublish,sendInformation, {
+								success() {
+									uni.showModal({
+										content: "提交成功！",
+										showCancel: false
+									})
+								},
+								fail() {}
+							},
+							true);
+					} else if (res.cancel) {
+						return;
+					}
+				}
+			})
+			}
+		}
+
+		onMounted(()=>{
+			//getIndexedList()
+		})
+		return {
+			styles,
+			dSalary,
+			hSalary,
+			storeCity,
+			salary,
+			company,
+			job,
+			tabStatus,
+			changeTab,
+			typelist,
+			job_note,
+			selType,
+			changeSelType,
+			selEducation,
+			selIndustry,
+			changeEducation,
+			changeIndustry,
+			submit,
+			showDetail,
+			eduList,
+			induList
+		}
+	}
+}
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
 </script>
 
 <style lang="scss" scoped>
 .releaseProfessional {
   box-sizing: border-box;
+<<<<<<< HEAD
   background: linear-gradient(
     81.13deg,
     #457dea 18.47%,
     rgba(93, 178, 248, 0.794338) 96.22%,
     rgba(197, 216, 248, 0.7) 125.81%
   );
+=======
+  background: linear-gradient(81.13deg, #457DEA 18.47%, rgba(93, 178, 248, 0.794338) 96.22%, rgba(197, 216, 248, 0.7) 125.81%);
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
   width: 100%;
   min-height: 100vh;
   padding: 20rpx;
 
   .header {
+<<<<<<< HEAD
     display: flex;
     width: 190rpx;
     height: 190rpx;
@@ -677,6 +752,227 @@ export default {
     }
 
     .release_botton {
+=======
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	width: 190rpx;
+  	height: 190rpx;
+  	margin: 0 auto;
+  	margin-top: 25rpx;
+  	border-radius: 50%;
+  	font-size: 60rpx;
+  	background: #C4C4C4;
+  
+  	.header_logo {
+  		font-family: 'Microsoft Uighur';
+  		font-style: normal;
+  		font-weight: 400;
+  		font-size: 64rpx;
+  		color: #fff;
+  	}
+  }
+  
+  .header_list {
+  	// margin-top: 45rpx;
+  	font-size: 24rpx;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	margin: 0 auto;
+  	color: #fff;
+  	width: 363rpx;
+  
+  	.header_tab {
+  		margin: 0 40rpx;
+  		box-sizing: border-box;
+  		padding: 20rpx 0;
+  	}
+  
+  	.header_tab_line {
+  		border-bottom: 4rpx solid #fff;
+  		border-radius: 5%;
+  	}
+  }
+  
+  .input_square{
+	  background: #FFFFFF;
+	  border-radius: 76rpx 76rpx 0px 0px;
+	  height: 1200px;
+	  margin-bottom: -10px;
+	  
+	.label {
+	  font-size: 30rpx;
+	  margin: 10rpx;
+	  color: gray;
+	  padding-left: 15rpx;
+	}
+	
+	.required_label {
+	  color: red;
+	  margin-right: 5rpx;
+	}
+	
+	.input_underline{
+	  width: 600rpx;
+	  border: 1px solid #D1D5DA;
+	  margin-left: 20rpx;
+	}
+	
+	.info_item_class1{
+	  margin-bottom: 30rpx;
+	  margin-top: 30rpx;
+	  padding: 20rpx;
+	
+		.inp{
+		}
+	}
+	
+	.info_item_class2{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		.inp{
+			
+			.box_sort{
+				display: flex;
+				justify-content: space-around;
+				.inputbox{
+					width: 250rpx;
+					border: 1px solid #D1D5DA;
+					border-radius: 6px;
+				}
+				.dashed_line{
+					height: 0rpx;
+					width: 80rpx;
+					border: 1px dashed #D1D5DA;
+					align-self: center;
+				}
+			}
+		}
+	}
+	
+	.info_item_class3{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		
+		.type_list {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  margin: 20rpx auto;
+		
+		  .type_item {
+		    margin: 0 10rpx;
+		    flex: 1;
+		    display: flex;
+		    justify-content: center;
+		    font-size: 22rpx;
+		    padding: 15rpx 0;
+		    border: 1rpx solid rgba(0, 0, 0, 0.1);
+		    border-radius: 10rpx;
+		    color: gray;
+		  }
+		
+		  .sel_item {
+		    border-color: #5E95EE;
+		    color: #5E95EE;
+		  }
+		}
+	}
+	
+	.info_item_class4{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		
+		.inp_class4{
+			display: flex;
+			justify-content: space-between;
+			
+			.sel_education {
+			  background: #fff;
+			  color: gray;
+			  font-size: 28rpx;
+			  padding: 0 20rpx;
+			  margin-top: 20rpx;
+			  margin-bottom: 10rpx;
+			  margin-left: 2rpx;
+			}
+			
+			.arrow_area{
+				width: 20rpx;
+				height: 20rpx;
+				border-top: 1px solid #D0D0D0;
+				border-right: 1px solid #D0D0D0;
+				transform: rotate(45deg);
+				margin-right: 54rpx;
+				margin-top: 28rpx;
+			}
+		}
+	}
+	
+	.info_item_class5{
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		padding: 20rpx;
+		
+		.inp_class5{
+			width: 630rpx;
+			height: 200rpx;
+			border: 1px solid #D1D5DA;
+			border-radius: 6px;
+			margin: 0 auto;
+			margin-top: 20rpx;
+		}
+	}
+	
+	.info_item_class6{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 600rpx;
+		height: 168rpx;
+		margin-bottom: 30rpx;
+		margin-top: 30rpx;
+		margin-left: 30rpx;
+		padding: 20rpx;
+		border: 1px solid #D1D5DA;
+		box-shadow: 0px 5px 8px #E0E4EA;
+		border-radius: 6px;
+		
+		.detailTitle {
+		  display: flex;
+		  flex-direction: row;
+		  justify-content: center;
+		  align-items: baseline;
+		  background: #FCFCFC;
+		  
+		  .instructions_label {
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 40rpx;
+		    color: gray;
+		    margin: 10rpx 0;
+		    margin-right: 20rpx;
+		  }
+		  
+		}
+		
+		.instructions_text {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  font-size: 30rpx;
+		  color: gray;
+		  margin: 30rpx 0;
+		}
+	}
+	
+	.release_botton {
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
       width: 600rpx;
       height: 96rpx;
       display: flex;
@@ -684,6 +980,7 @@ export default {
       align-items: center;
       font-size: 40rpx;
       color: #fff;
+<<<<<<< HEAD
       border: 2rpx solid #fff;
       background: #4581EA;
       border-radius: 12rpx;
@@ -695,4 +992,15 @@ export default {
 	}
   }
 }
+=======
+      border: 1px solid #fff;
+	  background: #FF5959;
+	  border-radius: 6px;
+	  margin: 0 auto;
+    }
+  }
+
+}
+
+>>>>>>> d3c118154a66ac5242f42815c76a9b2d69d3271e
 </style>
