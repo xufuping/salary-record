@@ -3,18 +3,18 @@ export const ORDINARY_DETAIL = {
     "message": "success",
     "data":{
         "id": 7,
-        "company": "北京网讯",
-        "post": "数字ic设计",
+        "company": "字节跳动",
+        "post": "数据产品实习",
         "city": {
             "id": 110100,
-            "cityName": "杭州",
+            "cityName": "北京",
             "cityPreId": null,
             "UpdateTime": null,
             "cityTotalNum": null,
             "updateTime": null
         },
         "salaryNum": 0,
-        "salaryStr": "20k*14",
+        "salaryStr": "3.6k",
         "salaryRange": "20k*14",
         "type": {
             "id": 1,

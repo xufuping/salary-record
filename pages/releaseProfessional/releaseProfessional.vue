@@ -1,7 +1,7 @@
 <template>
   <view class="releaseProfessional">
     <view class="header">
-      <image  class="image" src="../../static/logo.png"></image>
+      <image  class="image" src="../../static/logo.svg"></image>
     </view>
 
     <view class="header_list">
@@ -21,7 +21,8 @@
 
     <view class="input_square">
       <view class="info_item_class1">
-        <view class="label">公司<span class="required_label">*</span></view>
+		<view v-if="tabStatus===2" class="label">公司</view>
+        <view v-if="tabStatus===1" class="label">公司<span class="required_label">*</span></view>
         <view class="inp">
           <uni-easyinput
             v-model="company"
@@ -36,7 +37,7 @@
       </view>
 
       <view class="info_item_class1">
-        <view class="label">岗位</view>
+        <view class="label">岗位<span class="required_label">*</span></view>
         <view class="inp">
           <uni-easyinput
             v-model="job"
@@ -63,29 +64,8 @@
         </view>
       </view>
 
-      <!-- <view class="info_item_class2">
-        <view class="label">薪资范围<span class="required_label">*</span></view>
-        <view class="inp">
-          <view class="box_sort">
-            <view class="inputbox">
-              <uni-easyinput
-                placeholder="最低工资"
-                v-model="dSalary"
-              ></uni-easyinput>
-            </view>
-            <view class="dashed_line"></view>
-            <view class="inputbox">
-              <uni-easyinput
-                placeholder="最高工资"
-                v-model="hSalary"
-              ></uni-easyinput>
-            </view>
-          </view>
-        </view>
-      </view> -->
-
       <view class="info_item_class3" v-if="tabStatus === 1">
-        <view class="label">类型</view>
+        <view class="label">类型<span class="required_label">*</span></view>
         <view class="inp">
           <view class="type_list">
             <view
@@ -137,7 +117,7 @@
       </view>
 
       <view class="info_item_class4">
-        <view class="label">城市</view>
+        <view class="label">城市<span class="required_label">*</span></view>
         <navigator url="../Professional/common/switchCity/switchCity">
           <view class="inp_class4">
             <view type="default" class="label">{{
@@ -625,12 +605,12 @@ export default {
       padding: 20rpx;
 
       .inp_class5 {
-        width: 630rpx;
+        width: 600rpx;
         height: 200rpx;
         border: 2rpx solid #d1d5da;
         border-radius: 12rpx;
-        margin: 0 auto;
         margin-top: 20rpx;
+		margin-left: 20rpx;
       }
     }
 
@@ -642,8 +622,8 @@ export default {
       height: 168rpx;
       margin-bottom: 30rpx;
       margin-top: 30rpx;
-      margin-left: 30rpx;
-      padding: 20rpx;
+      margin-left: 40rpx;
+	  padding-top: 10rpx;
       border: 2rpx solid #d1d5da;
       box-shadow: 0px 10rpx 16rpx #e0e4ea;
       border-radius: 12rpx;
@@ -687,7 +667,7 @@ export default {
       border: 2rpx solid #fff;
       background: #4581EA;
       border-radius: 12rpx;
-      margin: 0 auto;
+      margin-left: 40rpx;
     }
 	
 	.bottom{

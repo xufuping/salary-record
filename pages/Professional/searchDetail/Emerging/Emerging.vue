@@ -1,8 +1,23 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <image class="header_logo" src="../../../../static/logo.png"></image>
+      <image class="header_logo" src="../../../../static/logo.svg"></image>
     </view>
+	
+	<view class="header_list">
+	  <view
+	    class="headerTab"
+	    :class="{ headerTabLine: seledType.type === 1 }"
+	    @click="changePage(1)"
+	    >普通职业</view
+	  >
+	  <view
+	    class="headerTab"
+	    :class="{ headerTabLine: seledType.type === 2 }"
+	    @click="changePage(2)"
+	    >灵活职业</view
+	  >
+	</view>
 
     <view class="content_search">
       <uni-easyinput
@@ -30,7 +45,6 @@
               @click="chooseCity(item.cityCode)"
               >{{ item.city }}
             </view>
-            <!-- <view class="sel_item" @click="open">更多</view> -->
           </view>
         </view>
       </view>
@@ -111,31 +125,16 @@
         </view>
       </view>
     </view>
-
-    <!-- <view class="bottom_tabelbar">
-      <view class="tabelbar_item" @click="changePage(1)">普通职业</view>
-      <view class="tabelbar_item" :class="seledType.type" @click="changePage(2)"
-        >灵活职业</view
-      >
-    </view> -->
-
-    <searchPopup
-      ref="searchPopup"
-      comBoxText="请输入城市"
-      :showIndexedList="showIndexedList"
-      :comBoxList="myList"
-      :indexedList="popList"
-      @changeShowIndexedList="changeShowIndexedList"
-      @getResult="getResult"
-    >
-    </searchPopup>
+	
+	<view class="back_to_top" @click="backToTop">
+		<image class="back_to_top_icon" src="../../../../static/img/ordinary/icon.svg"></image>
+	</view>
   </view>
 </template>
 
 <script>
 import { ref, reactive, toRaw, onMounted } from "vue";
 import searchItem from "../../common/searchItem.vue";
-import searchPopup from "../../common/SearchPopup.vue";
 import { SCREEN_CITY } from "../../../../config/configData.js";
 import { addHotCity } from "../../../../utils/cityListTools.js";
 import { SALARY_LIST, selSortType } from "./constants.js";
@@ -148,8 +147,7 @@ import { EMERGING, ENV } from "../../../../config/MAKRDATA.js";
 
 export default {
   components: {
-    searchItem,
-    searchPopup,
+    searchItem
   },
   props: {
     inputValue: String,
@@ -182,18 +180,7 @@ export default {
       sendInformation.order = target;
       search();
     };
-
-    //筛选
-    const showCollapse = ref(false);
-    const closeCollapse = () => {
-      showCollapse.value = false;
-      console.log(showCollapse.value);
-    };
-    const openCollapse = () => {
-      showCollapse.value = true;
-      console.log(showCollapse.value);
-    };
-
+	
     //热门
     const showList = ref(true);
     const changeList = () => {
@@ -210,7 +197,14 @@ export default {
       }
     }
 
+	//薪资
     const yearOrMonthSalary = ref(false); //year为true，month为false
+	
+	function clearActive() {
+	  for (let i = 0; i < salaryList.data.length; i++) {
+	    salaryList.data[i].active = "";
+	  }
+	}
 
     function changeYearOrMonthSalary() {
       if (yearOrMonthSalary.value) {
@@ -256,7 +250,7 @@ export default {
           break;
       }
     }
-
+	
     const cityClassID = reactive({ id: 0 });
     const cityList = reactive(addHotCity(SCREEN_CITY));
     const salaryList = reactive(SALARY_LIST);
@@ -305,6 +299,7 @@ export default {
       }
     }
 
+	//薪资监测
     function checkSalary() {
       const testReg = /^(0|[1-9][0-9]*)$/;
       if (sendInformation.dSalary === null || sendInformation.hSalary === null)
@@ -317,7 +312,8 @@ export default {
       }
       return false;
     }
-
+	
+	//数据操作函数
     function operateData(info) {
       // sendInformation.currentPage = data.data.data.currentPage;
       // sendInformation.pageSize = data.data.data.pageSize;
@@ -333,77 +329,47 @@ export default {
       data: [],
     });
 
-    //底部弹窗
-    const showIndexedList = ref(false);
-    const searchPopup = ref(null);
-    const open = () => {
-      // console.log(searchPopup.value.popup.open("bottom"));
-      showIndexedList.value = true;
-      searchPopup.value.popup.open("bottom");
-    };
-    const changeShowIndexedList = (data) => {
-      showIndexedList.value = data;
-    };
-    const popList = getPopCityList();
-    const getResult = (res) => {
-      console.log("getResult", res);
-    };
-
-    function clearActive() {
-      for (let i = 0; i < salaryList.data.length; i++) {
-        salaryList.data[i].active = "";
-      }
-    }
-
-    //测试数据
-    const myList = ["qwe", "wsd", "dff", "ssxc", "asd123", "sd34", 123];
-
     //页面跳转
     const seledType = reactive({
-      type: "active",
+      type: 2,
     });
     const changePage = (value) => {
       if (value === 2) {
         return;
       } else {
-        seledType.type = "";
         uni.redirectTo({
           url: "../Ordinary/ordinary",
         });
       }
     };
+	
+	//回到顶部按钮
+	const backToTop = () =>{
+		uni.pageScrollTo({
+		    scrollTop: 0,
+		    duration: 100,
+		});
+	}
 
     return {
       cityClassID,
       seledType,
       changePage,
       selSortTypeItem,
-      getResult,
-      showIndexedList,
-      changeShowIndexedList,
-      myList,
       sendInformation,
       search,
-      popList,
-      open,
-      searchPopup,
       detail,
       changeList,
       showList,
       cityList,
       salaryList,
-      showCollapse,
-      closeCollapse,
-      openCollapse,
       tabTarget,
       changeTabTarget,
       chooseCity,
       chooseSalary,
-      clearActive,
-      operateData,
-      checkSalary,
       yearOrMonthSalary,
       changeYearOrMonthSalary,
+	  backToTop
     };
   },
 };
@@ -434,6 +400,27 @@ export default {
 	  width: 190rpx;
 	  height: 190rpx;
 	}
+  }
+  
+  .header_list {
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    color: #fff;
+    width: 400rpx;
+	margin-bottom: 20rpx;
+  
+    .headerTab {
+      margin: 0 40rpx;
+      box-sizing: border-box;
+      padding: 20rpx 0;
+    }
+  
+    .headerTabLine {
+      border-bottom: 4rpx solid #fff;
+      border-radius: 5%;
+    }
   }
 
   .label_underline {
@@ -617,28 +604,23 @@ export default {
       }
     }
   }
-
-  .bottom_tabelbar {
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    margin-left: -20rpx;
-
-    .tabelbar_item {
-      background-color: #eeeeee;
-      display: inline-block;
-      width: 50%;
-      height: 100rpx;
-      line-height: 100rpx;
-      text-align: center;
-      font-family: "黑体";
-      padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
-      padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
-    }
-
-    .active {
-      color: #5e95ee;
-    }
+	
+  .back_to_top{
+  	  position: fixed;
+  	  width: 60rpx;
+  	  height: 60rpx;
+  	  border-radius: 50%;
+  	  right: 40rpx;
+  	  font-size: 23rpx;
+  	  text-align: center;
+  	  bottom: 80rpx;
+  	  background: cornflowerblue;
+	  
+	  .back_to_top_icon{
+	  	  width: 60rpx;
+	  	  height: 30rpx;
+	  	  margin-top: 16rpx;
+	  }
   }
 }
 </style>
