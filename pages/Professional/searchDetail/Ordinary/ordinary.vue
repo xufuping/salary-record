@@ -1,8 +1,23 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <image class="header_logo" src="../../../../static/logo.png"></image>
+      <image class="header_logo" src="../../../../static/logo.svg"></image>
     </view>
+	
+	<view class="header_list">
+	  <view
+	    class="headerTab"
+	    :class="{ headerTabLine: seledType.type === 1 }"
+	    @click="changePage(1)"
+	    >普通职业</view
+	  >
+	  <view
+	    class="headerTab"
+	    :class="{ headerTabLine: seledType.type === 2 }"
+	    @click="changePage(2)"
+	    >灵活职业</view
+	  >
+	</view>
 
     <view class="content_search">
       <uni-easyinput
@@ -46,7 +61,6 @@
               @click="chooseCity(item.cityCode)"
               >{{ item.city }}</view
             >
-            <!-- <view class="sel_item" @click="open(0)">更多</view> -->
           </view>
         </view>
       </view>
@@ -64,7 +78,6 @@
               @click="chooseJob(item.id)"
               >{{ item.name }}</view
             >
-            <!-- <view class="sel_item" @click="open(1)">更多</view> -->
           </view>
         </view>
       </view>
@@ -86,36 +99,17 @@
         </view>
       </view>
     </view>
-
-    <!-- <view class="bottom_tabelbar">
-      <view class="tabelbar_item" :class="seledType.type" @click="changePage(1)"
-        >普通职业</view
-      >
-      <view class="tabelbar_item" @click="changePage(2)">灵活职业</view>
-    </view> -->
-
-    <!-- 选择城市 -->
-    <searchPopup
-      v-for="item in searchPopupList"
-      :key="item.id"
-      :index="item.id"
-      :ref="pushPopupRef"
-      :comBoxText="item.comBoxText"
-      :showIndexedList="item.showIndexedList"
-      :comBoxList="item.comBoxList"
-      :indexedList="item.indexedList"
-      @changeShowIndexedList="item.changeShowIndexedList"
-      @getResult="item.getResult"
-    >
-    </searchPopup>
+	
+	<view class="back_to_top" @click="backToTop" >
+		<image class="back_to_top_icon" src="../../../../static/img/ordinary/icon.svg"></image>
+	</view>
+	
   </view>
 </template>
 
 <script>
 import { ref, reactive, toRaw, onMounted } from "vue";
 import searchItem from "../../common/searchItem.vue";
-import searchPopup from "../../common/SearchPopup.vue";
-
 import TYPE_LIST from "../../../../config/typeData.js";
 import { SCREEN_CITY } from "../../../../config/configData.js";
 import { addHotCity } from "../../../../utils/cityListTools.js";
@@ -130,8 +124,7 @@ import { ORDINARY, ENV } from "../../../../config/MAKRDATA.js";
 
 export default {
   components: {
-    searchItem,
-    searchPopup,
+    searchItem
   },
   props: {
     inputValue: String,
@@ -143,54 +136,17 @@ export default {
 
     //页面切换
     const seledType = reactive({
-      type: "active",
+      type: 1,
     });
     const changePage = (value) => {
       if (value === 1) {
         return;
       } else {
-        seledType.type = "";
         uni.redirectTo({
           url: "../Emerging/Emerging",
         });
       }
     };
-
-    //弹框
-    const popList = getPopCityList();
-    const searchPopupList = reactive([
-      {
-        id: 0,
-        comBoxText: "请输入城市",
-        showIndexedList: false,
-        comBoxList: ["重庆", "南京", "北京", "上海", "四川", "成都", "沙坪坝"],
-        indexedList: popList,
-        changeShowIndexedList: (data, index) => {
-          searchPopupList[index].showIndexedList = data;
-        },
-        getResult: (data, index) => {
-          console.log("data", data, index);
-        },
-      },
-      {
-        id: 1,
-        comBoxText: "请输入行业",
-        showIndexedList: false,
-        comBoxList: [
-          {
-            id: 1,
-            name: "123",
-          },
-        ],
-        indexedList: popList,
-        changeShowIndexedList: (data, index) => {
-          searchPopupList[index].showIndexedList = data;
-        },
-        getResult: (data) => {
-          console.log("data", data, index);
-        },
-      },
-    ]);
 
     const detail = reactive({
       data: [],
@@ -328,16 +284,14 @@ export default {
           detail.data.push(item);
         });
     }
-
-    const PopupRefList = reactive([]);
-    const pushPopupRef = (e) => {
-      if (e) PopupRefList.push(e);
-    };
-    const open = (data) => {
-      console.log("PopupRefList", PopupRefList);
-      searchPopupList[data].showIndexedList = true;
-      PopupRefList[data].popup.open("bottom");
-    };
+	
+	//回到顶部按钮
+	const backToTop = () =>{
+		uni.pageScrollTo({
+		    scrollTop: 0,
+		    duration: 100,
+		});
+	}
 
     return {
       seledType,
@@ -346,10 +300,7 @@ export default {
       jobClassID,
       changePage,
       selSortTypeItem,
-      pushPopupRef,
-      searchPopupList,
       sendInformation,
-      open,
       detail,
       changeList,
       chooseType,
@@ -364,6 +315,7 @@ export default {
       openCollapse,
       tabTarget,
       changeTabTarget,
+	  backToTop
     };
   },
 };
@@ -381,19 +333,40 @@ export default {
   width: 100%;
   min-height: 100vh;
   padding: 20rpx;
-
+  
   .header {
     display: flex;
-    margin: 0 auto;
     width: 190rpx;
     height: 190rpx;
+  	margin: 0 auto;
     border-radius: 50%;
     margin-bottom: 20rpx;
-	
-	.header_logo {
-		width: 190rpx;
-		height: 190rpx;
-	}
+  	
+  	.header_logo {
+  	  width: 190rpx;
+  	  height: 190rpx;
+  	}
+  }
+  
+  .header_list {
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    color: #fff;
+    width: 400rpx;
+	margin-bottom: 20rpx;
+  
+    .headerTab {
+      margin: 0 40rpx;
+      box-sizing: border-box;
+      padding: 20rpx 0;
+    }
+  
+    .headerTabLine {
+      border-bottom: 4rpx solid #fff;
+      border-radius: 5%;
+    }
   }
 
   .content_search {
@@ -546,27 +519,22 @@ export default {
     }
   }
 
-  .bottom_tabelbar {
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    margin-left: -20rpx;
-
-    .tabelbar_item {
-      background-color: #eeeeee;
-      display: inline-block;
-      width: 50%;
-      height: 100rpx;
-      line-height: 100rpx;
-      text-align: center;
-      font-family: "黑体";
-      padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
-      padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
-    }
-
-    .active {
-      color: #5e95ee;
-    }
+  .back_to_top{
+  	  position: fixed;
+  	  width: 60rpx;
+  	  height: 60rpx;
+  	  border-radius: 50%;
+  	  right: 40rpx;
+  	  font-size: 23rpx;
+  	  text-align: center;
+  	  bottom: 80rpx;
+  	  background: cornflowerblue;
+	  
+	  .back_to_top_icon{
+	  	  width: 60rpx;
+	  	  height: 30rpx;
+	  	  margin-top: 16rpx;
+	  }
   }
 }
 </style>

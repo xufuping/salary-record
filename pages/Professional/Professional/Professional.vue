@@ -1,7 +1,7 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <image class="header_logo" src="../../../static/logo.png"></image>
+      <image class="header_logo" src="../../../static/logo.svg"></image>
     </view>
 
     <view class="header_list">
@@ -22,14 +22,21 @@
     <view class="content_search">
       <view class="content_search_box">
         <input
+		  v-if="tabStatus===1"
           class="content_search_input"
           v-model="inputValue"
           placeholder="请输入公司名称/城市/岗位"
         />
+		<input
+		  v-if="tabStatus===2"
+		  class="content_search_input"
+		  v-model="inputValue"
+		  placeholder="请输入职业/城市"
+		/>
         <view class="content_search_button" @click="search(inputValue)">
           <image
             class="content_search_img"
-            src="../../../static/img/professional/searchicon.png"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgB1ZPhDYMgEIUvnYARHMER2KTdoN2gbqAb4AjtJHYDugEj0IPcxQuhgI1p4ksu/rjH53E+Af4h773GGrGsX7VgGaxuC0gRqKbgUS2whQ44rCFMKvo91pxMrEpAnsyWrhV6fl3FWDKxvsISvyO/zhkMNQ00ilYSNOWavLu+kcdJiCvKNaNgo3LnTrCzGPimN+rWg2I9rxzwSU8N7brmgPw2LQLdQX26eszC5/8h2A8oGOWvFzMpY0S3uItAs8416OTrCp6hCSquNScTWwJp4WOog72EsAvWDQ6jD0InxqabjzR3AAAAAElFTkSuQmCC"
           ></image>
           <view class="content_search_button_text">搜索</view>
         </view>
@@ -46,6 +53,7 @@
             :class="{ hot_item_blue: changeNum > 3 }"
             v-for="item in emergingList.data"
             :key="item.id"
+			@click="selectHotOptions(item.id)"
             >{{ item.professionName }}</view
           >
         </view>
@@ -59,6 +67,7 @@
             :class="{ hot_item_blue: changeNumOfCity > 3 }"
             v-for="item in hotAreaList.data"
             :key="item.id"
+			@click="selectHotOptions(item.id)"
             >{{ item.cityName }}</view
           >
         </view>
@@ -79,7 +88,6 @@
         >
           {{ item.name }}
         </view>
-        <view class="fill_item" v-for="n in 20" :key="n"></view>
       </view>
     </view>
   </view>
@@ -305,12 +313,11 @@ export default {
 
     .content_search_button {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: center;
       align-items: center;
       width: 138rpx;
-      height: 75rpx;
+      height: 68rpx;
       position: relative;
-      z-index: 2;
       background: linear-gradient(
         270deg,
         #4684f8 -20.25%,
@@ -323,11 +330,13 @@ export default {
       .content_search_img {
         width: 32rpx;
         height: 32rpx;
+		margin-right: 5rpx;
       }
 
       .content_search_button_text {
         color: white;
 		font-size: 24rpx;
+		margin-left: 5rpx;
       }
     }
   }
@@ -365,21 +374,18 @@ export default {
       height: 150rpx;
 
       .hot_item_red {
-        width: 82rpx;
-        height: 36rpx;
-        font-family: "Microsoft YaHei";
-        font-style: normal;
-        font-weight: 400;
-        font-size: 26rpx;
-        line-height: 135.48%;
-        letter-spacing: 0.02em;
-        background: linear-gradient(90deg, #f87933 -14.26%, #fb9e6b 164.86%);
+		height: 40rpx;
+        padding: 15rpx;
+        margin: 10rpx 20rpx;
+        border: 1rpx solid #5e95ee;
+        color: #4581ea;
+        border-radius: 12rpx;
+        font-size: 28rpx;
+        background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-fill-color: transparent;
-        margin: 20rpx;
-        margin-right: 10rpx;
       }
       .hot_item_blue {
         background: linear-gradient(
@@ -429,7 +435,6 @@ export default {
     }
 
     .more_list {
-      margin-top: 20rpx;
       display: flex;
       justify-content: space-between;
       width: 100%;

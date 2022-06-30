@@ -22,12 +22,12 @@
         <view class="image_text">
           <image
             class="image_text_image_1"
-            src="../../../static/img/professionalDetail/position.png"
+            src="../../../static/img/professionalDetail/Union.svg"
           ></image>
           <view class="image_text_text">渠道</view>
         </view>
         <view class="info_arrow">
-          <view class="info_arrow_text">XXX</view>
+          <view class="info_arrow_text">{{detailData.comAddress}}</view>
           <view class="info_arrow_arrow"></view>
         </view>
       </view>
@@ -38,7 +38,7 @@
         <view class="image_text">
           <image
             class="image_text_image_2"
-            src="../../../static/img/professionalDetail/profession.png"
+            src="../../../static/img/professionalDetail/Vector8.svg"
           ></image>
           <view class="image_text_text">岗位</view>
         </view>
@@ -54,7 +54,7 @@
         <view class="image_text">
           <image
             class="image_text_image_3"
-            src="../../../static/img/professionalDetail/company.png"
+            src="../../../static/img/professionalDetail/Group25.svg"
           ></image>
           <view class="image_text_text">公司</view>
         </view>
@@ -70,7 +70,7 @@
         <view class="image_text">
           <image
             class="image_text_image_4"
-            src="../../../static/img/professionalDetail/degree.png"
+            src="../../../static/img/professionalDetail/Group26.svg"
           ></image>
           <view class="image_text_text">学历</view>
         </view>
@@ -102,7 +102,7 @@
       <view class="capsule_upper" @click="believeOprater(changeTide.believe)">
         <image
           class="capsule_upper_image"
-          src="../../../static/img/professionalDetail/Vector15.png"
+          src="../../../static/img/professionalDetail/Vector15.svg"
         ></image>
         <view class="capsule_upper_text">真实可信</view>
       </view>
@@ -113,7 +113,7 @@
       >
         <image
           class="capsule_lower_image"
-          src="../../../static/img/professionalDetail/Vector16.png"
+          src="../../../static/img/professionalDetail/Vector16.svg"
         ></image>
         <view class="capsule_lower_text">不真实</view>
       </view>
@@ -125,11 +125,11 @@
           <view class="pen_icon">
             <image
               class="vector_1"
-              src="../../../static/img/professionalDetail/Vector6.png"
+              src="../../../static/img/professionalDetail/Vector6.svg"
             ></image>
             <image
               class="vector_2"
-              src="../../../static/img/professionalDetail/Vector7.png"
+              src="../../../static/img/professionalDetail/Vector7.svg"
             ></image>
           </view>
           <view class="input_box_text">
@@ -141,7 +141,7 @@
         <view class="image">
           <image
             class="subtract"
-            src="../../../static/img/professionalDetail/Subtract.png"
+            src="../../../static/img/professionalDetail/Subtract.svg"
             @click="likeCount"
           ></image>
         </view>
@@ -329,7 +329,7 @@ export default {
     .header_card_after {
       width: 678rpx;
       height: 222rpx;
-      background-image: url("~@/static/img/professionalDetail/Group24.png");
+      background-image: url("~@/static/img/professionalDetail/Group24.svg");
       border-radius: 36rpx;
 
       .header_salary {

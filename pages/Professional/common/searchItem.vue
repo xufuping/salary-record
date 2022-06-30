@@ -19,11 +19,17 @@
 
     <view class="item_more">
       <view class="item_more_left">
-        <view class="more_item">可信度:{{ information.credibility }}</view>
-        <view class="more_item">点赞量:{{ information.quantity }}</view>
-        <view class="more_item">发布时间:{{ information.releaseTime }}</view>
+        <view class="more_item">可信度:</view>
+		<view class="more_item_text">{{ information.credibility }}</view>
       </view>
-      <view class="enterDetail">查看详情 ></view>
+	  <view class="item_more_left">
+		<view class="more_item">点赞量:</view>
+		<view class="more_item_text">{{ information.quantity }}</view>
+	   </view>
+	   <view class="item_more_left">
+		   <view class="more_item">发布时间:</view>
+		   <view class="more_item_text">{{ information.releaseTime }}</view>
+	   </view>
     </view>
   </view>
 </template>
@@ -43,7 +49,7 @@ export default {
       posSalary: props.detail.salaryStr,
       credibility: props.detail.credibility,
       quantity: props.detail.likeCount,
-      releaseTime: props.detail.createTime,
+      releaseTime: props.detail.createTime
     });
     //查看详情
     const enterDetail = () => {
@@ -163,7 +169,6 @@ export default {
 
     .item_more_left {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       width: 400rpx;
       font-family: "Microsoft YaHei";
@@ -177,16 +182,6 @@ export default {
       .more_item {
         margin-right: 15rpx;
       }
-    }
-
-    .enterDetail {
-      font-family: "Microsoft YaHei";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16rpx;
-      line-height: 135.48%;
-      letter-spacing: 0.02em;
-      color: #c5c5c5;
     }
   }
 }
