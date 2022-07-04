@@ -34,7 +34,6 @@
 
 <script>
 import { ref, reactive } from "vue";
-//import item from "./json/item.json";
 import {
   createProfession,
   getAllProfession,
