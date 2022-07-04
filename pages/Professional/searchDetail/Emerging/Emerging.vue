@@ -50,7 +50,7 @@
       </view>
 
       <view class="more_list">
-        <view class="label">收入区间</view>
+        <view class="label">月收入区间</view>
         <view class="label_underline"></view>
         <view class="input_salary">
           <view class="input_salary_prefix">
@@ -70,7 +70,8 @@
               @keydown="clearActive"
             ></uni-easyinput>
           </view>
-          <view class="input_salary_suffix">
+		
+          <!-- <view class="input_salary_suffix">
             <view
               v-if="!yearOrMonthSalary"
               @click="changeYearOrMonthSalary"
@@ -87,26 +88,27 @@
               class="suffix_image"
               src="../../../../static/img/professionalDetail/Polygon3.png"
             ></image>
-          </view>
+          </view> -->
         </view>
       </view>
-
+	  
+	  <view class="list_scroll">
+	    <view class="sel_list">
+	      <view
+	        class="sel_item_salary"
+	        :class="item.active"
+	        v-for="item in salaryList.data"
+	        :key="item.id"
+	        @click="chooseSalary(item.id)"
+	        >{{ item.name }}
+	      </view>
+	    </view>
+	  </view>
+<!-- 
       <view class="more_list">
         <view class="label">常见区间（月薪）</view>
         <view class="label_underline"></view>
-        <view class="list_scroll">
-          <view class="sel_list">
-            <view
-              class="sel_item_salary"
-              :class="item.active"
-              v-for="item in salaryList.data"
-              :key="item.id"
-              @click="chooseSalary(item.id)"
-              >{{ item.name }}
-            </view>
-          </view>
-        </view>
-      </view>
+      </view> -->
 
       <view class="content_table">
         <view class="label_underline"></view>
@@ -238,16 +240,20 @@ export default {
       switch (salaryId) {
         case 1:
           sendInformation.dSalary = 0;
-          sendInformation.hSalary = 10000;
+          sendInformation.hSalary = 5000;
           break;
         case 2:
-          sendInformation.dSalary = 10000;
-          sendInformation.hSalary = 50000;
+          sendInformation.dSalary = 5000;
+          sendInformation.hSalary = 10000;
           break;
         case 3:
-          sendInformation.dSalary = 50000;
-          sendInformation.hSalary = null;
+          sendInformation.dSalary = 10000;
+          sendInformation.hSalary = 15000;
           break;
+		case 4:
+		  sendInformation.dSalary = 15000;
+		  sendInformation.hSalary = null;
+		  break;
       }
     }
 	
@@ -515,54 +521,54 @@ export default {
           height: 24rpx;
         }
       }
-
-      .list_scroll {
-        width: 100%;
-        box-sizing: border-box;
-        overflow-x: scroll;
-
-        .sel_list {
-          margin-top: 10rpx;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          font-size: 32rpx;
-		  justify-content: space-between;
-		  margin-left: 10rpx;
-
-          .sel_item {
-            flex-shrink: 0;
-            width: 100rpx;
-            text-align: center;
-            padding: 10rpx;
-            border: 1rpx solid #5e95ee;
-            color: #5e95ee;
-            border-radius: 20rpx;
-            margin-right: 10rpx;
-          }
-
-          .sel_item_salary {
-            flex-shrink: 0;
-            width: 150rpx;
-            text-align: center;
-            padding: 10rpx;
-            border: 1rpx solid #5e95ee;
-            color: #5e95ee;
-            border-radius: 20rpx;
-            margin-right: 10rpx;
-          }
-
-          .active {
-            color: white;
-            background-color: #5e95ee;
-          }
-        }
-      }
-
-      .list_scroll::-webkit-scrollbar {
-        display: none;
-      }
     }
+	
+	.list_scroll {
+	  width: 100%;
+	  box-sizing: border-box;
+	  overflow-x: scroll;
+	
+	  .sel_list {
+	    margin-top: 10rpx;
+	    display: flex;
+	    flex-direction: row;
+	    align-items: center;
+	    font-size: 32rpx;
+			  justify-content: space-between;
+			  margin-left: 10rpx;
+	
+	    .sel_item {
+	      flex-shrink: 0;
+	      width: 100rpx;
+	      text-align: center;
+	      padding: 10rpx;
+	      border: 1rpx solid #5e95ee;
+	      color: #5e95ee;
+	      border-radius: 20rpx;
+	      margin-right: 10rpx;
+	    }
+	
+	    .sel_item_salary {
+	      flex-shrink: 0;
+	      width: 150rpx;
+	      text-align: center;
+	      padding: 10rpx;
+	      border: 1rpx solid #5e95ee;
+	      color: #5e95ee;
+	      border-radius: 20rpx;
+	      margin-right: 10rpx;
+	    }
+	
+	    .active {
+	      color: white;
+	      background-color: #5e95ee;
+	    }
+	  }
+	}
+	
+	.list_scroll::-webkit-scrollbar {
+	  display: none;
+	}
 
     .more_line {
       margin-top: 20rpx;

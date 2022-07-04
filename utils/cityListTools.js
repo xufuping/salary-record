@@ -11,10 +11,10 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 const getCityList = () => {
 	return new Promise(resolve => {
 		if (ENV !== 'self') {
-			sendPostRequest(router.ordinaryGetDetail, {}, {
+			sendPostRequest(router.getCityListByName, {}, {
 				success(res) {
 					if (res.message === "success") {
-						resolve(res.data)
+						resolve(res)
 					}
 					else {
 					}
@@ -36,10 +36,12 @@ const finalUsedCityList = () => {
 	if (version && allCityList) {
 		if (version === VERSION) {
 			return uni.getStorageSync('allCityList');
+			console.log("gg".cityList)
 		} else {
 			let cityList;
 			getCityList().then(res => {
 				cityList = res.data;
+				console.log("gg",cityList)
 			})
 			uni.clearStorageSync();
 			uni.setStorageSync('allCityList', cityList);

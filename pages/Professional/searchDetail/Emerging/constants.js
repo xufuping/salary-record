@@ -2,17 +2,22 @@ export const SALARY_LIST = {
 	"data": [
 		{
 			"id": 1,
-			"name": "0-10k",
+			"name": "0-5k",
 			"active": ""
 		},
 		{
 			"id": 2,
-			"name": "10k-50k",
+			"name": "5-10k",
 			"active": ""
 		},
 		{
 			"id": 3,
-			"name": "50k以上",
+			"name": "10-15k",
+			"active": ""
+		},
+		{
+			"id": 4,
+			"name": "15k以上",
 			"active": ""
 		}
 	]

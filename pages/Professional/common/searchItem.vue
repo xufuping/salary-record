@@ -9,7 +9,7 @@
     </view>
 
     <view class="item_content">
-      <image class="company_logo" src="../../../static/logo.png"></image>
+      <image class="company_logo" src="../../../static/logo.svg"></image>
       <view class="comName">{{ information.comName }}</view>
     </view>
 
