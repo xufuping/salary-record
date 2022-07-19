@@ -27,7 +27,7 @@
           <view class="image_text_text">渠道</view>
         </view>
         <view class="info_arrow">
-          <view class="info_arrow_text">{{detailData.comAddress}}</view>
+          <view class="info_arrow_text">{{ detailData.comAddress }}</view>
           <view class="info_arrow_arrow"></view>
         </view>
       </view>
@@ -158,7 +158,10 @@ import router from "../../../utils/route.js";
 
 //测试变量导入
 import { ENV } from "../../../config/MAKRDATA.js";
-import { EMERGING_DETAIL, ORDINARY_DETAIL} from '../../../config/professionalDetailMock.js';
+import {
+  EMERGING_DETAIL,
+  ORDINARY_DETAIL,
+} from "../../../config/professionalDetailMock.js";
 
 export default {
   props: {
@@ -177,24 +180,27 @@ export default {
       const data = {
         workId: id.value,
       };
-	  if(ENV !== 'self'){
-		  sendPostRequest(
-		    type.value === 1 ? router.ordinaryGetDetail : router.emergingGetDetail,
-		    data,
-		    {
-		      success(res) {
-		        if (res.message === "success") {
-		          operateData(res.data);
-		        }
-		      },
-		      fail() {
-		      },
-		    },
-		    true
-		  );
-	  }else{
-		  type.value === 1 ? operateData(ORDINARY_DETAIL.data) : operateData(EMERGING_DETAIL.data)
-	  }
+      if (ENV !== "self") {
+        sendPostRequest(
+          type.value === 1
+            ? router.ordinaryGetDetail
+            : router.emergingGetDetail,
+          data,
+          {
+            success(res) {
+              if (res.message === "success") {
+                operateData(res.data);
+              }
+            },
+            fail() {},
+          },
+          true
+        );
+      } else {
+        type.value === 1
+          ? operateData(ORDINARY_DETAIL.data)
+          : operateData(EMERGING_DETAIL.data);
+      }
     }
 
     function operateData(data) {

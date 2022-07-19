@@ -1,7 +1,7 @@
 <template>
   <view class="releaseProfessional">
     <view class="header">
-      <image  class="image" src="../../static/logo.svg"></image>
+      <image class="image" src="../../static/logo.svg"></image>
     </view>
 
     <view class="header_list">
@@ -21,8 +21,10 @@
 
     <view class="input_square">
       <view class="info_item_class1">
-		<view v-if="tabStatus===2" class="label">公司</view>
-        <view v-if="tabStatus===1" class="label">公司<span class="required_label">*</span></view>
+        <view v-if="tabStatus === 2" class="label">公司</view>
+        <view v-if="tabStatus === 1" class="label"
+          >公司<span class="required_label">*</span></view
+        >
         <view class="inp">
           <uni-easyinput
             v-model="company"
@@ -48,13 +50,15 @@
           >
           </uni-easyinput>
           <view class="input_underline"></view>
-		  <view  class="fill_button" v-if="tabStatus===2">
-		  		  <view class="item_button" 
-		  		  v-for="item in buttonList"
-		  		  :key="item.id"
-				  @click="quickFill(item.id)"
-		  		  >{{item.value}}</view>
-		  </view>
+          <view class="fill_button" v-if="tabStatus === 2">
+            <view
+              class="item_button"
+              v-for="item in buttonList"
+              :key="item.id"
+              @click="quickFill(item.id)"
+              >{{ item.value }}</view
+            >
+          </view>
         </view>
       </view>
 
@@ -106,7 +110,7 @@
         <view class="input_underline"></view>
       </view>
 
-      <view class="info_item_class4" v-if="tabStatus===1">
+      <view class="info_item_class4" v-if="tabStatus === 1">
         <view class="label">行业</view>
         <picker
           @change="changeIndustry"
@@ -158,8 +162,8 @@
       </view>
 
       <view class="release_botton" @click="submit">点击发布</view>
-	  
-	  <view class="bottom"></view>
+
+      <view class="bottom"></view>
     </view>
   </view>
 </template>
@@ -167,7 +171,7 @@
 <script>
 import { ref, reactive, onMounted } from "vue";
 import sendPostRequest from "../../utils/sendPostRequest.js";
-import { EDU_LIST, INDU_LIST, BUTTON_LIST} from "./constants.js";
+import { EDU_LIST, INDU_LIST, BUTTON_LIST } from "./constants.js";
 import TYPE_LIST from "../../config/typeData.js";
 import router from "../../utils/route.js";
 import store from "../../store/index.js";
@@ -226,13 +230,12 @@ export default {
 
     //岗位
     const job = ref("");
-	
-	//填充按钮
-	const buttonList = reactive(BUTTON_LIST)
-	const quickFill = (ID) =>{
-		job.value = buttonList[ID-1].value
-	}
 
+    //填充按钮
+    const buttonList = reactive(BUTTON_LIST);
+    const quickFill = (ID) => {
+      job.value = buttonList[ID - 1].value;
+    };
 
     //城市
     const storeCity = store.state.city;
@@ -294,7 +297,7 @@ export default {
     let induList = reactive([]);
     if (ENV !== "self") {
       const data = {
-        type: tabStatus.value === 1 ? "NORMAL" : "NEW"
+        type: tabStatus.value === 1 ? "NORMAL" : "NEW",
       };
       sendPostRequest(
         router.getAllProfession,
@@ -313,11 +316,12 @@ export default {
         true
       );
     } else {
-      induList = tabStatus.value === 1 ? INDU_LIST.ordinary : INDU_LIST.emerging;
+      induList =
+        tabStatus.value === 1 ? INDU_LIST.ordinary : INDU_LIST.emerging;
     }
     function changeIndustry(e) {
-        selIndustry.name = induList[e.detail.value].professionName;
-        selIndustry.id = induList[e.detail.value].id;
+      selIndustry.name = induList[e.detail.value].professionName;
+      selIndustry.id = induList[e.detail.value].id;
     }
 
     //待遇
@@ -424,8 +428,8 @@ export default {
       //getIndexedList()
     });
     return {
-	  quickFill,
-	  buttonList,
+      quickFill,
+      buttonList,
       styles,
       dSalary,
       hSalary,
@@ -455,15 +459,15 @@ export default {
 <style lang="scss" scoped>
 .releaseProfessional {
   box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20rpx;
   background: linear-gradient(
     81.13deg,
     #457dea 18.47%,
     rgba(93, 178, 248, 0.794338) 96.22%,
     rgba(197, 216, 248, 0.7) 125.81%
   );
-  width: 100%;
-  min-height: 100vh;
-  padding: 20rpx;
 
   .header {
     display: flex;
@@ -472,10 +476,10 @@ export default {
     margin: 0 auto;
     border-radius: 50%;
 
-    .image{
-		width: 190rpx;
-		height: 190rpx;
-	}
+    .image {
+      width: 190rpx;
+      height: 190rpx;
+    }
   }
 
   .header_list {
@@ -521,22 +525,22 @@ export default {
       border: 2rpx solid #d1d5da;
       margin-left: 20rpx;
     }
-	
-	.fill_button{
-		display: flex;
-		
-		.item_button{
-			flex-shrink: 0;
-			width: 100rpx;
-			text-align: center;
-			padding: 10rpx;
-			border: 1rpx solid #5e95ee;
-			color: #5e95ee;
-			border-radius: 20rpx;
-			margin-top: 10rpx;
-			margin-left: 20rpx;
-		}
-	}
+
+    .fill_button {
+      display: flex;
+
+      .item_button {
+        flex-shrink: 0;
+        width: 100rpx;
+        text-align: center;
+        padding: 10rpx;
+        border: 1rpx solid #5e95ee;
+        color: #5e95ee;
+        border-radius: 20rpx;
+        margin-top: 10rpx;
+        margin-left: 20rpx;
+      }
+    }
 
     .info_item_class1 {
       margin-bottom: 30rpx;
@@ -642,7 +646,7 @@ export default {
         border: 2rpx solid #d1d5da;
         border-radius: 12rpx;
         margin-top: 20rpx;
-		margin-left: 20rpx;
+        margin-left: 20rpx;
       }
     }
 
@@ -655,7 +659,7 @@ export default {
       margin-bottom: 30rpx;
       margin-top: 30rpx;
       margin-left: 40rpx;
-	  padding-top: 10rpx;
+      padding-top: 10rpx;
       border: 2rpx solid #d1d5da;
       box-shadow: 0px 10rpx 16rpx #e0e4ea;
       border-radius: 12rpx;
@@ -697,14 +701,14 @@ export default {
       font-size: 40rpx;
       color: #fff;
       border: 2rpx solid #fff;
-      background: #4581EA;
+      background: #4581ea;
       border-radius: 12rpx;
       margin-left: 40rpx;
     }
-	
-	.bottom{
-		height: 30rpx;
-	}
+
+    .bottom {
+      height: 30rpx;
+    }
   }
 }
 </style>

@@ -22,17 +22,17 @@
     <view class="content_search">
       <view class="content_search_box">
         <input
-		  v-if="tabStatus===1"
+          v-if="tabStatus === 1"
           class="content_search_input"
           v-model="inputValue"
           placeholder="请输入公司名称/城市/岗位"
         />
-		<input
-		  v-if="tabStatus===2"
-		  class="content_search_input"
-		  v-model="inputValue"
-		  placeholder="请输入职业/城市"
-		/>
+        <input
+          v-if="tabStatus === 2"
+          class="content_search_input"
+          v-model="inputValue"
+          placeholder="请输入职业/城市"
+        />
         <view class="content_search_button" @click="search(inputValue)">
           <image
             class="content_search_img"
@@ -53,7 +53,7 @@
             :class="{ hot_item_blue: changeNum > 3 }"
             v-for="item in emergingList.data"
             :key="item.id"
-			@click="selectHotOptions(item.id)"
+            @click="selectHotOptions(item.id)"
             >{{ item.professionName }}</view
           >
         </view>
@@ -67,7 +67,7 @@
             :class="{ hot_item_blue: changeNumOfCity > 3 }"
             v-for="item in hotAreaList.data"
             :key="item.id"
-			@click="selectHotOptions(item.id)"
+            @click="selectHotCity(item.id)"
             >{{ item.cityName }}</view
           >
         </view>
@@ -113,7 +113,7 @@ export default {
   setup(props) {
     onMounted(() => {
       getHotData();
-	  changeTab(props.target);
+      changeTab(props.target);
     });
     //样式切换变量
     let changeNum = ref(0);
@@ -201,10 +201,19 @@ export default {
       loadingList();
       for (let key in toRaw(moreList.value)) {
         if (moreList.value[key].id === list) {
-          search(moreList.value[key].name);
+          search(moreList.value[key].name || moreList.value[key].professionName);
         }
       }
     }
+	
+	const selectHotCity = (id) =>{
+		moreList.value = toRaw(hotAreaList.data)
+		for(let key in toRaw(moreList.value)){
+			if(moreList.value[key].id===id){
+				search(moreList.value[key].cityName )
+			}
+		}
+	}
 
     function loadingList() {
       moreList.value =
@@ -217,15 +226,16 @@ export default {
     const search = (value) => {
       uni.navigateTo({
         url:
-          (tabStatus.value === 1
-            ? "../searchDetail/Ordinary/ordinary"
-            : "../searchDetail/Emerging/Emerging") +
+          "../searchDetail/Ordinary/ordinary" +
           "?inputValue=" +
-          value,
+          value +
+          "&target=" +
+          tabStatus.value,
       });
     };
 
     return {
+	  selectHotCity,
       hotAreaList,
       changeNum,
       changeNumOfCity,
@@ -307,7 +317,7 @@ export default {
         padding-left: 30rpx;
         width: 500rpx;
         font-size: 28rpx;
-		padding-top: 15rpx;
+        padding-top: 15rpx;
       }
     }
 
@@ -330,13 +340,13 @@ export default {
       .content_search_img {
         width: 32rpx;
         height: 32rpx;
-		margin-right: 5rpx;
+        margin-right: 5rpx;
       }
 
       .content_search_button_text {
         color: white;
-		font-size: 24rpx;
-		margin-left: 5rpx;
+        font-size: 24rpx;
+        margin-left: 5rpx;
       }
     }
   }
@@ -374,14 +384,18 @@ export default {
       height: 150rpx;
 
       .hot_item_red {
-		height: 40rpx;
+        height: 40rpx;
         padding: 15rpx;
         margin: 10rpx 20rpx;
         border: 1rpx solid #5e95ee;
         color: #4581ea;
         border-radius: 12rpx;
         font-size: 28rpx;
-        background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
+        background: linear-gradient(
+          90deg,
+          #4581ea -43.1%,
+          rgba(93, 178, 248, 0.794338) 191.38%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -436,7 +450,6 @@ export default {
 
     .more_list {
       display: flex;
-      justify-content: space-between;
       width: 100%;
       flex-wrap: wrap;
 
@@ -446,12 +459,16 @@ export default {
         border: 1rpx solid #5e95ee;
         color: #4581ea;
         border-radius: 12rpx;
-		font-size: 28rpx;
-		background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		text-fill-color: transparent;
+        font-size: 28rpx;
+        background: linear-gradient(
+          90deg,
+          #4581ea -43.1%,
+          rgba(93, 178, 248, 0.794338) 191.38%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
       }
 
       .fill_item {

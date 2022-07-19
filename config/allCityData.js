@@ -67,12 +67,6 @@ const CITY_DATA =
         ],
         "B": [
             {
-                "id": 501300,
-                "cityName": "巴南区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 150800,
                 "cityName": "巴彦淖尔市",
                 "pid": 150000,
@@ -145,12 +139,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 500900,
-                "cityName": "北碚区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 450500,
                 "cityName": "北海市",
                 "pid": 450000,
@@ -178,12 +166,6 @@ const CITY_DATA =
                 "id": 522400,
                 "cityName": "毕节市",
                 "pid": 520000,
-                "status": null
-            },
-            {
-                "id": 502700,
-                "cityName": "璧山县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -267,12 +249,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 502900,
-                "cityName": "城口县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 341700,
                 "cityName": "池州市",
                 "pid": 340000,
@@ -308,12 +284,6 @@ const CITY_DATA =
                 "id": 511700,
                 "cityName": "达州市",
                 "pid": 510000,
-                "status": null
-            },
-            {
-                "id": 500400,
-                "cityName": "大渡口区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -359,12 +329,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 502500,
-                "cityName": "大足区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 210600,
                 "cityName": "丹东市",
                 "pid": 210000,
@@ -392,12 +356,6 @@ const CITY_DATA =
                 "id": 533400,
                 "cityName": "迪庆藏族自治州",
                 "pid": 530000,
-                "status": null
-            },
-            {
-                "id": 503100,
-                "cityName": "垫江县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -453,33 +411,15 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 503000,
-                "cityName": "丰都县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 810500,
                 "cityName": "风顺堂区",
                 "pid": 810000,
                 "status": null
             },
             {
-                "id": 503600,
-                "cityName": "奉节县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 440600,
                 "cityName": "佛山市",
                 "pid": 440000,
-                "status": null
-            },
-            {
-                "id": 500200,
-                "cityName": "涪陵区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -652,12 +592,6 @@ const CITY_DATA =
                 "id": 330100,
                 "cityName": "杭州市",
                 "pid": 330000,
-                "status": null
-            },
-            {
-                "id": 508200,
-                "cityName": "合川区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -910,18 +844,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 500500,
-                "cityName": "江北区",
-                "pid": 500000,
-                "status": null
-            },
-            {
-                "id": 508100,
-                "cityName": "江津区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 440700,
                 "cityName": "江门市",
                 "pid": 440000,
@@ -1006,12 +928,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 500700,
-                "cityName": "九龙坡区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 620900,
                 "cityName": "酒泉市",
                 "pid": 620000,
@@ -1029,12 +945,6 @@ const CITY_DATA =
                 "id": 410200,
                 "cityName": "开封市",
                 "pid": 410000,
-                "status": null
-            },
-            {
-                "id": 503400,
-                "cityName": "开县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1139,12 +1049,6 @@ const CITY_DATA =
                 "id": 513400,
                 "cityName": "凉山彝族自治州",
                 "pid": 510000,
-                "status": null
-            },
-            {
-                "id": 502800,
-                "cityName": "梁平县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1320,12 +1224,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 500800,
-                "cityName": "南岸区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 360100,
                 "cityName": "南昌市",
                 "pid": 360000,
@@ -1335,12 +1233,6 @@ const CITY_DATA =
                 "id": 511300,
                 "cityName": "南充市",
                 "pid": 510000,
-                "status": null
-            },
-            {
-                "id": 508400,
-                "cityName": "南川区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1419,12 +1311,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 504300,
-                "cityName": "彭水县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 822000,
                 "cityName": "澎湖县",
                 "pid": 820000,
@@ -1487,21 +1373,9 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 502200,
-                "cityName": "綦江区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 522600,
                 "cityName": "黔东南苗族侗族自治州",
                 "pid": 520000,
-                "status": null
-            },
-            {
-                "id": 501400,
-                "cityName": "黔江区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1583,12 +1457,6 @@ const CITY_DATA =
                 "cityName": "日照市",
                 "pid": 370000,
                 "status": null
-            },
-            {
-                "id": 502600,
-                "cityName": "荣昌县",
-                "pid": 500000,
-                "status": null
             }
         ],
         "S": [
@@ -1608,12 +1476,6 @@ const CITY_DATA =
                 "id": 460200,
                 "cityName": "三亚市",
                 "pid": 460000,
-                "status": null
-            },
-            {
-                "id": 500600,
-                "cityName": "沙坪坝区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1743,21 +1605,9 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 504000,
-                "cityName": "石柱县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 640200,
                 "cityName": "石嘴山市",
                 "pid": 640000,
-                "status": null
-            },
-            {
-                "id": 501100,
-                "cityName": "双桥区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1931,12 +1781,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 502400,
-                "cityName": "铜梁县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 340700,
                 "cityName": "铜陵市",
                 "pid": 340000,
@@ -1946,12 +1790,6 @@ const CITY_DATA =
                 "id": 522200,
                 "cityName": "铜仁市",
                 "pid": 520000,
-                "status": null
-            },
-            {
-                "id": 502300,
-                "cityName": "潼南县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -1974,18 +1812,6 @@ const CITY_DATA =
                 "id": 800200,
                 "cityName": "湾仔区",
                 "pid": 800000,
-                "status": null
-            },
-            {
-                "id": 501000,
-                "cityName": "万盛区",
-                "pid": 500000,
-                "status": null
-            },
-            {
-                "id": 500100,
-                "cityName": "万州区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -2037,18 +1863,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 503700,
-                "cityName": "巫山县",
-                "pid": 500000,
-                "status": null
-            },
-            {
-                "id": 503800,
-                "cityName": "巫溪县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 320200,
                 "cityName": "无锡市",
                 "pid": 320000,
@@ -2076,12 +1890,6 @@ const CITY_DATA =
                 "id": 420100,
                 "cityName": "武汉市",
                 "pid": 420000,
-                "status": null
-            },
-            {
-                "id": 503200,
-                "cityName": "武隆县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -2210,12 +2018,6 @@ const CITY_DATA =
                 "id": 130500,
                 "cityName": "邢台市",
                 "pid": 130000,
-                "status": null
-            },
-            {
-                "id": 504100,
-                "cityName": "秀山县",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -2353,12 +2155,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 508300,
-                "cityName": "永川区",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 431100,
                 "cityName": "永州市",
                 "pid": 430000,
@@ -2368,24 +2164,6 @@ const CITY_DATA =
                 "id": 800500,
                 "cityName": "油尖旺区",
                 "pid": 800000,
-                "status": null
-            },
-            {
-                "id": 504200,
-                "cityName": "酉阳县",
-                "pid": 500000,
-                "status": null
-            },
-            {
-                "id": 501200,
-                "cityName": "渝北区",
-                "pid": 500000,
-                "status": null
-            },
-            {
-                "id": 500300,
-                "cityName": "渝中区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -2437,12 +2215,6 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 503500,
-                "cityName": "云阳县",
-                "pid": 500000,
-                "status": null
-            },
-            {
                 "id": 140800,
                 "cityName": "运城市",
                 "pid": 140000,
@@ -2460,12 +2232,6 @@ const CITY_DATA =
                 "id": 430100,
                 "cityName": "长沙市",
                 "pid": 430000,
-                "status": null
-            },
-            {
-                "id": 501500,
-                "cityName": "长寿区",
-                "pid": 500000,
                 "status": null
             },
             {
@@ -2559,8 +2325,8 @@ const CITY_DATA =
                 "status": null
             },
             {
-                "id": 503300,
-                "cityName": "忠县",
+                "id": 500100,
+                "cityName": "重庆市",
                 "pid": 500000,
                 "status": null
             },

@@ -11,7 +11,7 @@ function sendPostRequest(route, data, callBackFn, isShowModal) {
 		url: "/api" + route,
 		// #endif
 		// #ifndef H5
-		url: "https://47.101.157.10/api" + route,
+		url: "https://chaxinjujuan.com/api" + route,
 		// #endif
 		method: "POST",
 		data,
