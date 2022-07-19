@@ -30,15 +30,6 @@
 		    }  
 		},
 		{
-		    "path" : "pages/Professional/searchDetail/Emerging/Emerging",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		},
-		{
 		    "path" : "pages/Professional/professionalDetail/professionalDetail",
 		    "style" :                                                                                    
 		    {

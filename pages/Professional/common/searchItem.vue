@@ -20,16 +20,16 @@
     <view class="item_more">
       <view class="item_more_left">
         <view class="more_item">可信度:</view>
-		<view class="more_item_text">{{ information.credibility }}</view>
+        <view class="more_item_text">{{ information.credibility }}</view>
       </view>
-	  <view class="item_more_left">
-		<view class="more_item">点赞量:</view>
-		<view class="more_item_text">{{ information.quantity }}</view>
-	   </view>
-	   <view class="item_more_left">
-		   <view class="more_item">发布时间:</view>
-		   <view class="more_item_text">{{ information.releaseTime }}</view>
-	   </view>
+      <view class="item_more_left">
+        <view class="more_item">点赞量:</view>
+        <view class="more_item_text">{{ information.quantity }}</view>
+      </view>
+      <view class="item_more_left">
+        <view class="more_item">发布时间:</view>
+        <view class="more_item_text">{{ information.releaseTime }}</view>
+      </view>
     </view>
   </view>
 </template>
@@ -49,7 +49,7 @@ export default {
       posSalary: props.detail.salaryStr,
       credibility: props.detail.credibility,
       quantity: props.detail.likeCount,
-      releaseTime: props.detail.createTime
+      releaseTime: props.detail.createTime,
     });
     //查看详情
     const enterDetail = () => {
@@ -165,7 +165,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-	margin-top: 10rpx;
+    margin-top: 10rpx;
 
     .item_more_left {
       display: flex;

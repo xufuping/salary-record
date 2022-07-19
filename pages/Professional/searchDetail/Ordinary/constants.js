@@ -1,18 +1,43 @@
 export const JOB_LIST = {
 	"data": [
 		{
-			"id": 1,
+			"id": 101,
 			"name": "金融",
 			"active": ""
 		},
 		{
-			"id": 2,
+			"id": 100,
 			"name": "IT",
 			"active": ""
 		},
 		{
-			"id": 3,
+			"id": 109,
 			"name": "教育",
+			"active": ""
+		}
+	]
+}
+
+export const SALARY_LIST = {
+	"data": [
+		{
+			"id": 1,
+			"name": "0-5k",
+			"active": ""
+		},
+		{
+			"id": 2,
+			"name": "5-10k",
+			"active": ""
+		},
+		{
+			"id": 3,
+			"name": "10-15k",
+			"active": ""
+		},
+		{
+			"id": 4,
+			"name": "15k以上",
 			"active": ""
 		}
 	]
