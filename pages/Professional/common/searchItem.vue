@@ -15,7 +15,10 @@
 
     <view class="item_address">
       <view class="comAddress">{{ information.comAddress }}</view>
+	  <image class="danger_img" src="../../../static/img/common/danger.svg"></image>
+	  <view class="danger_text">各数据均来源于网络，仅供参考</view>
     </view>
+	
 
     <view class="item_more">
       <view class="item_more_left">
@@ -117,12 +120,12 @@ export default {
   }
 
   .item_address {
-    width: 130rpx;
-    height: 29rpx;
-    background: #f4f6f9;
-    border-radius: 10rpx;
-
+	  display: flex;
     .comAddress {
+	  width: 130rpx;
+	  height: 29rpx;
+	  background: #f4f6f9;
+	  border-radius: 10rpx;
       font-family: "Microsoft YaHei";
       font-style: normal;
       font-weight: 400;
@@ -134,6 +137,25 @@ export default {
       margin-top: 5rpx;
       padding-top: 5rpx;
     }
+	
+	.danger_img{
+      width: 30rpx;
+      height: 30rpx;
+	  margin-left: 20rpx;
+	}
+	
+	.danger_text{
+	  height: 20rpx;
+	  left: 238rpx;
+	  font-family: 'Microsoft YaHei';
+	  font-style: normal;
+	  font-weight: 400;
+	  font-size: 20rpx;
+	  letter-spacing: 0.02em;
+	  color: #B5B5B7;
+	  margin-left: 5rpx;
+	
+	}
   }
 
   .item_content {

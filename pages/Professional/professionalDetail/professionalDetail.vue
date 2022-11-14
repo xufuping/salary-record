@@ -91,6 +91,11 @@
         >
       </view>
     </view>
+	
+	<view class="danger_box">
+		<image class="danger_img" src="../../../static/img/common/danger.svg"></image>
+		<view class="danger_text">各数据均来源于网络，仅供参考</view>
+	</view>
 
     <view class="menmory_card">备注：</view>
 
@@ -201,6 +206,10 @@ export default {
           ? operateData(ORDINARY_DETAIL.data)
           : operateData(EMERGING_DETAIL.data);
       }
+	  
+	  // if(data.workId === id.value){
+		 //  data.workId = 
+	  // }
     }
 
     function operateData(data) {
@@ -233,11 +242,14 @@ export default {
     };
 
     const searchUpper = (value) => {
-      uni.navigateTo({
+		console.log("type",type.value)
+      uni.redirectTo({
         url:
-          (type.value === 1 ? routeOfPage.ordinary : routeOfPage.emerging) +
+		  routeOfPage.ordinary +
           "?inputValue=" +
-          value,
+          value +
+		  "&typeId=" +
+		  type.value,
       });
     };
 
@@ -502,6 +514,30 @@ export default {
       margin-top: 20rpx;
     }
   }
+  .danger_box{
+	display: flex;
+	margin-top: 10rpx;
+	margin-bottom: 10rpx;
+	.danger_img{
+	  width: 30rpx;
+	  height: 30rpx;
+	  margin-left: 20rpx;
+	}
+	
+	.danger_text{
+	  height: 20rpx;
+	  left: 238rpx;
+	  font-family: 'Microsoft YaHei';
+	  font-style: normal;
+	  font-weight: 400;
+	  font-size: 20rpx;
+	  letter-spacing: 0.02em;
+	  color:white;
+	  margin-left: 5rpx;
+	
+	}  
+  }
+  
 
   .menmory_card {
     width: 676rpx;
@@ -509,7 +545,6 @@ export default {
     background: #ffffff;
     box-shadow: 0px 8rpx 8rpx rgba(0, 0, 0, 0.25);
     border-radius: 20rpx;
-    margin-top: 30rpx;
     color: #767575;
   }
 
