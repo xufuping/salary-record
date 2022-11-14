@@ -166,14 +166,17 @@ export default {
   props: {
     inputValue: String,
     target: Number,
+	typeId:Number
   },
   setup(props) {
     onMounted(() => {
       // search();
-      changePage(props.target);
+      changePage(props.target|| props.typeId);
     });
     //页面切换
     const tabStatus = ref(props.target);
+	console.log("tabStatus",tabStatus.value)
+	console.log("props",props.typeId)
     const changePage = (value) => {
       tabStatus.value = value;
       search();
@@ -297,8 +300,11 @@ export default {
       });
 
       detail.data = [];
-      if (sendInformation.information)
-        data.information = sendInformation.information;
+      if (sendInformation.information){
+		  data.information = sendInformation.information;
+	  }else{
+		  data.information = "";
+	  }
       if (tabTarget.order) data.order = sendInformation.order;
       if (sendInformation.cityIds.length !== 0){
 		  data.cityIds = sendInformation.cityIds;
