@@ -9,7 +9,7 @@ export default defineConfig({
 		port: 8084,
 		proxy: {
 			'/api': {
-				target: 'http://47.101.157.10:8084', // 目标服务  
+				target: 'https//:chaxinjujuan.com', // 目标服务  
 				changeOrigin: true,
 				rewrite: path => path.replace(/^\/api/, ''),
 			}

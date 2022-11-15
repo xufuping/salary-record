@@ -22,12 +22,12 @@
         <view class="image_text">
           <image
             class="image_text_image_1"
-            src="../../../static/img/professionalDetail/position.png"
+            src="../../../static/img/professionalDetail/Union.svg"
           ></image>
           <view class="image_text_text">渠道</view>
         </view>
         <view class="info_arrow">
-          <view class="info_arrow_text">XXX</view>
+          <view class="info_arrow_text">{{ detailData.comAddress }}</view>
           <view class="info_arrow_arrow"></view>
         </view>
       </view>
@@ -38,7 +38,7 @@
         <view class="image_text">
           <image
             class="image_text_image_2"
-            src="../../../static/img/professionalDetail/profession.png"
+            src="../../../static/img/professionalDetail/Vector8.svg"
           ></image>
           <view class="image_text_text">岗位</view>
         </view>
@@ -54,7 +54,7 @@
         <view class="image_text">
           <image
             class="image_text_image_3"
-            src="../../../static/img/professionalDetail/company.png"
+            src="../../../static/img/professionalDetail/Group25.svg"
           ></image>
           <view class="image_text_text">公司</view>
         </view>
@@ -70,7 +70,7 @@
         <view class="image_text">
           <image
             class="image_text_image_4"
-            src="../../../static/img/professionalDetail/degree.png"
+            src="../../../static/img/professionalDetail/Group26.svg"
           ></image>
           <view class="image_text_text">学历</view>
         </view>
@@ -91,6 +91,11 @@
         >
       </view>
     </view>
+	
+	<view class="danger_box">
+		<image class="danger_img" src="../../../static/img/common/danger.svg"></image>
+		<view class="danger_text">各数据均来源于网络，仅供参考</view>
+	</view>
 
     <view class="menmory_card">备注：</view>
 
@@ -102,7 +107,7 @@
       <view class="capsule_upper" @click="believeOprater(changeTide.believe)">
         <image
           class="capsule_upper_image"
-          src="../../../static/img/professionalDetail/Vector15.png"
+          src="../../../static/img/professionalDetail/Vector15.svg"
         ></image>
         <view class="capsule_upper_text">真实可信</view>
       </view>
@@ -113,7 +118,7 @@
       >
         <image
           class="capsule_lower_image"
-          src="../../../static/img/professionalDetail/Vector16.png"
+          src="../../../static/img/professionalDetail/Vector16.svg"
         ></image>
         <view class="capsule_lower_text">不真实</view>
       </view>
@@ -125,11 +130,11 @@
           <view class="pen_icon">
             <image
               class="vector_1"
-              src="../../../static/img/professionalDetail/Vector6.png"
+              src="../../../static/img/professionalDetail/Vector6.svg"
             ></image>
             <image
               class="vector_2"
-              src="../../../static/img/professionalDetail/Vector7.png"
+              src="../../../static/img/professionalDetail/Vector7.svg"
             ></image>
           </view>
           <view class="input_box_text">
@@ -141,7 +146,7 @@
         <view class="image">
           <image
             class="subtract"
-            src="../../../static/img/professionalDetail/Subtract.png"
+            src="../../../static/img/professionalDetail/Subtract.svg"
             @click="likeCount"
           ></image>
         </view>
@@ -158,7 +163,10 @@ import router from "../../../utils/route.js";
 
 //测试变量导入
 import { ENV } from "../../../config/MAKRDATA.js";
-import { EMERGING_DETAIL, ORDINARY_DETAIL} from '../../../config/professionalDetailMock.js';
+import {
+  EMERGING_DETAIL,
+  ORDINARY_DETAIL,
+} from "../../../config/professionalDetailMock.js";
 
 export default {
   props: {
@@ -177,24 +185,31 @@ export default {
       const data = {
         workId: id.value,
       };
-	  if(ENV !== 'self'){
-		  sendPostRequest(
-		    type.value === 1 ? router.ordinaryGetDetail : router.emergingGetDetail,
-		    data,
-		    {
-		      success(res) {
-		        if (res.message === "success") {
-		          operateData(res.data);
-		        }
-		      },
-		      fail() {
-		      },
-		    },
-		    true
-		  );
-	  }else{
-		  type.value === 1 ? operateData(ORDINARY_DETAIL.data) : operateData(EMERGING_DETAIL.data)
-	  }
+      if (ENV !== "self") {
+        sendPostRequest(
+          type.value === 1
+            ? router.ordinaryGetDetail
+            : router.emergingGetDetail,
+          data,
+          {
+            success(res) {
+              if (res.message === "success") {
+                operateData(res.data);
+              }
+            },
+            fail() {},
+          },
+          true
+        );
+      } else {
+        type.value === 1
+          ? operateData(ORDINARY_DETAIL.data)
+          : operateData(EMERGING_DETAIL.data);
+      }
+	  
+	  // if(data.workId === id.value){
+		 //  data.workId = 
+	  // }
     }
 
     function operateData(data) {
@@ -227,11 +242,14 @@ export default {
     };
 
     const searchUpper = (value) => {
-      uni.navigateTo({
+		console.log("type",type.value)
+      uni.redirectTo({
         url:
-          (type.value === 1 ? routeOfPage.ordinary : routeOfPage.emerging) +
+		  routeOfPage.ordinary +
           "?inputValue=" +
-          value,
+          value +
+		  "&typeId=" +
+		  type.value,
       });
     };
 
@@ -329,7 +347,7 @@ export default {
     .header_card_after {
       width: 678rpx;
       height: 222rpx;
-      background-image: url("~@/static/img/professionalDetail/Group24.png");
+      background-image: url("~@/static/img/professionalDetail/Group24.svg");
       border-radius: 36rpx;
 
       .header_salary {
@@ -496,6 +514,30 @@ export default {
       margin-top: 20rpx;
     }
   }
+  .danger_box{
+	display: flex;
+	margin-top: 10rpx;
+	margin-bottom: 10rpx;
+	.danger_img{
+	  width: 30rpx;
+	  height: 30rpx;
+	  margin-left: 20rpx;
+	}
+	
+	.danger_text{
+	  height: 20rpx;
+	  left: 238rpx;
+	  font-family: 'Microsoft YaHei';
+	  font-style: normal;
+	  font-weight: 400;
+	  font-size: 20rpx;
+	  letter-spacing: 0.02em;
+	  color:white;
+	  margin-left: 5rpx;
+	
+	}  
+  }
+  
 
   .menmory_card {
     width: 676rpx;
@@ -503,7 +545,6 @@ export default {
     background: #ffffff;
     box-shadow: 0px 8rpx 8rpx rgba(0, 0, 0, 0.25);
     border-radius: 20rpx;
-    margin-top: 30rpx;
     color: #767575;
   }
 

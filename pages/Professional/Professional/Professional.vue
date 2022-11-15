@@ -1,42 +1,37 @@
 <template>
   <view class="professionPage">
     <view class="header">
-      <image class="header_logo" src="../../../static/logo.png"></image>
+      <image class="header_logo" src="../../../static/logo.svg"></image>
     </view>
 
     <view class="header_list">
       <view
         class="headerTab"
-        :class="{ headerTabLine: tabStatus === 1 }"
-        @click="changeTab(1)"
+        :class="{ headerTabLine: tabStatus.statusCode === 'normal' }"
+        @click="changeTab(state.Normal)"
         >普通职业</view
       >
       <view
         class="headerTab"
-        :class="{ headerTabLine: tabStatus === 2 }"
-        @click="changeTab(2)"
+        :class="{ headerTabLine: tabStatus.statusCode === 'emerging' }"
+        @click="changeTab(state.Emerging)"
         >灵活职业</view
       >
     </view>
 
-    <view class="content_search">
-      <view class="content_search_box">
-        <input
-          class="content_search_input"
-          v-model="inputValue"
-          placeholder="请输入公司名称/城市/岗位"
-        />
-        <view class="content_search_button" @click="search(inputValue)">
-          <image
-            class="content_search_img"
-            src="../../../static/img/professional/searchicon.png"
-          ></image>
-          <view class="content_search_button_text">搜索</view>
-        </view>
-      </view>
-    </view>
+    <searchBox :tabStatus = "tabStatus.statusCode"></searchBox>
 
-    <view class="hot_box" v-if="tabStatus === 2">
+	<!-- <A cc="123" dd="<view
+            class="hot_item_red"
+            :class="{ hot_item_blue: changeNum > 3 }"
+            v-for="item in emergingList.data"
+            :key="item.id"
+            @click="selectHotOptions(item.id)"
+            >{{ item.professionName }}</view
+          >"
+	> 
+	</A> -->
+    <view class="hot_box" v-if="tabStatus.statusCode === 'emerging'">
       <view class="hot_box_profession">
         <view class="hot_title_1">热门职业</view>
         <view class="under_line"></view>
@@ -46,6 +41,7 @@
             :class="{ hot_item_blue: changeNum > 3 }"
             v-for="item in emergingList.data"
             :key="item.id"
+            @click="selectHotOptions(item.id)"
             >{{ item.professionName }}</view
           >
         </view>
@@ -59,13 +55,14 @@
             :class="{ hot_item_blue: changeNumOfCity > 3 }"
             v-for="item in hotAreaList.data"
             :key="item.id"
+            @click="selectHotCity(item.id)"
             >{{ item.cityName }}</view
           >
         </view>
       </view>
     </view>
 
-    <view class="content_more" v-if="tabStatus === 1">
+    <view class="content_more" v-if="tabStatus.statusCode === 'normal'">
       <view class="more_title">
         <view class="more_label">热门搜索</view>
         <view class="under_line"></view>
@@ -79,7 +76,6 @@
         >
           {{ item.name }}
         </view>
-        <view class="fill_item" v-for="n in 20" :key="n"></view>
       </view>
     </view>
   </view>
@@ -94,26 +90,38 @@ import {
   HOT_CITYDATA,
   HOT_PROFESSION,
 } from "../../../config/professionalMockData.js";
+import searchBox from "../common/searchBox.vue";
 
 //环境控制变量导入
 import { ENV } from "../../../config/MAKRDATA.js";
 
 export default {
+	components: {
+	  searchBox,
+	},
   props: {
-    target: Number,
+    target: String,
   },
   setup(props) {
     onMounted(() => {
       getHotData();
-	  changeTab(props.target);
+      changeTab(props.target);
     });
     //样式切换变量
     let changeNum = ref(0);
     let changeNumOfCity = ref(0);
     //tab 切换
-    const tabStatus = ref(1);
+	const state = reactive({
+		Normal : "normal",
+		Emerging : "emerging"
+	})
+	
+    const tabStatus = reactive({
+		statusCode : props.target
+	});
+	
     const changeTab = (target) => {
-      tabStatus.value = target;
+      tabStatus.statusCode = target;
       loadingList();
     };
 
@@ -193,14 +201,23 @@ export default {
       loadingList();
       for (let key in toRaw(moreList.value)) {
         if (moreList.value[key].id === list) {
-          search(moreList.value[key].name);
+          search(moreList.value[key].name || moreList.value[key].professionName);
         }
       }
     }
+	
+	const selectHotCity = (id) =>{
+		moreList.value = toRaw(hotAreaList.data)
+		for(let key in toRaw(moreList.value)){
+			if(moreList.value[key].id===id){
+				search(moreList.value[key].cityName )
+			}
+		}
+	}
 
     function loadingList() {
       moreList.value =
-        tabStatus.value === 1
+        tabStatus.statusCode === "normal"
           ? toRaw(ordinaryList.data)
           : toRaw(emergingList.data);
     }
@@ -209,15 +226,16 @@ export default {
     const search = (value) => {
       uni.navigateTo({
         url:
-          (tabStatus.value === 1
-            ? "../searchDetail/Ordinary/ordinary"
-            : "../searchDetail/Emerging/Emerging") +
+          "../searchDetail/Ordinary/ordinary" +
           "?inputValue=" +
-          value,
+          value +
+          "&target=" +
+          tabStatus.statusCode,
       });
     };
 
     return {
+	  selectHotCity,
       hotAreaList,
       changeNum,
       changeNumOfCity,
@@ -229,6 +247,7 @@ export default {
       ordinaryList,
       emergingList,
       changeTab,
+	  state
     };
   },
 };
@@ -279,59 +298,7 @@ export default {
       border-radius: 5%;
     }
   }
-
-  .content_search {
-    display: flex;
-    margin-top: 20rpx;
-    border-radius: 8rpx;
-    overflow: hidden;
-    margin-bottom: 20rpx;
-
-    .content_search_box {
-      display: flex;
-      justify-content: space-between;
-      background: #ffffff;
-      border-radius: 68rpx;
-      width: 750rpx;
-
-      .content_search_input {
-        color: gray;
-        padding-left: 30rpx;
-        width: 500rpx;
-        font-size: 28rpx;
-		padding-top: 15rpx;
-      }
-    }
-
-    .content_search_button {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 138rpx;
-      height: 75rpx;
-      position: relative;
-      z-index: 2;
-      background: linear-gradient(
-        270deg,
-        #4684f8 -20.25%,
-        rgba(77, 146, 248, 0.93541) 31.77%,
-        rgba(93, 178, 248, 0.794338) 117.72%
-      );
-      box-shadow: 0px 0px 4px #5e95ee;
-      border-radius: 92rpx;
-
-      .content_search_img {
-        width: 32rpx;
-        height: 32rpx;
-      }
-
-      .content_search_button_text {
-        color: white;
-		font-size: 24rpx;
-      }
-    }
-  }
-
+  
   .hot_box {
     width: 686rpx;
     height: 396rpx;
@@ -365,21 +332,22 @@ export default {
       height: 150rpx;
 
       .hot_item_red {
-        width: 82rpx;
-        height: 36rpx;
-        font-family: "Microsoft YaHei";
-        font-style: normal;
-        font-weight: 400;
-        font-size: 26rpx;
-        line-height: 135.48%;
-        letter-spacing: 0.02em;
-        background: linear-gradient(90deg, #f87933 -14.26%, #fb9e6b 164.86%);
+        height: 40rpx;
+        padding: 15rpx;
+        margin: 10rpx 20rpx;
+        border: 1rpx solid #5e95ee;
+        color: #4581ea;
+        border-radius: 12rpx;
+        font-size: 28rpx;
+        background: linear-gradient(
+          90deg,
+          #4581ea -43.1%,
+          rgba(93, 178, 248, 0.794338) 191.38%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-fill-color: transparent;
-        margin: 20rpx;
-        margin-right: 10rpx;
       }
       .hot_item_blue {
         background: linear-gradient(
@@ -429,9 +397,7 @@ export default {
     }
 
     .more_list {
-      margin-top: 20rpx;
       display: flex;
-      justify-content: space-between;
       width: 100%;
       flex-wrap: wrap;
 
@@ -441,12 +407,16 @@ export default {
         border: 1rpx solid #5e95ee;
         color: #4581ea;
         border-radius: 12rpx;
-		font-size: 28rpx;
-		background: linear-gradient(90deg, #4581EA -43.1%, rgba(93, 178, 248, 0.794338) 191.38%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		text-fill-color: transparent;
+        font-size: 28rpx;
+        background: linear-gradient(
+          90deg,
+          #4581ea -43.1%,
+          rgba(93, 178, 248, 0.794338) 191.38%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
       }
 
       .fill_item {

@@ -9,21 +9,30 @@
     </view>
 
     <view class="item_content">
-      <image class="company_logo" src="../../../static/logo.png"></image>
+      <image class="company_logo" src="../../../static/logo.svg"></image>
       <view class="comName">{{ information.comName }}</view>
     </view>
 
     <view class="item_address">
       <view class="comAddress">{{ information.comAddress }}</view>
+	  <image class="danger_img" src="../../../static/img/common/danger.svg"></image>
+	  <view class="danger_text">各数据均来源于网络，仅供参考</view>
     </view>
+	
 
     <view class="item_more">
       <view class="item_more_left">
-        <view class="more_item">可信度:{{ information.credibility }}</view>
-        <view class="more_item">点赞量:{{ information.quantity }}</view>
-        <view class="more_item">发布时间:{{ information.releaseTime }}</view>
+        <view class="more_item">可信度:</view>
+        <view class="more_item_text">{{ information.credibility }}</view>
       </view>
-      <view class="enterDetail">查看详情 ></view>
+      <view class="item_more_left">
+        <view class="more_item">点赞量:</view>
+        <view class="more_item_text">{{ information.quantity }}</view>
+      </view>
+      <view class="item_more_left">
+        <view class="more_item">发布时间:</view>
+        <view class="more_item_text">{{ information.releaseTime }}</view>
+      </view>
     </view>
   </view>
 </template>
@@ -111,12 +120,12 @@ export default {
   }
 
   .item_address {
-    width: 130rpx;
-    height: 29rpx;
-    background: #f4f6f9;
-    border-radius: 10rpx;
-
+	  display: flex;
     .comAddress {
+	  width: 130rpx;
+	  height: 29rpx;
+	  background: #f4f6f9;
+	  border-radius: 10rpx;
       font-family: "Microsoft YaHei";
       font-style: normal;
       font-weight: 400;
@@ -128,6 +137,25 @@ export default {
       margin-top: 5rpx;
       padding-top: 5rpx;
     }
+	
+	.danger_img{
+      width: 30rpx;
+      height: 30rpx;
+	  margin-left: 20rpx;
+	}
+	
+	.danger_text{
+	  height: 20rpx;
+	  left: 238rpx;
+	  font-family: 'Microsoft YaHei';
+	  font-style: normal;
+	  font-weight: 400;
+	  font-size: 20rpx;
+	  letter-spacing: 0.02em;
+	  color: #B5B5B7;
+	  margin-left: 5rpx;
+	
+	}
   }
 
   .item_content {
@@ -159,11 +187,10 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-	margin-top: 10rpx;
+    margin-top: 10rpx;
 
     .item_more_left {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       width: 400rpx;
       font-family: "Microsoft YaHei";
@@ -177,16 +204,6 @@ export default {
       .more_item {
         margin-right: 15rpx;
       }
-    }
-
-    .enterDetail {
-      font-family: "Microsoft YaHei";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16rpx;
-      line-height: 135.48%;
-      letter-spacing: 0.02em;
-      color: #c5c5c5;
     }
   }
 }

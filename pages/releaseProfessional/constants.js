@@ -1,3 +1,22 @@
+export const BUTTON_LIST = [
+		{
+			id:1,
+			value:"外卖"
+		},
+		{
+			id:2,
+			value:"快递"
+		},
+		{
+			id:3,
+			value:"直播"
+		},
+		{
+			id:4,
+			value:"网约车"
+		}
+	]
+	
 export const EDU_LIST = [
 	{
 		"id": 1,
