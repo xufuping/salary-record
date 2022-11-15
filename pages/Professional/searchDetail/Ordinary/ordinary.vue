@@ -7,14 +7,14 @@
     <view class="header_list">
       <view
         class="headerTab"
-        :class="{ headerTabLine: tabStatus === 1 }"
-        @click="changePage(1)"
+        :class="{ headerTabLine: tabStatus === state.Normal }"
+        @click="changePage(state.Normal)"
         >普通职业</view
       >
       <view
         class="headerTab"
-        :class="{ headerTabLine: tabStatus === 2 }"
-        @click="changePage(2)"
+        :class="{ headerTabLine: tabStatus === state.Emerging }"
+        @click="changePage(state.Emerging)"
         >灵活职业</view
       >
     </view>
@@ -29,7 +29,7 @@
     </view>
 
     <view class="content_more">
-      <view class="more_list" v-if="tabStatus === 1">
+      <view class="more_list" v-if="tabStatus === state.Normal">
         <view class="label">类型</view>
         <view class="label_underline"></view>
         <view class="list_scroll">
@@ -65,7 +65,7 @@
         </view>
       </view>
 
-      <view class="more_list" v-if="tabStatus === 2">
+      <view class="more_list" v-if="tabStatus === state.Emerging">
         <view class="label">月收入区间</view>
         <view class="label_underline"></view>
         <view class="input_salary">
@@ -87,7 +87,7 @@
         </view>
       </view>
 
-      <view class="list_scroll" v-if="tabStatus === 2">
+      <view class="list_scroll" v-if="tabStatus === state.Emerging">
         <view class="sel_list_salary">
           <view
             class="sel_item_salary"
@@ -100,7 +100,7 @@
         </view>
       </view>
 
-      <view class="more_list" v-if="tabStatus === 1">
+      <view class="more_list" v-if="tabStatus === state.Normal">
         <view class="label">行业</view>
         <view class="label_underline"></view>
         <view class="list_scroll">
@@ -166,7 +166,7 @@ export default {
   props: {
     inputValue: String,
     target: Number,
-	typeId:Number
+	typeId:String
   },
   setup(props) {
     onMounted(() => {
@@ -174,9 +174,11 @@ export default {
       changePage(props.target|| props.typeId);
     });
     //页面切换
+	const state = reactive({
+		Normal : "normal",
+		Emerging : "emerging"
+	})
     const tabStatus = ref(props.target);
-	console.log("tabStatus",tabStatus.value)
-	console.log("props",props.typeId)
     const changePage = (value) => {
       tabStatus.value = value;
       search();
@@ -327,7 +329,7 @@ export default {
 
       if (ENV !== "self") {
         sendPostRequest(
-          tabStatus.value === 1
+          tabStatus.value === state.Normal
             ? router.ordinaryGetActicleList
             : router.emergingGetActicleList,
           data,
@@ -407,6 +409,7 @@ export default {
       tabTarget,
       changeTabTarget,
       backToTop,
+	  state
     };
   },
 };
