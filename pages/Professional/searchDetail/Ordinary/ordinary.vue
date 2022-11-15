@@ -193,6 +193,7 @@ export default {
     });
 
     //发送信息对象
+	console.log("inputAccie",props.inputValue)
     const sendInformation = reactive({
       information: props.inputValue,
       cityIds: [],

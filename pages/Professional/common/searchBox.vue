@@ -2,11 +2,18 @@
 <view class="content_search">
 	<view class="content_search_box">
 	        <input
+			  v-if="statusCode.statusCodeCtx === 'normal'"
 	          class="content_search_input"
-	          v-model="inputValue"
+	          v-model="normalValue"
 			  :placeholder="statusCode.statusCodeCtx ==='normal' ? '请输入公司名称/城市/岗位' : '请输入职业/城市'"
 	        />
-	        <view class="content_search_button" @click="search(inputValue)">
+			<input
+			  v-if="statusCode.statusCodeCtx === 'emerging'"
+			  class="content_search_input"
+			  v-model="emergingValue"
+			  :placeholder="statusCode.statusCodeCtx ==='normal' ? '请输入公司名称/城市/岗位' : '请输入职业/城市'"
+			/>
+	        <view class="content_search_button" @click="search(statusCode.statusCodeCtx ==='normal' ? normalValue : emergingValue)">
 	          <image
 	            class="content_search_img"
 	            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgB1ZPhDYMgEIUvnYARHMER2KTdoN2gbqAb4AjtJHYDugEj0IPcxQuhgI1p4ksu/rjH53E+Af4h773GGrGsX7VgGaxuC0gRqKbgUS2whQ44rCFMKvo91pxMrEpAnsyWrhV6fl3FWDKxvsISvyO/zhkMNQ00ilYSNOWavLu+kcdJiCvKNaNgo3LnTrCzGPimN+rWg2I9rxzwSU8N7brmgPw2LQLdQX26eszC5/8h2A8oGOWvFzMpY0S3uItAs8416OTrCp6hCSquNScTWwJp4WOog72EsAvWDQ6jD0InxqabjzR3AAAAAElFTkSuQmCC"
@@ -31,7 +38,8 @@ export default {
 	// console.log("code",statusCode.statusCodeCtx)
 	// console.log("props",props.tabStatus)
 	// 搜索框输入值
-	const inputValue = ref("")
+	const normalValue = ref("");
+	const emergingValue = ref("")
 	//搜索操作
 	const search = (value) => {
 	  uni.navigateTo({
@@ -42,10 +50,12 @@ export default {
 	      "&target=" +
 	      statusCode.statusCodeCtx,
 	  });
+	  console.log("input",value)
 	};
     return {
 		search,
-		inputValue,
+		normalValue,
+		emergingValue,
 		statusCode
     };
   },
