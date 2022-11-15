@@ -4,7 +4,7 @@
       <view class="headselect">
         <view class="salary">请选择您想要查询的职位:</view>
         <view class="outer">
-          <view @click="enterProfessional(1)" class="item_ordinary">
+          <view @click="enterProfessional(statusCode.Normal)" class="item_ordinary">
             <image
               class="image"
               src="../../static/img/index/ordinary.svg"
@@ -12,7 +12,7 @@
             <view class="info">普通职业打工人</view>
           </view>
           <view class="item_line"></view>
-          <view @click="enterProfessional(2)" class="item_emerging">
+          <view @click="enterProfessional(statusCode.Emerging)" class="item_emerging">
             <image
               class="image"
               src="../../static/img/index/emerging.svg"
@@ -39,7 +39,6 @@ export default {
   onShareAppMessage(res) {
     if (res.from === "button") {
       // 来自页面内分享按钮
-      console.log(res.target);
     }
     return {
       title: "自定义分享标题",
@@ -47,39 +46,21 @@ export default {
     };
   },
   setup() {
+	//进入搜索首页
     const enterProfessional = (target) => {
       uni.navigateTo({
         url: `../Professional/Professional/Professional?target=${target}`,
       });
     };
-
-    const profInfo = reactive({
-      id: parseInt(0),
-      professionName: "",
-      type: "NORMAL",
-    });
-    const createProfession = (data) => {
-      const ds = {
-        id: parseInt(data.id),
-        professionName: data.professionName,
-        type: "NORMAL",
-      };
-      sendPostRequest(
-        router.createProfession,
-        ds,
-        {
-          success(res) {
-            console.log("res", res);
-          },
-          fail() {},
-        },
-        true
-      );
-    };
+    //新兴-普通状态
+	const statusCode = reactive({
+		Normal : "normal",
+		Emerging : "emerging"
+	})
+	
     return {
-      profInfo,
-      createProfession,
       enterProfessional,
+	  statusCode
     };
   },
 };

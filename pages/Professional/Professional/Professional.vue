@@ -7,43 +7,31 @@
     <view class="header_list">
       <view
         class="headerTab"
-        :class="{ headerTabLine: tabStatus === 1 }"
-        @click="changeTab(1)"
+        :class="{ headerTabLine: tabStatus.statusCode === 'normal' }"
+        @click="changeTab(state.Normal)"
         >普通职业</view
       >
       <view
         class="headerTab"
-        :class="{ headerTabLine: tabStatus === 2 }"
-        @click="changeTab(2)"
+        :class="{ headerTabLine: tabStatus.statusCode === 'emerging' }"
+        @click="changeTab(state.Emerging)"
         >灵活职业</view
       >
     </view>
 
-    <view class="content_search">
-      <view class="content_search_box">
-        <input
-          v-if="tabStatus === 1"
-          class="content_search_input"
-          v-model="inputValue"
-          placeholder="请输入公司名称/城市/岗位"
-        />
-        <input
-          v-if="tabStatus === 2"
-          class="content_search_input"
-          v-model="inputValue"
-          placeholder="请输入职业/城市"
-        />
-        <view class="content_search_button" @click="search(inputValue)">
-          <image
-            class="content_search_img"
-            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADfSURBVHgB1ZPhDYMgEIUvnYARHMER2KTdoN2gbqAb4AjtJHYDugEj0IPcxQuhgI1p4ksu/rjH53E+Af4h773GGrGsX7VgGaxuC0gRqKbgUS2whQ44rCFMKvo91pxMrEpAnsyWrhV6fl3FWDKxvsISvyO/zhkMNQ00ilYSNOWavLu+kcdJiCvKNaNgo3LnTrCzGPimN+rWg2I9rxzwSU8N7brmgPw2LQLdQX26eszC5/8h2A8oGOWvFzMpY0S3uItAs8416OTrCp6hCSquNScTWwJp4WOog72EsAvWDQ6jD0InxqabjzR3AAAAAElFTkSuQmCC"
-          ></image>
-          <view class="content_search_button_text">搜索</view>
-        </view>
-      </view>
-    </view>
+    <searchBox :tabStatus = "tabStatus.statusCode"></searchBox>
 
-    <view class="hot_box" v-if="tabStatus === 2">
+	<!-- <A cc="123" dd="<view
+            class="hot_item_red"
+            :class="{ hot_item_blue: changeNum > 3 }"
+            v-for="item in emergingList.data"
+            :key="item.id"
+            @click="selectHotOptions(item.id)"
+            >{{ item.professionName }}</view
+          >"
+	> 
+	</A> -->
+    <view class="hot_box" v-if="tabStatus.statusCode === 'emerging'">
       <view class="hot_box_profession">
         <view class="hot_title_1">热门职业</view>
         <view class="under_line"></view>
@@ -74,7 +62,7 @@
       </view>
     </view>
 
-    <view class="content_more" v-if="tabStatus === 1">
+    <view class="content_more" v-if="tabStatus.statusCode === 'normal'">
       <view class="more_title">
         <view class="more_label">热门搜索</view>
         <view class="under_line"></view>
@@ -102,13 +90,17 @@ import {
   HOT_CITYDATA,
   HOT_PROFESSION,
 } from "../../../config/professionalMockData.js";
+import searchBox from "../common/searchBox.vue";
 
 //环境控制变量导入
 import { ENV } from "../../../config/MAKRDATA.js";
 
 export default {
+	components: {
+	  searchBox,
+	},
   props: {
-    target: Number,
+    target: String,
   },
   setup(props) {
     onMounted(() => {
@@ -119,9 +111,17 @@ export default {
     let changeNum = ref(0);
     let changeNumOfCity = ref(0);
     //tab 切换
-    const tabStatus = ref(1);
+	const state = reactive({
+		Normal : "normal",
+		Emerging : "emerging"
+	})
+	
+    const tabStatus = reactive({
+		statusCode : props.target
+	});
+	
     const changeTab = (target) => {
-      tabStatus.value = target;
+      tabStatus.statusCode = target;
       loadingList();
     };
 
@@ -217,7 +217,7 @@ export default {
 
     function loadingList() {
       moreList.value =
-        tabStatus.value === 1
+        tabStatus.statusCode === "normal"
           ? toRaw(ordinaryList.data)
           : toRaw(emergingList.data);
     }
@@ -230,7 +230,7 @@ export default {
           "?inputValue=" +
           value +
           "&target=" +
-          tabStatus.value,
+          tabStatus.statusCode,
       });
     };
 
@@ -247,6 +247,7 @@ export default {
       ordinaryList,
       emergingList,
       changeTab,
+	  state
     };
   },
 };
@@ -297,60 +298,7 @@ export default {
       border-radius: 5%;
     }
   }
-
-  .content_search {
-    display: flex;
-    margin-top: 20rpx;
-    border-radius: 8rpx;
-    overflow: hidden;
-    margin-bottom: 20rpx;
-
-    .content_search_box {
-      display: flex;
-      justify-content: space-between;
-      background: #ffffff;
-      border-radius: 68rpx;
-      width: 750rpx;
-
-      .content_search_input {
-        color: gray;
-        padding-left: 30rpx;
-        width: 500rpx;
-        font-size: 28rpx;
-        padding-top: 15rpx;
-      }
-    }
-
-    .content_search_button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 138rpx;
-      height: 68rpx;
-      position: relative;
-      background: linear-gradient(
-        270deg,
-        #4684f8 -20.25%,
-        rgba(77, 146, 248, 0.93541) 31.77%,
-        rgba(93, 178, 248, 0.794338) 117.72%
-      );
-      box-shadow: 0px 0px 4px #5e95ee;
-      border-radius: 92rpx;
-
-      .content_search_img {
-        width: 32rpx;
-        height: 32rpx;
-        margin-right: 5rpx;
-      }
-
-      .content_search_button_text {
-        color: white;
-        font-size: 24rpx;
-        margin-left: 5rpx;
-      }
-    }
-  }
-
+  
   .hot_box {
     width: 686rpx;
     height: 396rpx;
